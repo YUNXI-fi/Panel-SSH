@@ -1,0 +1,11 @@
+# 依赖
+web/node_modules/
+
+# 构建产物
+bin/
+data/
+*.log
+
+# 注意：internal/web/dist 是 go:embed 的输入，故意不忽略。
+# 否则全新克隆后 `go build` 会因 embed 目录为空而失败。
+# 修改前端后需在 web/ 下执行 `npm run build` 再把产物一并提交。

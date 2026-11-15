@@ -1,0 +1,13 @@
+appname=panelssh
+version=0.1.0
+display_name=Panel SSH
+desc=自托管的服务器运维面板：SSH 终端、文件管理、资源监控、进程与网络配置集中在一个网页桌面里。数据保存在本机，仅管理员可见。
+source=thirdparty
+platform=x86
+maintainer=Panel SSH
+distributor=Panel SSH
+desktop_uidir=ui
+desktop_applaunchname=panelssh.main
+service_port=29180
+checkport=true
+ctl_stop=true

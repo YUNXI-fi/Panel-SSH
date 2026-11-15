@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel SSH · GRAPHITE · 深色工业控制台</title>
+<link rel="stylesheet" href="graphite.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="rail">
+    <div class="brand" title="Panel SSH"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M20 10H4v9h16zM3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1m2 3v2h2V6zm4 0v2h2V6zm-4 5h3v5H5z"/></svg></div>
+    <nav class="nav">
+      <button type="button" class="nav-item active" data-view="hosts" title="主机" aria-label="主机"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></button>
+      <button type="button" class="nav-item" data-view="terminal" title="终端" aria-label="终端"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="m8 10 2.5 2.5L8 15M12.5 15H16"/></svg></button>
+      <button type="button" class="nav-item" data-view="files" title="文件" aria-label="文件"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h6l2 2h9v9h-17z"/><path d="M3.5 6.5v-2h5l1.5 2"/></svg></button>
+      <button type="button" class="nav-item" data-view="monitor" title="监控" aria-label="监控"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg></button>
+      <button type="button" class="nav-item" data-view="processes" title="进程" aria-label="进程"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="16" height="4" rx="1"/><rect x="4" y="16" width="16" height="4" rx="1"/></svg></button>
+      <button type="button" class="nav-item" data-view="network" title="网络" aria-label="网络"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.4 2.2 3.6 5 3.6 8s-1.2 5.8-3.6 8c-2.4-2.2-3.6-5-3.6-8S9.6 6.2 12 4Z"/></svg></button>
+      <button type="button" class="nav-item" data-view="storage" title="存储" aria-label="存储"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></button>
+      <button type="button" class="nav-item" data-view="apps" title="应用" aria-label="应用"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></button>
+    </nav>
+    <div class="rail-foot"><span class="live"></span><span class="rail-count">6</span></div>
+  </aside>
+
+  <main class="desk">
+    <header class="topbar">
+      <div class="crumb"><span class="mark"></span>PANEL SSH <span class="sep">/</span> 主机管理</div>
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+        <input placeholder="搜索主机、地址、标签…">
+        <kbd>⌘K</kbd>
+      </label>
+      <div class="top-actions">
+        <button class="ghost">批量执行</button>
+        <button class="primary">新增主机</button>
+      </div>
+    </header>
+
+    <section class="window view" data-view="hosts">
+      <div class="titlebar">
+        <div class="win-title">主机管理 <span class="win-sub">6 台 · 1 台告警</span></div>
+        <div class="tick" aria-hidden="true"></div>
+        <div class="win-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="win-body">
+        <div class="grid">
+          <article class="card hosts">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow">INVENTORY</p>
+                <h2>主机列表</h2>
+              </div>
+              <div class="card-tools">
+                <span class="meta">最后同步 14:31:52</span>
+                <button class="ghost sm">刷新</button>
+              </div>
+            </div>
+            <table>
+              <thead>
+                <tr><th>主机</th><th>地址</th><th>系统</th><th>CPU</th><th>内存</th><th>延迟</th><th>状态</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="host-name">N6000</td>
+                  <td class="mono addr">192.168.1.3</td>
+                  <td class="mono os">Debian 12</td>
+                  <td><div class="cpu"><span class="cpu-bar"><i style="width:42%"></i></span><b>42%</b></div></td>
+                  <td class="mono mem">61%</td>
+                  <td class="mono lat">3 ms</td>
+                  <td><span class="status ok"><i></i>在线</span></td>
+                </tr>
+                <tr>
+                  <td class="host-name">DELL</td>
+                  <td class="mono addr">192.168.1.10</td>
+                  <td class="mono os">Ubuntu 24.04</td>
+                  <td><div class="cpu"><span class="cpu-bar"><i style="width:18%"></i></span><b>18%</b></div></td>
+                  <td class="mono mem">37%</td>
+                  <td class="mono lat">5 ms</td>
+                  <td><span class="status ok"><i></i>在线</span></td>
+                </tr>
+                <tr>
+                  <td class="host-name">N100</td>
+                  <td class="mono addr">192.168.1.13:2233</td>
+                  <td class="mono os">fnOS 1.2</td>
+                  <td><div class="cpu"><span class="cpu-bar"><i style="width:76%"></i></span><b>76%</b></div></td>
+                  <td class="mono mem">82%</td>
+                  <td class="mono lat">12 ms</td>
+                  <td><span class="status warn"><i></i>负载高</span></td>
+                </tr>
+                <tr>
+                  <td class="host-name">2060</td>
+                  <td class="mono addr">192.168.1.130</td>
+                  <td class="mono os">Ubuntu 22.04</td>
+                  <td><div class="cpu"><span class="cpu-bar"><i style="width:8%"></i></span><b>8%</b></div></td>
+                  <td class="mono mem">21%</td>
+                  <td class="mono lat">7 ms</td>
+                  <td><span class="status ok"><i></i>在线</span></td>
+                </tr>
+                <tr>
+                  <td class="host-name">China-ASEAN-FZ</td>
+                  <td class="mono addr">192.168.1.125</td>
+                  <td class="mono os">CentOS 7</td>
+                  <td><div class="cpu"><span class="cpu-bar"><i style="width:0%"></i></span><b>0%</b></div></td>
+                  <td class="mono mem">0%</td>
+                  <td class="mono lat">—</td>
+                  <td><span class="status off"><i></i>离线</span></td>
+                </tr>
+                <tr>
+                  <td class="host-name">instabox.sh</td>
+                  <td class="mono addr">ssh.instabox.sh:2222</td>
+                  <td class="mono os">Debian 13</td>
+                  <td><div class="cpu"><span class="cpu-bar"><i style="width:31%"></i></span><b>31%</b></div></td>
+                  <td class="mono mem">54%</td>
+                  <td class="mono lat">186 ms</td>
+                  <td><span class="status ok"><i></i>在线</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+
+          <div class="side">
+            <article class="card monitor">
+              <div class="card-head">
+                <div><p class="eyebrow">TELEMETRY</p><h2>实时监控</h2></div>
+                <span class="tag ok">流式</span>
+              </div>
+              <div class="gauge">
+                <span class="gauge-num">42</span><span class="gauge-unit">%</span>
+                <span class="gauge-label">CPU · N6000</span>
+              </div>
+              <svg class="spark" viewBox="0 0 240 56" preserveAspectRatio="none" aria-hidden="true">
+                <polyline points="0,42 12,38 24,41 36,30 48,33 60,25 72,28 84,20 96,26 108,18 120,24 132,15 144,21 156,12 168,18 180,10 192,16 204,8 216,13 228,9 240,11"/>
+              </svg>
+              <div class="meters">
+                <div class="meter"><span>MEM</span><div class="bar"><i style="width:61%"></i></div><b>61%</b></div>
+                <div class="meter"><span>DISK</span><div class="bar"><i style="width:38%"></i></div><b>38%</b></div>
+              </div>
+              <div class="net"><span>↓ 1.8 MB/s</span><span>↑ 320 KB/s</span></div>
+            </article>
+
+            <article class="card tasks">
+              <div class="card-head">
+                <div><p class="eyebrow">QUEUE</p><h2>待处理</h2></div>
+                <span class="meta">3</span>
+              </div>
+              <ul>
+                <li><span class="dot warn"></span><div><b>N100 负载持续偏高</b><span class="meta">2 分钟前</span></div></li>
+                <li><span class="dot ok"></span><div><b>N6000 快照创建完成</b><span class="meta">18 分钟前</span></div></li>
+                <li><span class="dot"></span><div><b>instabox.sh 延迟超过 150 ms</b><span class="meta">1 小时前</span></div></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <article class="card terminal">
+          <div class="term-head">
+            <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>admin@n6000 — ssh</span>
+            <span class="meta">UTF-8 · 80×24</span>
+          </div>
+          <pre class="term-body"><span class="prompt">admin@n6000:~$</span> uptime
+ 14:32:07 up 12 days,  3:41,  2 users,  load average: 0.42, 0.38, 0.35
+<span class="prompt">admin@n6000:~$</span> systemctl status panelssh
+● panelssh.service - Panel SSH
+     Active: active (running) since Tue 2026-11-10 08:12:04 CST
+<span class="prompt">admin@n6000:~$</span> <span class="cursor"></span></pre>
+        </article>
+      </div>
+    </section>
+
+    <section class="window view" data-view="terminal" hidden>
+      <div class="titlebar">
+        <div class="win-title">终端 <span class="win-sub">3 个会话 · N6000 已连接</span></div>
+        <div class="tick" aria-hidden="true"></div>
+        <div class="win-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="win-body">
+        <div class="session-bar">
+          <button class="session active"><span class="live"></span>N6000<span class="meta">admin</span></button>
+          <button class="session"><span class="dot ok"></span>DELL<span class="meta">deploy</span></button>
+          <button class="session"><span class="dot"></span>instabox.sh<span class="meta">root</span></button>
+          <button class="ghost sm session-add">+ 新建会话</button>
+          <span class="meta session-hint">⌘T 新建 · ⌘W 关闭</span>
+        </div>
+
+        <div class="grid term-grid">
+          <article class="card terminal term-tall">
+            <div class="term-head">
+              <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span>admin@n6000 — ssh · 192.168.1.3:22</span>
+              <span class="meta">UTF-8 · 120×32</span>
+            </div>
+            <pre class="term-body"><span class="prompt">admin@n6000:~$</span> ssh deploy@192.168.1.10
+The authenticity of host '192.168.1.10' can't be established.
+ED25519 key fingerprint is SHA256:9xQ2vJ7mK4Pq1sTb0cRe8yLw.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+<span class="prompt">deploy@dell:~$</span> systemctl --failed
+  UNIT          LOAD   ACTIVE SUB    DESCRIPTION
+● nginx.service loaded failed failed nginx - high performance web server
+<span class="prompt">deploy@dell:~$</span> journalctl -u nginx -n 2 --no-pager
+Nov 11 14:31:07 dell nginx[882]: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+<span class="prompt">deploy@dell:~$</span> <span class="cursor"></span></pre>
+          </article>
+
+          <div class="side">
+            <article class="card">
+              <div class="card-head">
+                <div><p class="eyebrow">SESSION</p><h2>会话信息</h2></div>
+                <span class="tag ok">已连接</span>
+              </div>
+              <div class="kv">
+                <div><span>主机</span><b>N6000</b></div>
+                <div><span>地址</span><b>192.168.1.3:22</b></div>
+                <div><span>用户</span><b>admin</b></div>
+                <div><span>认证</span><b>密钥 · ED25519</b></div>
+                <div><span>加密</span><b>chacha20-poly1305</b></div>
+                <div><span>已连接</span><b>2 小时 14 分</b></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-head">
+                <div><p class="eyebrow">SNIPPETS</p><h2>快捷命令</h2></div>
+                <span class="meta">7</span>
+              </div>
+              <div class="chips">
+                <button class="chip">uptime</button>
+                <button class="chip">df -h</button>
+                <button class="chip">free -m</button>
+                <button class="chip">systemctl status</button>
+                <button class="chip">docker ps</button>
+                <button class="chip">journalctl -xe</button>
+                <button class="chip">htop</button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window view" data-view="files" hidden>
+      <div class="titlebar">
+        <div class="win-title">文件管理 <span class="win-sub">N6000 · /var/www/panel-ssh</span></div>
+        <div class="tick" aria-hidden="true"></div>
+        <div class="win-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="win-body">
+        <div class="pathbar">
+          <button class="ghost sm">← 返回</button>
+          <div class="path"><span>N6000</span><i>/</i><span>var</span><i>/</i><span>www</span><i>/</i><b>panel-ssh</b></div>
+          <div class="path-actions">
+            <button class="ghost sm">上传</button>
+            <button class="ghost sm">新建目录</button>
+            <button class="ghost sm">刷新</button>
+          </div>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="card-head">
+              <div>
+                <p class="eyebrow">DIRECTORY</p>
+                <h2>文件列表</h2>
+              </div>
+              <span class="meta">8 项 · 隐藏文件已显示</span>
+            </div>
+            <table>
+              <thead>
+                <tr><th></th><th>名称</th><th>大小</th><th>修改时间</th><th>权限</th><th>所有者</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="ftype dir">DIR</span></td><td class="host-name">assets</td><td class="mono">—</td><td class="mono">11-10 18:20</td><td class="mono">drwxr-xr-x</td><td class="mono">www-data</td></tr>
+                <tr><td><span class="ftype dir">DIR</span></td><td class="host-name">conf</td><td class="mono">—</td><td class="mono">11-09 09:42</td><td class="mono">drwxr-xr-x</td><td class="mono">admin</td></tr>
+                <tr><td><span class="ftype dir">DIR</span></td><td class="host-name">logs</td><td class="mono">—</td><td class="mono">11-11 14:31</td><td class="mono">drwxr-x---</td><td class="mono">www-data</td></tr>
+                <tr><td><span class="ftype dir">DIR</span></td><td class="host-name">releases</td><td class="mono">—</td><td class="mono">11-08 22:05</td><td class="mono">drwxr-xr-x</td><td class="mono">admin</td></tr>
+                <tr><td><span class="ftype">FILE</span></td><td class="host-name">index.html</td><td class="mono">4.2 KB</td><td class="mono">11-10 18:22</td><td class="mono">-rw-r--r--</td><td class="mono">www-data</td></tr>
+                <tr><td><span class="ftype">FILE</span></td><td class="host-name">app.js</td><td class="mono">118 KB</td><td class="mono">11-10 18:22</td><td class="mono">-rw-r--r--</td><td class="mono">www-data</td></tr>
+                <tr><td><span class="ftype">FILE</span></td><td class="host-name">styles.css</td><td class="mono">26 KB</td><td class="mono">11-10 18:22</td><td class="mono">-rw-r--r--</td><td class="mono">www-data</td></tr>
+                <tr><td><span class="ftype">FILE</span></td><td class="host-name">.env</td><td class="mono">312 B</td><td class="mono">11-09 09:40</td><td class="mono">-rw-------</td><td class="mono">admin</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <div class="side">
+            <article class="card">
+              <div class="card-head">
+                <div><p class="eyebrow">CAPACITY</p><h2>磁盘占用</h2></div>
+                <span class="meta">512 GB</span>
+              </div>
+              <div class="load-row">
+                <div class="load-top"><span>本目录</span><b>1.2 GB</b></div>
+                <div class="bar"><i style="width:6%;background:var(--accent)"></i></div>
+              </div>
+              <div class="load-row">
+                <div class="load-top"><span>站点数据</span><b>8.4 GB</b></div>
+                <div class="bar"><i style="width:38%;background:var(--accent)"></i></div>
+              </div>
+              <div class="load-row">
+                <div class="load-top"><span>整盘已用</span><b>304 GB</b></div>
+                <div class="bar"><i style="width:59%;background:var(--accent)"></i></div>
+              </div>
+              <div class="net"><span>ext4 · nvme0n1p2</span><span>59% 已用</span></div>
+            </article>
+
+            <article class="card tasks">
+              <div class="card-head">
+                <div><p class="eyebrow">PLACES</p><h2>常用位置</h2></div>
+                <span class="meta">4</span>
+              </div>
+              <ul>
+                <li><span class="dot ok"></span><div><b>/var/www</b><span class="meta">站点根目录</span></div></li>
+                <li><span class="dot"></span><div><b>/etc/nginx</b><span class="meta">反向代理配置</span></div></li>
+                <li><span class="dot"></span><div><b>/var/log</b><span class="meta">系统与服务日志</span></div></li>
+                <li><span class="dot"></span><div><b>~/.ssh</b><span class="meta">密钥与 known_hosts</span></div></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window view" data-view="monitor" hidden>
+      <div class="titlebar">
+        <div class="win-title">监控 <span class="win-sub">全部主机 · 5 秒刷新</span></div>
+        <div class="tick" aria-hidden="true"></div>
+        <div class="win-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="win-body">
+        <div class="stats">
+          <article class="card stat">
+            <span class="stat-label">CPU</span>
+            <b class="stat-value">42<span>%</span></b>
+            <span class="stat-foot">N6000 · 4 核 / 8 线程</span>
+          </article>
+          <article class="card stat">
+            <span class="stat-label">MEMORY</span>
+            <b class="stat-value">61<span>%</span></b>
+            <span class="stat-foot">9.8 / 16 GB</span>
+          </article>
+          <article class="card stat">
+            <span class="stat-label">DISK</span>
+            <b class="stat-value">38<span>%</span></b>
+            <span class="stat-foot">304 / 512 GB · nvme0n1</span>
+          </article>
+          <article class="card stat">
+            <span class="stat-label">NETWORK</span>
+            <b class="stat-value">1.8<span>MB/s</span></b>
+            <span class="stat-foot">eth0 · 46 个连接</span>
+          </article>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="card-head">
+              <div><p class="eyebrow">TELEMETRY</p><h2>CPU 负载 · 近 30 分钟</h2></div>
+              <span class="tag ok">实时</span>
+            </div>
+            <svg class="spark chart-lg" viewBox="0 0 240 56" preserveAspectRatio="none" aria-hidden="true">
+              <polyline points="0,40 8,36 16,39 24,31 32,34 40,27 48,30 56,22 64,26 72,20 80,24 88,16 96,22 104,14 112,19 120,12 128,17 136,10 144,15 152,9 160,14 168,7 176,12 184,6 192,11 200,5 208,10 216,8 224,13 232,9 240,11"/>
+            </svg>
+            <div class="legend">
+              <span><i style="background:var(--accent)"></i>当前 42%</span>
+              <span><i style="background:var(--warn)"></i>峰值 76%</span>
+              <span><i style="background:var(--ink-lo)"></i>均值 38%</span>
+            </div>
+            <div class="meters">
+              <div class="meter"><span>LOAD</span><div class="bar"><i style="width:42%;background:var(--accent)"></i></div><b>0.42</b></div>
+              <div class="meter"><span>IOWAIT</span><div class="bar"><i style="width:8%"></i></div><b>0.8%</b></div>
+            </div>
+            <div class="net"><span>采样间隔 5 s</span><span>窗口 30 分钟</span></div>
+          </article>
+
+          <div class="side">
+            <article class="card">
+              <div class="card-head">
+                <div><p class="eyebrow">TOP HOSTS</p><h2>主机负载</h2></div>
+                <span class="meta">按 CPU</span>
+              </div>
+              <div class="load-row">
+                <div class="load-top"><span>N100</span><b>82%</b></div>
+                <div class="bar"><i style="width:82%;background:var(--warn)"></i></div>
+              </div>
+              <div class="load-row">
+                <div class="load-top"><span>N6000</span><b>61%</b></div>
+                <div class="bar"><i style="width:61%;background:var(--accent)"></i></div>
+              </div>
+              <div class="load-row">
+                <div class="load-top"><span>instabox.sh</span><b>54%</b></div>
+                <div class="bar"><i style="width:54%;background:var(--accent)"></i></div>
+              </div>
+              <div class="net"><span>采集间隔 5 s</span><span>6 台在线</span></div>
+            </article>
+
+            <article class="card tasks">
+              <div class="card-head">
+                <div><p class="eyebrow">QUEUE</p><h2>待处理</h2></div>
+                <span class="meta">3</span>
+              </div>
+              <ul>
+                <li><span class="dot warn"></span><div><b>N100 负载持续偏高</b><span class="meta">2 分钟前</span></div></li>
+                <li><span class="dot ok"></span><div><b>N6000 快照创建完成</b><span class="meta">18 分钟前</span></div></li>
+                <li><span class="dot"></span><div><b>instabox.sh 延迟超过 150 ms</b><span class="meta">1 小时前</span></div></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <article class="card">
+          <div class="card-head">
+            <div><p class="eyebrow">ALERTS</p><h2>最近告警</h2></div>
+            <span class="meta">保留 7 天</span>
+          </div>
+          <table>
+            <thead>
+              <tr><th>时间</th><th>主机</th><th>级别</th><th>事件</th><th>状态</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono">14:31</td><td class="host-name">N100</td><td><span class="status warn"><i></i>警告</span></td><td>CPU 持续高于 75%，已持续 12 分钟</td><td><span class="status off"><i></i>观察中</span></td></tr>
+              <tr><td class="mono">14:12</td><td class="host-name">instabox.sh</td><td><span class="status warn"><i></i>提示</span></td><td>SSH 握手延迟 186 ms，超过阈值 150 ms</td><td><span class="status off"><i></i>观察中</span></td></tr>
+              <tr><td class="mono">13:58</td><td class="host-name">N6000</td><td><span class="status ok"><i></i>恢复</span></td><td>内存回落到 61%，告警解除</td><td><span class="status ok"><i></i>已解除</span></td></tr>
+              <tr><td class="mono">13:40</td><td class="host-name">DELL</td><td><span class="status ok"><i></i>信息</span></td><td>快照 snap-1110-1340 创建完成</td><td><span class="status ok"><i></i>已完成</span></td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section class="window view" data-view="processes" hidden>
+      <div class="titlebar">
+        <div class="win-title">进程 <span class="win-sub">N6000 · 142 个进程</span></div>
+        <div class="tick" aria-hidden="true"></div>
+        <div class="win-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="win-body">
+        <div class="toolbar">
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+            <input placeholder="搜索进程名或 PID…">
+            <kbd>/</kbd>
+          </label>
+          <div class="chips">
+            <button class="chip active">全部</button>
+            <button class="chip">运行</button>
+            <button class="chip">睡眠</button>
+            <button class="chip">僵尸</button>
+          </div>
+          <div class="toolbar-right">
+            <span class="meta">更新于 14:32:10</span>
+            <button class="ghost sm">结束进程</button>
+            <button class="ghost sm">刷新</button>
+          </div>
+        </div>
+
+        <article class="card">
+          <div class="card-head">
+            <div><p class="eyebrow">PROCESSES</p><h2>进程列表</h2></div>
+            <span class="meta">1–8 / 142</span>
+          </div>
+          <table>
+            <thead>
+              <tr><th>PID</th><th>进程</th><th>用户</th><th>CPU</th><th>内存</th><th>状态</th><th>启动</th><th>命令</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono">882</td><td class="host-name">nginx</td><td class="mono">www-data</td><td><div class="cpu"><span class="cpu-bar"><i style="width:21%"></i></span><b>2.1%</b></div></td><td class="mono">1.2%</td><td><span class="status ok"><i></i>运行</span></td><td class="mono">08:12</td><td class="mono cmd">/usr/sbin/nginx -g daemon off;</td></tr>
+              <tr><td class="mono">1043</td><td class="host-name">dockerd</td><td class="mono">root</td><td><div class="cpu"><span class="cpu-bar"><i style="width:14%"></i></span><b>1.4%</b></div></td><td class="mono">3.8%</td><td><span class="status ok"><i></i>运行</span></td><td class="mono">08:12</td><td class="mono cmd">/usr/bin/dockerd -H fd://</td></tr>
+              <tr><td class="mono">1188</td><td class="host-name">panelssh</td><td class="mono">admin</td><td><div class="cpu"><span class="cpu-bar"><i style="width:7%"></i></span><b>0.7%</b></div></td><td class="mono">0.9%</td><td><span class="status ok"><i></i>运行</span></td><td class="mono">08:12</td><td class="mono cmd">/opt/panelssh/panelssh --config /etc/panelssh.yml</td></tr>
+              <tr><td class="mono">2201</td><td class="host-name">node</td><td class="mono">admin</td><td><div class="cpu"><span class="cpu-bar"><i style="width:68%"></i></span><b>6.8%</b></div></td><td class="mono">4.1%</td><td><span class="status ok"><i></i>运行</span></td><td class="mono">11:02</td><td class="mono cmd">node /srv/apps/uptime-kuma/server.js</td></tr>
+              <tr><td class="mono">2210</td><td class="host-name">postgres</td><td class="mono">postgres</td><td><div class="cpu"><span class="cpu-bar"><i style="width:3%"></i></span><b>0.3%</b></div></td><td class="mono">2.2%</td><td><span class="status off"><i></i>睡眠</span></td><td class="mono">11:02</td><td class="mono cmd">postgres: checkpointer</td></tr>
+              <tr><td class="mono">3021</td><td class="host-name">sshd</td><td class="mono">admin</td><td><div class="cpu"><span class="cpu-bar"><i style="width:0%"></i></span><b>0.0%</b></div></td><td class="mono">0.2%</td><td><span class="status ok"><i></i>运行</span></td><td class="mono">14:31</td><td class="mono cmd">sshd: admin@pts/2</td></tr>
+              <tr><td class="mono">3077</td><td class="host-name">rsync</td><td class="mono">admin</td><td><div class="cpu"><span class="cpu-bar"><i style="width:100%;background:var(--warn)"></i></span><b>12.4%</b></div></td><td class="mono">0.6%</td><td><span class="status ok"><i></i>运行</span></td><td class="mono">14:30</td><td class="mono cmd">rsync -avz /var/www/ backup@192.168.1.10:/backup</td></tr>
+              <tr><td class="mono">3188</td><td class="host-name">bash</td><td class="mono">admin</td><td><div class="cpu"><span class="cpu-bar"><i style="width:0%"></i></span><b>0.0%</b></div></td><td class="mono">0.1%</td><td><span class="status off"><i></i>睡眠</span></td><td class="mono">14:31</td><td class="mono cmd">-bash</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section class="window view" data-view="network" hidden>
+      <div class="titlebar">
+        <div class="win-title">网络 <span class="win-sub">N6000 · eth0 主链路</span></div>
+        <div class="tick" aria-hidden="true"></div>
+        <div class="win-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="win-body">
+        <div class="stats">
+          <article class="card stat">
+            <span class="stat-label">DOWNLOAD</span>
+            <b class="stat-value">1.8<span>MB/s</span></b>
+            <span class="stat-foot">eth0 · 峰值 12.4 MB/s</span>
+          </article>
+          <article class="card stat">
+            <span class="stat-label">UPLOAD</span>
+            <b class="stat-value">320<span>KB/s</span></b>
+            <span class="stat-foot">eth0 · 峰值 2.1 MB/s</span>
+          </article>
+          <article class="card stat">
+            <span class="stat-label">CONNECTIONS</span>
+            <b class="stat-value">46</b>
+            <span class="stat-foot">TCP 42 · UDP 4</span>
+          </article>
+          <article class="card stat">
+            <span class="stat-label">PACKET LOSS</span>
+            <b class="stat-value">0.02<span>%</span></b>
+            <span class="stat-foot">近 15 分钟 · 正常</span>
+          </article>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="card-head">
+              <div><p class="eyebrow">INTERFACES</p><h2>网络接口</h2></div>
+              <span class="meta">4 个接口</span>
+            </div>
+            <table>
+              <thead>
+                <tr><th>接口</th><th>地址</th><th>速率</th><th>接收</th><th>发送</th><th>状态</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="host-name">eth0</td><td class="mono">192.168.1.3/24</td><td class="mono">1 Gb/s</td><td class="mono">1.8 MB/s</td><td class="mono">320 KB/s</td><td><span class="status ok"><i></i>在线</span></td></tr>
+                <tr><td class="host-name">wg0</td><td class="mono">10.8.0.1/24</td><td class="mono">—</td><td class="mono">96 KB/s</td><td class="mono">42 KB/s</td><td><span class="status ok"><i></i>在线</span></td></tr>
+                <tr><td class="host-name">docker0</td><td class="mono">172.17.0.1/16</td><td class="mono">—</td><td class="mono">12 KB/s</td><td class="mono">8 KB/s</td><td><span class="status ok"><i></i>在线</span></td></tr>
+                <tr><td class="host-name">lo</td><td class="mono">127.0.0.1</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td><span class="status ok"><i></i>在线</span></td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <div class="side">
+            <article class="card">
+              <div class="card-head">
+                <div><p class="eyebrow">LISTENING</p><h2>监听端口</h2></div>
+                <span class="meta">5</span>
+              </div>
+              <div class="kv">
+                <div><span>22 / tcp</span><b>sshd</b></div>
+                <div><span>80 / tcp</span><b>nginx</b></div>
+                <div><span>443 / tcp</span><b>nginx</b></div>
+                <div><span>5432 / tcp</span><b>postgres</b></div>
+                <div><span>8388 / tcp</span><b>ss-local</b></div>
+              </div>
+            </article>
+
+            <article class="card tasks">
+              <div class="card-head">
+                <div><p class="eyebrow">NOTICE</p><h2>链路提示</h2></div>
+                <span class="meta">2</span>
+              </div>
+              <ul>
+                <li><span class="dot warn"></span><div><b>eth0 重传率 0.4%</b><span class="meta">近 10 分钟</span></div></li>
+                <li><span class="dot ok"></span><div><b>wg0 隧道已恢复</b><span class="meta">32 分钟前</span></div></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <article class="card">
+          <div class="card-head">
+            <div><p class="eyebrow">ROUTES</p><h2>路由表</h2></div>
+            <span class="meta">IPv4 · 4 条</span>
+          </div>
+          <table>
+            <thead>
+              <tr><th>目标</th><th>网关</th><th>接口</th><th>度量</th><th>类型</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono">default</td><td class="mono">192.168.1.1</td><td class="mono">eth0</td><td class="mono">100</td><td>静态</td></tr>
+              <tr><td class="mono">192.168.1.0/24</td><td class="mono">—</td><td class="mono">eth0</td><td class="mono">0</td><td>直连</td></tr>
+              <tr><td class="mono">10.8.0.0/24</td><td class="mono">—</td><td class="mono">wg0</td><td class="mono">0</td><td>直连</td></tr>
+              <tr><td class="mono">172.17.0.0/16</td><td class="mono">—</td><td class="mono">docker0</td><td class="mono">0</td><td>直连</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section class="window view" data-view="storage" hidden>
+      <div class="titlebar">
+        <div class="win-title">存储 <span class="win-sub">N6000 · 2 块磁盘 · 4 个挂载点</span></div>
+        <div class="tick" aria-hidden="true"></div>
+        <div class="win-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="win-body">
+        <div class="grid">
+          <article class="card">
+            <div class="card-head">
+              <div><p class="eyebrow">VOLUMES</p><h2>磁盘与挂载</h2></div>
+              <div class="card-tools">
+                <span class="meta">最后检查 14:30</span>
+                <button class="ghost sm">刷新</button>
+              </div>
+            </div>
+            <table class="volumes">
+              <thead>
+                <tr><th>挂载点</th><th>文件系统</th><th>已用 / 容量</th><th>使用率</th></tr>
+              </thead>
+              <tbody>
+                <tr class="disk-group"><td colspan="4"><b>nvme0n1</b><span>系统盘 · NVMe · 512 GB</span></td></tr>
+                <tr><td><span class="mount">/</span><span class="dev">nvme0n1p2</span></td><td class="mono">ext4</td><td class="mono">304 GB / 512 GB</td><td><div class="usage"><span class="usage-bar"><i style="width:59%"></i></span><b>59%</b></div></td></tr>
+                <tr><td><span class="mount">/boot/efi</span><span class="dev">nvme0n1p1</span></td><td class="mono">vfat</td><td class="mono">68 MB / 512 MB</td><td><div class="usage"><span class="usage-bar"><i style="width:13%"></i></span><b>13%</b></div></td></tr>
+                <tr class="disk-group"><td colspan="4"><b>sda</b><span>数据盘 · SATA · 2.0 TB</span></td></tr>
+                <tr><td><span class="mount">/mnt/data</span><span class="dev">sda1</span></td><td class="mono">ext4</td><td class="mono">1.2 TB / 2.0 TB</td><td><div class="usage"><span class="usage-bar"><i style="width:60%"></i></span><b>60%</b></div></td></tr>
+                <tr class="disk-group"><td colspan="4"><b>tmpfs</b><span>内存盘 · 3.2 GB</span></td></tr>
+                <tr><td><span class="mount">/run</span><span class="dev">tmpfs</span></td><td class="mono">tmpfs</td><td class="mono">12 MB / 3.2 GB</td><td><div class="usage"><span class="usage-bar"><i style="width:0%"></i></span><b>0%</b></div></td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <div class="side">
+            <article class="card capacity">
+              <div class="card-head">
+                <div><p class="eyebrow">CAPACITY</p><h2>容量概览</h2></div>
+                <span class="tag ok">健康</span>
+              </div>
+              <div class="gauge">
+                <span class="gauge-num">60</span><span class="gauge-unit">%</span>
+                <span class="gauge-label">全部磁盘 · 2.5 TB</span>
+              </div>
+              <div class="meters">
+                <div class="meter"><span>系统盘</span><div class="bar"><i style="width:59%;background:var(--accent)"></i></div><b>304 GB</b></div>
+                <div class="meter"><span>数据盘</span><div class="bar"><i style="width:60%;background:var(--accent)"></i></div><b>1.2 TB</b></div>
+              </div>
+              <div class="net"><span>inode 使用 12%</span><span>无坏块</span></div>
+            </article>
+
+            <article class="card tasks">
+              <div class="card-head">
+                <div><p class="eyebrow">MAINTENANCE</p><h2>维护提示</h2></div>
+                <span class="meta">2</span>
+              </div>
+              <ul>
+                <li><span class="dot ok"></span><div><b>TRIM 已在本周执行</b><span class="meta">周日 03:00</span></div></li>
+                <li><span class="dot warn"></span><div><b>/mnt/data 使用率 60%</b><span class="meta">预警线 80% · 建议清理旧备份</span></div></li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <article class="card">
+          <div class="card-head">
+            <div><p class="eyebrow">SNAPSHOTS</p><h2>最近快照</h2></div>
+            <div class="card-tools">
+              <span class="meta">每日 02:00 自动 · 保留 7 天 · 占用 46 GB</span>
+              <button class="ghost sm">创建快照</button>
+            </div>
+          </div>
+          <table class="snapshots">
+            <thead>
+              <tr><th>名称</th><th>主机</th><th>创建时间</th><th>大小</th><th>保留至</th><th>状态</th><th>操作</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="host-name">snap-1110-0200</td><td class="mono">N6000</td><td class="mono">11-10 02:00</td><td class="mono">1.2 GB</td><td class="mono">11-17 02:00</td><td><span class="status ok"><i></i>可用</span></td><td><div class="row-actions"><button class="ghost sm">恢复</button><button class="ghost sm">删除</button></div></td></tr>
+              <tr><td class="host-name">snap-1109-0200</td><td class="mono">N6000</td><td class="mono">11-09 02:00</td><td class="mono">1.1 GB</td><td class="mono">11-16 02:00</td><td><span class="status ok"><i></i>可用</span></td><td><div class="row-actions"><button class="ghost sm">恢复</button><button class="ghost sm">删除</button></div></td></tr>
+              <tr><td class="host-name">snap-1108-0200</td><td class="mono">DELL</td><td class="mono">11-08 02:00</td><td class="mono">860 MB</td><td class="mono">11-15 02:00</td><td><span class="status ok"><i></i>可用</span></td><td><div class="row-actions"><button class="ghost sm">恢复</button><button class="ghost sm">删除</button></div></td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <section class="window view" data-view="apps" hidden>
+      <div class="titlebar">
+        <div class="win-title">应用 <span class="win-sub">已安装 6 · 4 个运行中</span></div>
+        <div class="tick" aria-hidden="true"></div>
+        <div class="win-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="win-body">
+        <div class="toolbar">
+          <div class="chips">
+            <button class="chip active">全部</button>
+            <button class="chip">运行中</button>
+            <button class="chip">已停止</button>
+          </div>
+          <div class="toolbar-right">
+            <span class="meta">更新于 14:30</span>
+            <button class="ghost sm">检查更新</button>
+            <button class="ghost sm">安装应用</button>
+          </div>
+        </div>
+
+        <div class="app-grid">
+          <article class="card app">
+            <div class="app-head">
+              <span class="app-mark">N</span>
+              <div class="app-meta"><b>Nginx</b><span>反向代理 · Web 服务</span></div>
+              <span class="tag ok">运行中</span>
+            </div>
+            <div class="app-foot"><span>v1.26.1</span><span>:80 / :443</span></div>
+            <div class="app-actions"><button class="ghost sm">打开</button><button class="ghost sm">重启</button></div>
+          </article>
+
+          <article class="card app">
+            <div class="app-head">
+              <span class="app-mark">D</span>
+              <div class="app-meta"><b>Docker</b><span>容器运行时</span></div>
+              <span class="tag ok">运行中</span>
+            </div>
+            <div class="app-foot"><span>v27.3.1</span><span>12 个容器</span></div>
+            <div class="app-actions"><button class="ghost sm">打开</button><button class="ghost sm">重启</button></div>
+          </article>
+
+          <article class="card app">
+            <div class="app-head">
+              <span class="app-mark">P</span>
+              <div class="app-meta"><b>PostgreSQL</b><span>关系型数据库</span></div>
+              <span class="tag ok">运行中</span>
+            </div>
+            <div class="app-foot"><span>v16.4</span><span>:5432</span></div>
+            <div class="app-actions"><button class="ghost sm">打开</button><button class="ghost sm">重启</button></div>
+          </article>
+
+          <article class="card app">
+            <div class="app-head">
+              <span class="app-mark">U</span>
+              <div class="app-meta"><b>Uptime Kuma</b><span>可用性监控</span></div>
+              <span class="tag ok">运行中</span>
+            </div>
+            <div class="app-foot"><span>v1.23.16</span><span>:3001</span></div>
+            <div class="app-actions"><button class="ghost sm">打开</button><button class="ghost sm">重启</button></div>
+          </article>
+
+          <article class="card app">
+            <div class="app-head">
+              <span class="app-mark">R</span>
+              <div class="app-meta"><b>Redis</b><span>内存缓存</span></div>
+              <span class="status off"><i></i>已停止</span>
+            </div>
+            <div class="app-foot"><span>v7.2.5</span><span>:6379</span></div>
+            <div class="app-actions"><button class="ghost sm">启动</button><button class="ghost sm">配置</button></div>
+          </article>
+
+          <article class="card app">
+            <div class="app-head">
+              <span class="app-mark">S</span>
+              <div class="app-meta"><b>Syncthing</b><span>文件同步</span></div>
+              <span class="status off"><i></i>已停止</span>
+            </div>
+            <div class="app-foot"><span>v1.27.12</span><span>:8384</span></div>
+            <div class="app-actions"><button class="ghost sm">启动</button><button class="ghost sm">配置</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <footer class="style-strip">
+      <span class="badge">风格 A · Graphite</span>
+      <span class="meta">深色石墨 · 单一信号色 · 高密度数据</span>
+    </footer>
+  </main>
+</div>
+<script>
+  (function () {
+    var labels = {
+      hosts: '主机管理',
+      terminal: '终端',
+      files: '文件管理',
+      monitor: '监控',
+      processes: '进程',
+      network: '网络',
+      storage: '存储',
+      apps: '应用'
+    };
+    var nav = Array.prototype.slice.call(document.querySelectorAll('.nav-item'));
+    var views = Array.prototype.slice.call(document.querySelectorAll('.view'));
+    var crumb = document.querySelector('.crumb');
+
+    function show(name) {
+      nav.forEach(function (btn) {
+        btn.classList.toggle('active', btn.dataset.view === name);
+      });
+      views.forEach(function (view) {
+        view.hidden = view.dataset.view !== name;
+      });
+      crumb.innerHTML = '<span class="mark"></span>PANEL SSH <span class="sep">/</span> ' +
+        (labels[name] || '主机管理');
+    }
+
+    function fromHash() {
+      var name = (location.hash || '').replace('#', '');
+      return labels[name] ? name : 'hosts';
+    }
+
+    nav.forEach(function (btn) {
+      btn.addEventListener('click', function (event) {
+        event.preventDefault();
+        var name = btn.dataset.view;
+        show(name);
+        try {
+          history.replaceState(null, '', '#' + name);
+        } catch (err) {
+          /* 预览环境可能禁止改写地址，忽略即可，切换已生效 */
+        }
+      });
+    });
+
+    window.addEventListener('hashchange', function () {
+      show(fromHash());
+    });
+
+    show(fromHash());
+  }());
+</script>
+</body>
+</html>

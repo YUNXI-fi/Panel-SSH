@@ -1,0 +1,3 @@
+#!/bin/bash
+# 配置变更前：当前没有可配置项（端口写在 manifest.service_port），直接放行。
+exit 0

@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel SSH · 组件规范 · 纸面运维</title>
+<link rel="stylesheet" href="paper.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body class="components theme-paper">
+<header class="comp-top">
+  <div class="comp-title">
+    <span class="comp-brand">PANEL SSH</span>
+    <span class="comp-slash">/</span>
+    组件规范
+    <span class="comp-style">B · PAPER OPS</span>
+  </div>
+  <div class="comp-note">4px 网格 · 控件 28/32/36 · 全状态</div>
+</header>
+
+<div class="comp-layout">
+  <aside class="comp-side">
+    <p class="comp-side-title">CONTENTS</p>
+    <a href="#btn">01 · 按钮</a>
+    <a href="#input">02 · 输入</a>
+    <a href="#select">03 · 选择</a>
+    <a href="#data">04 · 数据</a>
+    <a href="#feedback">05 · 反馈</a>
+    <a href="#nav">06 · 导航</a>
+    <a href="#overlay">07 · 覆盖层</a>
+    <a href="#structure">08 · 结构</a>
+    <a href="#select-adv">10 · 下拉与上传</a>
+    <a href="#form">11 · 表单与筛选</a>
+    <a href="#data-adv">12 · 数据进阶</a>
+    <a href="#feedback-adv">13 · 反馈进阶</a>
+    <a href="#overlay-adv">14 · 覆盖层进阶</a>
+    <a href="#atoms">15 · 基础元素</a>
+    <a href="#spec">16 · 规范</a>
+    <a class="comp-back" href="index.html">← 返回风格总览</a>
+  </aside>
+
+  <main class="comp-main">
+    <div class="comp-hero">
+      <h1>组件与界面语言</h1>
+      <p>同一套组件在「纸面运维」下的形态。尺寸走 4px 网格，控件高度 28 / 32 / 36；
+         所有状态——悬停、聚焦、禁用、加载、错误——都在这里一次性对齐。</p>
+    </div>
+
+    <!-- 01 按钮 -->
+    <section class="comp-section" id="btn">
+      <header><span class="num">01</span><h2>按钮</h2></header>
+      <p class="comp-desc">主操作只保留一个；危险操作必须显式用危险色；加载态保持宽度不跳动。</p>
+      <div class="comp-canvas">
+        <div class="spec-row">
+          <button class="c-btn c-btn--primary">新增主机</button>
+          <button class="c-btn">批量执行</button>
+          <button class="c-btn c-btn--quiet">更多</button>
+          <button class="c-btn c-btn--danger">删除</button>
+          <button class="c-btn" disabled>已禁用</button>
+          <button class="c-btn c-btn--primary"><span class="c-spinner"></span>安装中</button>
+        </div>
+        <div class="spec-divider"></div>
+        <div class="spec-row">
+          <button class="c-btn c-btn--sm">小号 28</button>
+          <button class="c-btn">中号 32</button>
+          <button class="c-btn c-btn--lg">大号 36</button>
+          <span class="spec-label">高度</span>
+          <button class="c-icon-btn" aria-label="设置"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3.5v2M12 18.5v2M3.5 12h2M18.5 12h2M6 6l1.4 1.4M16.6 16.6 18 18M18 6l-1.4 1.4M7.4 16.6 6 18"/></svg></button>
+          <button class="c-icon-btn" aria-label="复制"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="1.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button>
+          <button class="c-icon-btn" aria-label="刷新"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg></button>
+          <span class="spec-label">图标按钮</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 输入 -->
+    <section class="comp-section" id="input">
+      <header><span class="num">02</span><h2>输入</h2></header>
+      <p class="comp-desc">标签用等宽小字；帮助与错误文案紧贴控件下方；聚焦环只加 1px，不改变布局。</p>
+      <div class="comp-canvas">
+        <div class="spec-grid">
+          <label class="c-field">
+            <span class="c-label">主机地址</span>
+            <input class="c-input" value="192.168.1.3">
+            <span class="c-help">支持 IPv4 / 域名，端口单独填写</span>
+          </label>
+          <label class="c-field c-field--error">
+            <span class="c-label">端口</span>
+            <input class="c-input" value="70000">
+            <span class="c-error">端口必须在 1–65535 之间</span>
+          </label>
+          <label class="c-field">
+            <span class="c-label">搜索</span>
+            <div class="c-input-wrap c-input-wrap--icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+              <input class="c-input" placeholder="搜索主机、地址、标签…">
+            </div>
+            <span class="c-help">⌘K 随时唤起</span>
+          </label>
+          <label class="c-field">
+            <span class="c-label">密码</span>
+            <div class="c-input-wrap">
+              <input class="c-input" type="password" value="panelssh">
+              <button class="c-input-addon" type="button">显示</button>
+            </div>
+            <span class="c-help">仅用于本次登录，不落盘</span>
+          </label>
+        </div>
+        <div class="spec-grid">
+          <label class="c-field">
+            <span class="c-label">备注</span>
+            <textarea class="c-input c-textarea" rows="3">生产环境，变更前先在快照里留一份。</textarea>
+          </label>
+          <label class="c-field">
+            <span class="c-label">聚焦态</span>
+            <input class="c-input c-input--focus" value="聚焦时描边变成信号色">
+            <span class="c-help">键盘 Tab 进入时同样可见</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 选择 -->
+    <section class="comp-section" id="select">
+      <header><span class="num">03</span><h2>选择</h2></header>
+      <p class="comp-desc">勾选、单选、开关都保留原生控件的键盘语义，只替换外观；开关用于立即生效的布尔项。</p>
+      <div class="comp-canvas">
+        <div class="spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">CHECKBOX</span>
+            <label class="c-check"><input type="checkbox" checked><span class="c-box"></span><span>自动重连</span></label>
+            <label class="c-check"><input type="checkbox"><span class="c-box"></span><span>显示离线主机</span></label>
+            <label class="c-check"><input type="checkbox" id="indet"><span class="c-box"></span><span>全选（部分选中）</span></label>
+            <label class="c-check is-disabled"><input type="checkbox" disabled><span class="c-box"></span><span>禁用</span></label>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">RADIO</span>
+            <label class="c-radio"><input type="radio" name="auth" checked><span class="c-dot"></span><span>密码登录</span></label>
+            <label class="c-radio"><input type="radio" name="auth"><span class="c-dot"></span><span>私钥登录</span></label>
+            <label class="c-radio"><input type="radio" name="auth"><span class="c-dot"></span><span>无凭据</span></label>
+            <label class="c-radio is-disabled"><input type="radio" disabled><span class="c-dot"></span><span>禁用</span></label>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">SWITCH</span>
+            <div class="spec-row">
+              <button class="c-switch is-on" role="switch" aria-checked="true"><span></span></button>
+              <span class="c-help">已启用</span>
+            </div>
+            <div class="spec-row">
+              <button class="c-switch" role="switch" aria-checked="false"><span></span></button>
+              <span class="c-help">已停用</span>
+            </div>
+            <div class="spec-row">
+              <button class="c-switch is-on" role="switch" aria-checked="true" disabled><span></span></button>
+              <span class="c-help">禁用</span>
+            </div>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">SLIDER</span>
+            <input class="c-range" type="range" value="42" aria-label="阈值">
+            <span class="c-help">告警阈值：42%</span>
+          </div>
+        </div>
+        <div class="spec-divider"></div>
+        <div class="spec-row">
+          <div class="c-segmented" role="group" aria-label="视图切换">
+            <button class="is-active">概览</button>
+            <button>进程</button>
+            <button>网络</button>
+          </div>
+          <span class="spec-label">SEGMENTED</span>
+        </div>
+        <div class="c-tabs">
+          <button class="is-active">主机</button>
+          <button>终端</button>
+          <button>文件</button>
+          <button>监控</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 数据 -->
+    <section class="comp-section" id="data">
+      <header><span class="num">04</span><h2>数据展示</h2></header>
+      <p class="comp-desc">状态色只用于状态；数字一律等宽并等宽对齐；表格行悬停只加一层极浅的底色。</p>
+      <div class="comp-canvas">
+        <div class="spec-row">
+          <span class="c-tag c-tag--ok"><i></i>在线</span>
+          <span class="c-tag c-tag--warn"><i></i>负载高</span>
+          <span class="c-tag c-tag--danger"><i></i>离线</span>
+          <span class="c-tag c-tag--accent"><i></i>流式</span>
+          <span class="c-tag">未知</span>
+          <span class="c-count">12</span>
+          <span class="spec-label">TAGS / COUNT</span>
+        </div>
+        <div class="spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">CPU 42%</span>
+            <div class="c-progress"><i style="width:42%"></i></div>
+            <span class="c-help">8 核 · 负载 0.42</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">MEM 61%</span>
+            <div class="c-progress"><i style="width:61%"></i></div>
+            <span class="c-help">9.8 / 16 GB</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">DISK 38%</span>
+            <div class="c-progress"><i style="width:38%"></i></div>
+            <span class="c-help">190 / 500 GB</span>
+          </div>
+        </div>
+        <div class="spec-row">
+          <div class="c-stat"><b>42<span style="font-size:14px">%</span></b><span>CPU</span></div>
+          <div class="c-stat"><b>61<span style="font-size:14px">%</span></b><span>MEMORY</span></div>
+          <div class="c-stat"><b>1.8</b><span>MB/S DOWN <em class="up">+12%</em></span></div>
+          <div class="c-stat"><b>186</b><span>MS LATENCY</span></div>
+        </div>
+        <dl class="c-kv">
+          <div><dt>系统</dt><dd>Debian 12</dd></div>
+          <div><dt>内核</dt><dd>6.1.0-28-amd64</dd></div>
+          <div><dt>运行时长</dt><dd>12d 3h 41m</dd></div>
+          <div><dt>SSH</dt><dd>22 / 已连接</dd></div>
+        </dl>
+        <table class="c-table">
+          <thead><tr><th>主机</th><th>地址</th><th>CPU</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr class="is-selected"><td>N6000</td><td>192.168.1.3</td><td>42%</td><td><span class="c-tag c-tag--ok"><i></i>在线</span></td></tr>
+            <tr><td>DELL</td><td>192.168.1.10</td><td>18%</td><td><span class="c-tag c-tag--ok"><i></i>在线</span></td></tr>
+            <tr><td>N100</td><td>192.168.1.13</td><td>76%</td><td><span class="c-tag c-tag--warn"><i></i>负载高</span></td></tr>
+            <tr class="is-disabled"><td>China-ASEAN-FZ</td><td>192.168.1.125</td><td>—</td><td><span class="c-tag"><i></i>离线</span></td></tr>
+          </tbody>
+        </table>
+        <div class="c-empty">
+          <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v11H4z"/><path d="M8 7V5h8v2M8 12h8M8 15h5"/></svg></span>
+          <b>还没有安装 AI CLI</b>
+          <span>到「应用中心 · AI CLI」里选择工具，一键安装到当前主机。</span>
+          <button class="c-btn c-btn--sm">去安装</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 反馈 -->
+    <section class="comp-section" id="feedback">
+      <header><span class="num">05</span><h2>反馈</h2></header>
+      <p class="comp-desc">行内提示用于解释原因；Toast 只报告结果；加载态用骨架而不是全屏转圈。</p>
+      <div class="comp-canvas">
+        <div class="c-alert"><div><b>正在建立 SSH 连接</b>首次连接需要写入 known_hosts。</div></div>
+        <div class="c-alert c-alert--ok"><div><b>快照已创建</b>回滚点：2026-11-10 14:31:52。</div></div>
+        <div class="c-alert c-alert--warn"><div><b>N100 负载持续偏高</b>过去 5 分钟平均 6.8，建议检查进程。</div></div>
+        <div class="c-alert c-alert--danger"><div><b>安装失败</b>npm 退出码 1：找不到可用的 Node 运行时。</div></div>
+        <div class="spec-row spec-row--top c-tip-row">
+          <div class="c-toast"><span class="ok">✓</span>已保存到 N6000</div>
+          <div class="c-tip-wrap">
+            <button class="c-btn c-btn--sm">悬停查看提示</button>
+            <div class="c-tooltip">命令会复制到剪贴板</div>
+          </div>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">SKELETON</span>
+          <div class="c-skeleton" style="width:72%"></div>
+          <div class="c-skeleton" style="width:46%"></div>
+          <div class="c-skeleton" style="width:58%"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 导航 -->
+    <section class="comp-section" id="nav">
+      <header><span class="num">06</span><h2>导航</h2></header>
+      <p class="comp-desc">层级只出现在面包屑与页签里；列表项用悬停揭示可点击性，不靠箭头装饰。</p>
+      <div class="comp-canvas">
+        <div class="c-crumb"><b>主机管理</b><span class="sep">/</span>N6000<span class="sep">/</span>终端</div>
+        <div class="spec-row">
+          <div class="c-pager">
+            <button aria-label="上一页">‹</button>
+            <button class="is-active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button aria-label="下一页">›</button>
+          </div>
+          <span class="spec-label">PAGINATION</span>
+        </div>
+        <div class="c-list">
+          <div class="c-item">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></span>
+            <div><b>N6000</b><span>192.168.1.3 · Debian 12</span></div>
+            <span class="trail">在线</span>
+          </div>
+          <div class="c-item">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="m8 10 2.5 2.5L8 15M12.5 15H16"/></svg></span>
+            <div><b>终端会话</b><span>admin@n6000 · 80×24</span></div>
+            <span class="trail">12m</span>
+          </div>
+          <div class="c-item">
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5h6l2 2h9v9h-17z"/><path d="M3.5 6.5v-2h5l1.5 2"/></svg></span>
+            <div><b>文件管理</b><span>/srv/panel · 只读</span></div>
+            <span class="trail">›</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 覆盖层 -->
+    <section class="comp-section" id="overlay">
+      <header><span class="num">07</span><h2>覆盖层</h2></header>
+      <p class="comp-desc">对话框只承载一个决定；菜单项不超过 7 条，危险项永远放最后并单独分组。</p>
+      <div class="comp-canvas">
+        <div class="spec-grid">
+          <div class="c-modal">
+            <div class="c-modal-head">删除主机<span><button class="c-modal-x" aria-label="关闭">✕</button></span></div>
+            <div class="c-modal-body">将删除 N6000 的主机记录与凭据，目标机上的文件不会受影响。此操作不可撤销。</div>
+            <div class="c-modal-foot">
+              <button class="c-btn c-btn--sm">取消</button>
+              <button class="c-btn c-btn--sm c-btn--danger">确认删除</button>
+            </div>
+          </div>
+          <div class="c-menu">
+            <button>打开终端<span><kbd>⌘T</kbd></span></button>
+            <button>查看监控<span><kbd>⌘M</kbd></span></button>
+            <button>编辑主机<span><kbd>⌘E</kbd></span></button>
+            <div class="divider"></div>
+            <button class="danger">删除主机</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 结构 -->
+    <section class="comp-section" id="structure">
+      <header><span class="num">08</span><h2>结构</h2></header>
+      <p class="comp-desc">窗口、卡片、工具栏共用同一套描边与标题层级；终端保持深色，作为页面里唯一的“凹陷面”。</p>
+      <div class="comp-canvas">
+        <div class="spec-grid">
+          <div class="c-card">
+            <div class="c-card-head">运行状态<span class="c-tag c-tag--ok"><i></i>健康</span></div>
+            <div class="c-card-body">面板进程、SSH 通道与指标流均正常。最近一次采样 14:31:52。</div>
+            <div class="c-card-foot"><button class="c-btn c-btn--sm">查看日志</button><button class="c-btn c-btn--sm c-btn--primary">重启</button></div>
+          </div>
+          <div class="c-card">
+            <div class="c-card-head">主机详情</div>
+            <div class="c-card-body">
+              <dl class="c-kv">
+                <div><dt>系统</dt><dd>Debian 12</dd></div>
+                <div><dt>架构</dt><dd>x86_64</dd></div>
+                <div><dt>用户</dt><dd>admin</dd></div>
+                <div><dt>端口</dt><dd>22</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="c-titlebar"><span class="dots"><i></i><i></i><i></i></span>主机管理<span class="trail">6 台 · 1 台告警</span></div>
+        <div class="c-toolbar">
+          <button class="c-btn c-btn--sm c-btn--primary">新增主机</button>
+          <button class="c-btn c-btn--sm">批量执行</button>
+          <span class="spacer"></span>
+          <button class="c-icon-btn" aria-label="刷新"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4h-4"/></svg></button>
+        </div>
+        <div class="c-code"><span class="p">admin@n6000:~$</span> systemctl status panelssh
+● panelssh.service - Panel SSH
+     Active: active (running) since Tue 2026-11-10 08:12:04 CST
+<span class="p">admin@n6000:~$</span> _</div>
+      </div>
+    </section>
+
+    <!-- 10 下拉、日历与上传 -->
+    <section class="comp-section" id="select-adv">
+      <header><span class="num">10</span><h2>下拉、日历与上传</h2></header>
+      <p class="comp-desc">下拉最多七条并按环境分组；日期与数字都保留键盘直接输入；上传用虚线投放区配逐条进度，不用整页转圈。</p>
+      <div class="comp-canvas">
+        <div class="spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">SELECT · 关闭</span>
+            <button class="c-select">N6000 <span class="caret">▾</span></button>
+            <span class="c-help">单选，当前值就是触发按钮的文案</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">SELECT · 展开</span>
+            <div class="c-select-menu">
+              <p class="c-option-group">生产环境</p>
+              <div class="c-option is-active">N6000 <span class="hint">192.168.1.3</span><span class="hint">✓</span></div>
+              <div class="c-option">DELL <span class="hint">192.168.1.10</span></div>
+              <div class="c-option">N100 <span class="hint">192.168.1.13:2233</span></div>
+              <div class="sep"></div>
+              <p class="c-option-group">测试环境</p>
+              <div class="c-option">China-ASEAN-FZ <span class="hint">192.168.1.125</span></div>
+              <div class="c-option">instabox.sh <span class="hint">ssh.instabox.sh</span></div>
+            </div>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">MULTI · 标签</span>
+            <div class="c-multi">
+              <span class="c-chip">N6000 <button aria-label="移除 N6000">✕</button></span>
+              <span class="c-chip">DELL <button aria-label="移除 DELL">✕</button></span>
+              <input placeholder="继续添加主机…" aria-label="添加主机">
+            </div>
+            <span class="c-help">批量执行的目标选择</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">NUMBER · 带单位</span>
+            <div class="c-number">
+              <input value="1800" aria-label="超时秒数">
+              <span class="unit">SEC</span>
+              <span class="step">
+                <button type="button" aria-label="增加">▲</button>
+                <button type="button" aria-label="减少">▼</button>
+              </span>
+            </div>
+            <span class="c-help">上限 1800 秒</span>
+          </div>
+        </div>
+
+        <div class="spec-divider"></div>
+
+        <div class="spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">DATE · 字段</span>
+            <div class="c-date">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>
+              2026-11-11
+            </div>
+            <span class="c-help">快照默认保留 7 天</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">CALENDAR</span>
+            <div class="c-calendar">
+              <div class="c-calendar-head">
+                <button type="button" aria-label="上个月">‹</button>
+                2026 · 11
+                <button type="button" aria-label="下个月">›</button>
+              </div>
+              <div class="c-calendar-grid">
+                <span class="wd">一</span><span class="wd">二</span><span class="wd">三</span><span class="wd">四</span><span class="wd">五</span><span class="wd">六</span><span class="wd">日</span>
+                <button class="c-day is-muted">26</button><button class="c-day is-muted">27</button><button class="c-day is-muted">28</button><button class="c-day is-muted">29</button><button class="c-day is-muted">30</button><button class="c-day is-muted">31</button><button class="c-day">1</button>
+                <button class="c-day">2</button><button class="c-day">3</button><button class="c-day">4</button><button class="c-day">5</button><button class="c-day">6</button><button class="c-day">7</button><button class="c-day">8</button>
+                <button class="c-day">9</button><button class="c-day">10</button><button class="c-day is-selected is-today">11</button><button class="c-day">12</button><button class="c-day">13</button><button class="c-day">14</button><button class="c-day">15</button>
+                <button class="c-day">16</button><button class="c-day">17</button><button class="c-day">18</button><button class="c-day">19</button><button class="c-day">20</button><button class="c-day">21</button><button class="c-day">22</button>
+                <button class="c-day">23</button><button class="c-day">24</button><button class="c-day">25</button><button class="c-day">26</button><button class="c-day">27</button><button class="c-day">28</button><button class="c-day">29</button>
+                <button class="c-day">30</button><button class="c-day is-muted">1</button><button class="c-day is-muted">2</button><button class="c-day is-muted">3</button><button class="c-day is-muted">4</button><button class="c-day is-muted">5</button><button class="c-day is-muted">6</button>
+              </div>
+            </div>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">UPLOAD · 投放区</span>
+            <div class="c-dropzone">
+              <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V5M8 9l4-4 4 4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>
+              <b>把文件拖到这里</b>
+              <span>或点击选择 · 单个不超过 100 MB</span>
+            </div>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">UPLOAD · 进度</span>
+            <div class="c-files">
+              <div class="c-file"><span class="name">panel.tar.gz</span><span class="track"><i style="width:100%"></i></span><span class="size">18.2 MB</span><button class="rm" aria-label="移除">✕</button></div>
+              <div class="c-file"><span class="name">nginx.conf</span><span class="track"><i style="width:46%"></i></span><span class="size">46%</span><button class="rm" aria-label="取消">✕</button></div>
+              <div class="c-file"><span class="name">backup.sql</span><span class="track"><i style="width:0%"></i></span><span class="size">等待</span><button class="rm" aria-label="取消">✕</button></div>
+            </div>
+            <span class="c-help">失败的行保留下来单独重试，不整批回滚</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 表单与筛选 -->
+    <section class="comp-section" id="form">
+      <header><span class="num">11</span><h2>表单与筛选</h2></header>
+      <p class="comp-desc">设置类表单统一「说明在左、控件在右」；必填用危险色星号；校验错误贴在该行里，并把整行底色提亮一档。</p>
+      <div class="comp-canvas">
+        <div class="c-form">
+          <div class="c-form-row">
+            <span class="k">主机名称<em>*</em><span class="sub">显示在窗口标题与主机列表</span></span>
+            <label class="c-field"><input class="c-input" value="N6000" aria-label="主机名称"></label>
+          </div>
+          <div class="c-form-row">
+            <span class="k">地址与端口<em>*</em><span class="sub">域名或 IP；端口留空按 22</span></span>
+            <div class="spec-row">
+              <label class="c-field" style="flex:1 1 160px"><input class="c-input" value="192.168.1.3" aria-label="地址"></label>
+              <label class="c-field" style="flex:0 0 90px"><input class="c-input" value="22" aria-label="端口"></label>
+            </div>
+          </div>
+          <div class="c-form-row c-form-row--error">
+            <span class="k">登录凭据<em>*</em></span>
+            <label class="c-field c-field--error">
+              <input class="c-input" value="root" aria-label="用户名">
+              <span class="c-error">该用户名在目标机上不存在</span>
+            </label>
+          </div>
+          <div class="c-form-row">
+            <span class="k">自动重连<span class="sub">断线后 5 秒内重试，最多 3 次</span></span>
+            <button class="c-switch is-on" role="switch" aria-checked="true"><span></span></button>
+          </div>
+        </div>
+
+        <div class="spec-divider"></div>
+
+        <div class="spec-row">
+          <div class="c-btn-group">
+            <button class="c-btn c-btn--sm is-active">全部</button>
+            <button class="c-btn c-btn--sm">在线</button>
+            <button class="c-btn c-btn--sm">告警</button>
+          </div>
+          <span class="spec-label">分段按钮组</span>
+          <div class="c-btn-group">
+            <button class="c-btn c-btn--sm">复制</button>
+            <button class="c-btn c-btn--sm">移动</button>
+            <button class="c-btn c-btn--sm" disabled>粘贴</button>
+          </div>
+          <span class="spec-label">联合操作</span>
+        </div>
+
+        <div class="c-filterbar">
+          <label class="c-field" style="flex:0 1 220px">
+            <span class="c-input-wrap c-input-wrap--icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+              <input class="c-input" placeholder="搜索主机、地址…" aria-label="搜索主机">
+            </span>
+          </label>
+          <button class="c-select" style="min-width:132px">全部系统 <span class="caret">▾</span></button>
+          <button class="c-select" style="min-width:118px">全部状态 <span class="caret">▾</span></button>
+          <span class="spacer"></span>
+          <button class="c-btn c-btn--sm">重置</button>
+          <button class="c-btn c-btn--sm c-btn--primary">应用筛选</button>
+        </div>
+        <span class="spec-label">FILTER BAR · 窄窗口时整组换行，不压缩控件</span>
+      </div>
+    </section>
+
+    <!-- 12 数据进阶 -->
+    <section class="comp-section" id="data-adv">
+      <header><span class="num">12</span><h2>数据进阶</h2></header>
+      <p class="comp-desc">可排序的表头给出箭头而不是只换颜色；目录树靠缩进表达层级；迷你图只承担趋势，坐标轴文字留在图外。</p>
+      <div class="comp-canvas">
+        <table class="c-table">
+          <thead>
+            <tr><th class="is-sort">主机 <span class="arrow">▼</span></th><th>地址</th><th class="is-sort">CPU <span class="arrow">↕</span></th><th>状态</th></tr>
+          </thead>
+          <tbody>
+            <tr class="is-selected"><td>N6000</td><td>192.168.1.3</td><td>42%</td><td><span class="c-tag c-tag--ok"><i></i>在线</span></td></tr>
+            <tr><td>DELL</td><td>192.168.1.10</td><td>18%</td><td><span class="c-tag c-tag--ok"><i></i>在线</span></td></tr>
+            <tr><td>N100</td><td>192.168.1.13</td><td>76%</td><td><span class="c-tag c-tag--warn"><i></i>负载高</span></td></tr>
+            <tr class="is-loading"><td colspan="4"><div class="c-skeleton" style="width:62%"></div></td></tr>
+          </tbody>
+        </table>
+
+        <div class="spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">TREE · 文件</span>
+            <div class="c-tree">
+              <div class="c-node is-dir"><span class="caret">▾</span>/srv/panel<span class="size">4 项</span></div>
+              <div class="c-node c-node--l2 is-dir"><span class="caret">▾</span>config</div>
+              <div class="c-node c-node--l3">server.yaml<span class="size">2.4 KB</span></div>
+              <div class="c-node c-node--l3">hosts.json<span class="size">812 B</span></div>
+              <div class="c-node c-node--l2 is-dir"><span class="caret">▸</span>logs</div>
+              <div class="c-node c-node--l2">README.md<span class="size">1.1 KB</span></div>
+            </div>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">SPARKLINE · 带轴</span>
+            <div class="c-chart">
+              <div class="axis"><span>CPU · N6000</span><span>42%</span></div>
+              <svg viewBox="0 0 240 56" preserveAspectRatio="none" aria-hidden="true">
+                <polyline class="poly" points="0,42 20,38 40,41 60,30 80,33 100,25 120,28 140,20 160,26 180,18 200,24 220,15 240,18"/>
+              </svg>
+              <div class="axis"><span>14:20</span><span>14:25</span><span>14:30</span><span>现在</span></div>
+            </div>
+            <div class="c-legend">
+              <span style="color:var(--c-accent)"><i></i>CPU</span>
+              <span style="color:var(--c-ok)"><i></i>内存</span>
+            </div>
+          </div>
+        </div>
+
+        <dl class="c-desc-list">
+          <div><dt>操作系统</dt><dd>Debian 12.5</dd></div>
+          <div><dt>内核</dt><dd>6.1.0-28-amd64</dd></div>
+          <div><dt>架构</dt><dd>x86_64</dd></div>
+          <div><dt>登录用户</dt><dd>admin · sudo</dd></div>
+          <div><dt>已运行</dt><dd>12d 3h 41m</dd></div>
+          <div><dt>最后采样</dt><dd>14:31:52</dd></div>
+        </dl>
+
+        <div class="c-statusbar">
+          <span class="on">● SSH 已连接</span>
+          <span>指标 3s</span>
+          <span>1 条告警</span>
+          <span class="spacer"></span>
+          <span>UTF-8</span>
+          <span>v1.4.2</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 反馈进阶 -->
+    <section class="comp-section" id="feedback-adv">
+      <header><span class="num">13</span><h2>反馈进阶</h2></header>
+      <p class="comp-desc">消息中心按时间倒序，未读用底色区分；多步操作用分段进度；长耗时只遮住受影响的那一块区域。</p>
+      <div class="comp-canvas">
+        <div class="c-notices">
+          <div class="c-notice is-warn is-unread"><span class="dot"></span><div><b>N100 负载持续偏高</b><span>过去 5 分钟平均 6.8</span></div><time>2 分钟前</time></div>
+          <div class="c-notice is-ok"><span class="dot"></span><div><b>N6000 快照创建完成</b><span>回滚点 2026-11-11 14:31</span></div><time>18 分钟前</time></div>
+          <div class="c-notice"><span class="dot"></span><div><b>instabox.sh 延迟超过 150 ms</b><span>当前 186 ms</span></div><time>1 小时前</time></div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">PROGRESS · 不确定</span>
+            <div class="c-progress c-progress--indeterminate"><i></i></div>
+            <span class="c-help">等待目标机返回，不编造百分比</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">STEPS</span>
+            <div class="c-steps">
+              <div class="c-step is-done"><span class="bar"></span><span class="txt">预检</span></div>
+              <div class="c-step is-done"><span class="bar"></span><span class="txt">下载</span></div>
+              <div class="c-step is-active"><span class="bar"></span><span class="txt">安装</span></div>
+              <div class="c-step"><span class="bar"></span><span class="txt">复核</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="c-card c-loading">
+            <div class="c-card-head">容器列表<span class="c-tag c-tag--accent"><i></i>加载中</span></div>
+            <div class="c-card-body">docker ps 正在目标机上执行，结果返回前保留上一帧。</div>
+            <div class="veil"><span class="c-spinner"></span></div>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">BANNER</span>
+            <div class="c-banner"><b style="color:var(--c-warn)">权限不足</b>该主机未配置提权口令，安装操作已禁用。<span class="spacer"></span><button class="c-btn c-btn--sm">去配置</button></div>
+            <div class="c-empty" style="padding:18px 14px">
+              <b>没有匹配的进程</b>
+              <span>换个关键词，或清空筛选条件</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 覆盖层进阶 -->
+    <section class="comp-section" id="overlay-adv">
+      <header><span class="num">14</span><h2>覆盖层进阶</h2></header>
+      <p class="comp-desc">抽屉承载多字段表单，弹窗只承载一个决定；命令面板是键盘用户的全局入口。</p>
+      <div class="comp-canvas">
+        <div class="spec-grid">
+          <div class="c-drawer">
+            <div class="c-drawer-head">新增主机<button class="c-modal-x" aria-label="关闭">✕</button></div>
+            <div class="c-drawer-body">
+              <label class="c-field"><span class="c-label">名称</span><input class="c-input" value="N6000"></label>
+              <label class="c-field"><span class="c-label">地址</span><input class="c-input" value="192.168.1.3"></label>
+              <div class="c-field">
+                <span class="c-label">认证</span>
+                <div class="c-btn-group">
+                  <button class="c-btn c-btn--sm is-active">密码</button>
+                  <button class="c-btn c-btn--sm">私钥</button>
+                  <button class="c-btn c-btn--sm">无凭据</button>
+                </div>
+              </div>
+              <div class="c-alert"><div><b>首次连接</b>会写入 known_hosts。</div></div>
+            </div>
+            <div class="c-drawer-foot">
+              <button class="c-btn c-btn--sm">取消</button>
+              <button class="c-btn c-btn--sm c-btn--primary">保存并连接</button>
+            </div>
+          </div>
+
+          <div class="spec-item" style="gap:22px">
+            <span class="spec-label">POPOVER</span>
+            <div class="c-popover">命令会复制到剪贴板，可直接粘到终端里执行。</div>
+            <span class="spec-label">CONTEXT MENU</span>
+            <div class="c-menu">
+              <button>打开终端<span><kbd>⌘T</kbd></span></button>
+              <button>复制地址<span><kbd>⌘C</kbd></span></button>
+              <div class="divider"></div>
+              <button class="danger">删除主机</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spec-item">
+          <span class="spec-label">COMMAND PALETTE · ⌘K</span>
+          <div class="c-palette">
+            <input value="主机" aria-label="命令搜索">
+            <ul>
+              <li class="is-active"><span>打开主机管理</span><span class="k">↵</span></li>
+              <li><span>新增主机</span><span class="k">⌘N</span></li>
+              <li><span>批量执行…</span><span class="k">⌘B</span></li>
+              <li><span>切换到 N6000</span><span class="k">⌘1</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 基础元素 -->
+    <section class="comp-section" id="atoms">
+      <header><span class="num">15</span><h2>基础元素</h2></header>
+      <p class="comp-desc">快捷键、头像、状态点与分隔标题：只在需要的地方出现，不为了装饰而堆。</p>
+      <div class="comp-canvas">
+        <div class="spec-grid">
+          <div class="spec-item">
+            <span class="spec-label">KEYCAP</span>
+            <div class="spec-row">
+              <kbd class="c-kbd">⌘</kbd><kbd class="c-kbd">K</kbd><kbd class="c-kbd">ESC</kbd><kbd class="c-kbd">↵</kbd><kbd class="c-kbd">⇧</kbd>
+            </div>
+            <span class="c-help">用等宽字与 2px 下边表达按压感</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">AVATAR</span>
+            <div class="spec-row">
+              <span class="c-avatar">NX</span>
+              <span class="c-avatar c-avatar--lg">PS</span>
+              <span class="c-avatar c-avatar--accent">AD</span>
+              <span class="c-help">首字母大写，两张字母表以外用缩写</span>
+            </div>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">STATUS · 图例</span>
+            <div class="spec-row">
+              <span class="c-tag c-tag--ok"><i></i>在线</span>
+              <span class="c-tag c-tag--warn"><i></i>负载高</span>
+              <span class="c-tag c-tag--danger"><i></i>离线</span>
+              <span class="c-tag"><i></i>未知</span>
+            </div>
+          </div>
+          <div class="spec-item">
+            <span class="spec-label">DIVIDER · 标题</span>
+            <div class="c-rule"><span>已归档</span></div>
+            <span class="c-help">列表分段，不承担导航职责</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 规范 -->
+    <section class="comp-section" id="spec">
+      <header><span class="num">16</span><h2>尺寸与状态</h2></header>
+      <p class="comp-desc">所有取值来自同一套令牌；改主题时只替换颜色、圆角、字体与阴影，不改尺寸。</p>
+      <div class="comp-canvas">
+        <table class="c-spec-table">
+          <thead><tr><th>项目</th><th>取值</th><th>用途</th></tr></thead>
+          <tbody>
+            <tr><td>控件高度</td><td>28 / 32 / 36</td><td>小号 / 默认 / 大号</td></tr>
+            <tr><td>间距</td><td>4 / 8 / 12 / 16 / 20</td><td>4px 基准网格</td></tr>
+            <tr><td>字号</td><td>9 / 10 / 11 / 12 / 13 / 19</td><td>标签 / 辅助 / 等宽 / 正文 / 标题</td></tr>
+            <tr><td>圆角</td><td>0 / 2 / 4 / 7 / 10</td><td>随风格变化，组件内保持一致</td></tr>
+            <tr><td>状态</td><td>默认 / 悬停 / 聚焦 / 禁用 / 加载 / 错误</td><td>全部组件必须覆盖</td></tr>
+            <tr><td>焦点环</td><td>1px 信号色 / 不改变布局</td><td>键盘可达性</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+  // 仅用于把未选中的“部分选中”复选框设为 indeterminate（HTML 没有对应属性）。
+  const indet = document.getElementById('indet');
+  if (indet) indet.indeterminate = true;
+</script>
+</body>
+</html>

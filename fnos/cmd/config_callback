@@ -1,0 +1,9 @@
+#!/bin/bash
+# 配置变更后：重启一次让新配置生效。
+set -u
+
+if [ -x "${TRIM_APPDEST}/cmd/main" ]; then
+  "${TRIM_APPDEST}/cmd/main" stop
+  "${TRIM_APPDEST}/cmd/main" start
+fi
+exit 0

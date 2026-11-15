@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel SSH · 视觉方向提案</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0a0c10;
+    --panel: #0f1217;
+    --panel-2: #141820;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-strong: rgba(255, 255, 255, 0.16);
+    --ink: #eef1f5;
+    --ink-mid: #aeb6c1;
+    --ink-lo: #7b838e;
+    --accent: #f2b544;
+    --mono: 'JetBrains Mono', 'Cascadia Code', ui-monospace, Consolas, monospace;
+    --sans: 'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, 'Noto Sans CJK SC', 'PingFang SC',
+      'Microsoft YaHei', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1000px 600px at 82% -10%, rgba(242, 181, 68, 0.08), transparent 60%),
+      var(--bg);
+    color: var(--ink);
+    font: 14px/1.6 var(--sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 48px 24px 72px;
+  }
+
+  header .kicker {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 600 10px/1 var(--mono);
+    letter-spacing: 0.22em;
+    color: var(--accent);
+  }
+
+  header .kicker::before {
+    content: '';
+    width: 22px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    margin: 16px 0 10px;
+    font: 500 clamp(30px, 4.4vw, 52px)/1.1 var(--sans);
+    letter-spacing: -0.03em;
+  }
+
+  header p {
+    max-width: 720px;
+    margin: 0;
+    color: var(--ink-mid);
+    font-size: 14px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+    font: 10px var(--mono);
+    color: var(--ink-lo);
+  }
+
+  .meta-row span {
+    padding: 3px 8px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .card:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-2px);
+  }
+
+  .card-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px 12px;
+  }
+
+  .no {
+    font: 600 10px/1 var(--mono);
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    padding-top: 4px;
+  }
+
+  .card-head h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .card-head .tagline {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    color: var(--ink-lo);
+  }
+
+  .card-head .open {
+    margin-left: auto;
+    padding: 5px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    font: 600 9px/1 var(--mono);
+    letter-spacing: 0.1em;
+    color: var(--ink-mid);
+    white-space: nowrap;
+  }
+
+  .card:hover .open {
+    color: var(--ink);
+    border-color: var(--accent);
+  }
+
+  .shot {
+    position: relative;
+    height: 300px;
+    margin: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #000;
+    overflow: hidden;
+  }
+
+  .shot iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 800px;
+    border: 0;
+    transform: scale(0.4);
+    transform-origin: 0 0;
+  }
+
+  .shot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 -40px 60px -30px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+  }
+
+  .card-body {
+    padding: 14px 18px 18px;
+  }
+
+  .swatches {
+    display: flex;
+    gap: 6px;
+  }
+
+  .swatches i {
+    width: 26px;
+    height: 10px;
+    border-radius: 1px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .keywords span {
+    padding: 2px 7px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font: 10px var(--mono);
+    color: var(--ink-lo);
+  }
+
+  .card-body p {
+    margin: 12px 0 0;
+    font-size: 12.5px;
+    color: var(--ink-mid);
+  }
+
+  .card-body p b {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  section.compare {
+    margin-top: 56px;
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+  }
+
+  /* ---------- 组件规范入口 ---------- */
+  section.components-entry {
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+  }
+
+  .entry-kicker {
+    display: block;
+    margin-bottom: 6px;
+    font: 600 10px/1 var(--mono);
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+
+  .entry-head h3 {
+    margin: 0 0 6px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .entry-head p {
+    max-width: 760px;
+    margin: 0 0 18px;
+    color: var(--ink-lo);
+    font-size: 13px;
+  }
+
+  .entry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .entry-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--panel);
+    transition: border-color 160ms ease, transform 160ms ease;
+  }
+
+  .entry-card:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-1px);
+  }
+
+  .entry-card b {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .entry-card span {
+    font-size: 11px;
+    color: var(--ink-lo);
+  }
+
+  .entry-card i {
+    position: absolute;
+    top: 16px;
+    right: 14px;
+    width: 34px;
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 860px) {
+    .entry-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  section.compare h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  section.compare > p {
+    margin: 0 0 18px;
+    color: var(--ink-lo);
+    font-size: 13px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+
+  th {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--line-strong);
+    font: 600 9px/1.4 var(--mono);
+    letter-spacing: 0.14em;
+    text-align: left;
+    text-transform: uppercase;
+    color: var(--ink-lo);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 12px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-mid);
+    vertical-align: top;
+  }
+
+  td:first-child {
+    color: var(--ink);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .note {
+    margin-top: 26px;
+    padding: 14px 16px;
+    border-left: 2px solid var(--accent);
+    background: var(--panel-2);
+    color: var(--ink-mid);
+    font-size: 12.5px;
+  }
+
+  .note b { color: var(--ink); }
+
+  footer {
+    margin-top: 40px;
+    font: 10px var(--mono);
+    letter-spacing: 0.1em;
+    color: var(--ink-lo);
+  }
+
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr; }
+    .shot { height: 260px; }
+    .shot iframe { transform: scale(0.34); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="kicker">PANEL SSH · DESIGN DIRECTIONS</div>
+    <h1>四套视觉语言，<br>同一个主机管理界面。</h1>
+    <p>
+      现状是「工业仪表盘」：深炭灰、琥珀信号色、小圆角、细描边。下面四个方向保留高密度信息与键盘可达性，
+      但在气质、明度、字体与材质上各走一条路。每张卡片都可以点开完整静态页。
+    </p>
+    <div class="meta-row">
+      <span>纯 HTML / CSS</span>
+      <span>无外部字体</span>
+      <span>无图片资源</span>
+      <span>桌面 1280×800 基准</span>
+    </div>
+  </header>
+
+  <div class="grid">
+    <article class="card">
+      <div class="card-head">
+        <span class="no">A</span>
+        <div>
+          <h2>Graphite</h2>
+          <span class="tagline">深色工业控制台 · 现存方向的精炼版</span>
+        </div>
+        <a class="open" href="style-graphite.html">打开预览 →</a>
+      </div>
+      <div class="shot"><iframe src="style-graphite.html" loading="lazy" title="Graphite 预览"></iframe></div>
+      <div class="card-body">
+        <div class="swatches">
+          <i style="background:#08090b"></i>
+          <i style="background:#111419"></i>
+          <i style="background:#2dd4bf"></i>
+          <i style="background:#f5a623"></i>
+        </div>
+        <div class="keywords"><span>高密度</span><span>单一信号色</span><span>硬边</span><span>等宽数据</span></div>
+        <p><b>适合：</b>夜间值守、监控墙、批量运维。保留现有使用习惯，改动成本最低，但整体观感更安静、更精密。</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="no">B</span>
+        <div>
+          <h2>Paper Ops</h2>
+          <span class="tagline">纸面运维 · 台账与档案的气质</span>
+        </div>
+        <a class="open" href="style-paper.html">打开预览 →</a>
+      </div>
+      <div class="shot"><iframe src="style-paper.html" loading="lazy" title="Paper Ops 预览"></iframe></div>
+      <div class="card-body">
+        <div class="swatches">
+          <i style="background:#f2ece1"></i>
+          <i style="background:#fbf8f1"></i>
+          <i style="background:#211d17"></i>
+          <i style="background:#b8462a"></i>
+        </div>
+        <div class="keywords"><span>暖白</span><span>衬线标题</span><span>账本表格</span><span>零圆角</span></div>
+        <p><b>适合：</b>白天办公、巡检与报告类场景。把服务器清单当成一本台账，长时间阅读压力最小；深色图表需要单独配色。</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="no">C</span>
+        <div>
+          <h2>Frost</h2>
+          <span class="tagline">冷白机务 · 明亮、临床、通用</span>
+        </div>
+        <a class="open" href="style-frost.html">打开预览 →</a>
+      </div>
+      <div class="shot"><iframe src="style-frost.html" loading="lazy" title="Frost 预览"></iframe></div>
+      <div class="card-body">
+        <div class="swatches">
+          <i style="background:#e9eef4"></i>
+          <i style="background:#ffffff"></i>
+          <i style="background:#2456d6"></i>
+          <i style="background:#0f8a5f"></i>
+        </div>
+        <div class="keywords"><span>明亮</span><span>钴蓝强调</span><span>柔和阴影</span><span>深色终端锚点</span></div>
+        <p><b>适合：</b>通用办公、演示、白天使用。最容易让非运维用户建立信任感；大面积白色在夜间需要提供深色主题切换。</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="no">D</span>
+        <div>
+          <h2>Midnight</h2>
+          <span class="tagline">深潜任务控制 · 仪器感与空间坐标</span>
+        </div>
+        <a class="open" href="style-midnight.html">打开预览 →</a>
+      </div>
+      <div class="shot"><iframe src="style-midnight.html" loading="lazy" title="Midnight 预览"></iframe></div>
+      <div class="card-body">
+        <div class="swatches">
+          <i style="background:#04070e"></i>
+          <i style="background:#0a1322"></i>
+          <i style="background:#38bdf8"></i>
+          <i style="background:#8b7cf6"></i>
+        </div>
+        <div class="keywords"><span>深潜蓝</span><span>青色数据</span><span>角标框线</span><span>网格底</span></div>
+        <p><b>适合：</b>大屏、演示、AI 工作台入口。视觉记忆点最强；装饰元素更多，日常高密度页面需要克制使用。</p>
+      </div>
+    </article>
+  </div>
+
+  <section class="components-entry">
+    <div class="entry-head">
+      <span class="entry-kicker">COMPONENTS &amp; UI</span>
+      <h3>组件与界面语言</h3>
+      <p>
+        按钮、输入、选择、数据展示、反馈、导航、覆盖层与尺寸规范。同一套组件在四种风格下各有一份，
+        用来检查“视觉方向”落到具体控件上是否仍然成立。
+      </p>
+    </div>
+    <div class="entry-grid">
+      <a class="entry-card" href="components-graphite.html">
+        <i style="background:linear-gradient(90deg,#111419,#2dd4bf)"></i>
+        <b>Graphite</b><span>深色工业控制台 · 组件规范</span>
+      </a>
+      <a class="entry-card" href="components-paper.html">
+        <i style="background:linear-gradient(90deg,#f2ece1,#b8462a)"></i>
+        <b>Paper Ops</b><span>纸面运维 · 组件规范</span>
+      </a>
+      <a class="entry-card" href="components-frost.html">
+        <i style="background:linear-gradient(90deg,#e9eef4,#2456d6)"></i>
+        <b>Frost</b><span>冷白机务 · 组件规范</span>
+      </a>
+      <a class="entry-card" href="components-midnight.html">
+        <i style="background:linear-gradient(90deg,#0a1322,#38bdf8)"></i>
+        <b>Midnight</b><span>深潜任务控制 · 组件规范</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="compare">
+    <h3>怎么选</h3>
+    <p>四个方向都能承载现有窗口模型与信息密度，差别在于「长期使用的情绪」与「改造成本」。</p>
+    <table>
+      <thead>
+        <tr><th>方向</th><th>气质</th><th>最适合</th><th>需要接受</th><th>改造成本</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Graphite</td><td>精密、克制、仪器感</td><td>夜间值守、监控密集</td><td>整体偏冷，暖色只用于告警</td><td>低（现有令牌的收敛版）</td></tr>
+        <tr><td>Paper Ops</td><td>平静、档案、编辑感</td><td>白天办公、巡检报告</td><td>深色图表与终端要另配一套色</td><td>中（字体与表格重排）</td></tr>
+        <tr><td>Frost</td><td>明亮、可信、通用</td><td>演示、普通办公</td><td>夜间需要深色主题</td><td>中（圆角、阴影、间距重做）</td></tr>
+        <tr><td>Midnight</td><td>沉浸、任务控制</td><td>大屏、AI 入口</td><td>装饰元素要克制，否则抢数据</td><td>中高（角标、网格、辉光）</td></tr>
+      </tbody>
+    </table>
+    <div class="note">
+      <b>建议：</b>以 <b>A Graphite</b> 作为主主题最稳，它保留现有交互与令牌结构，只做视觉收敛；
+      如果希望面板更像一款面向团队的通用产品，选 <b>C Frost</b>；
+      <b>B Paper Ops</b> 可以作为「巡检/报告」模式，<b>D Midnight</b> 适合作为 AI 工作台或大屏的可选皮肤，而不是全局默认。
+    </div>
+  </section>
+
+  <footer>PANEL SSH · 2026-11-10 · 静态预览，无外部依赖</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "panelssh-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ./node_modules/vite/bin/vite.js",
+    "build": "bash scripts/build.sh",
+    "preview": "node ./node_modules/vite/bin/vite.js preview",
+    "typecheck": "node ./node_modules/vue-tsc/bin/vue-tsc.js --noEmit",
+    "test": "node ./node_modules/vitest/vitest.mjs run"
+  },
+  "dependencies": {
+    "@xterm/addon-fit": "^0.11.0",
+    "@xterm/xterm": "^6.0.0",
+    "highlight.js": "^11.12.0",
+    "naive-ui": "^2.45.3",
+    "vue": "^3.5.42"
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.1",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.0",
+    "vitest": "^3.2.7",
+    "vue-tsc": "^3.3.11"
+  }
+}

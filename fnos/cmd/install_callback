@@ -1,0 +1,3 @@
+#!/bin/bash
+# 安装完成：无需额外处理。首次启动的初始化由 cmd/main start 完成。
+exit 0

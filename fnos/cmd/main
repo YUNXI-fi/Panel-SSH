@@ -1,0 +1,104 @@
+#!/bin/bash
+#
+# Panel SSH 生命周期控制：start / stop / status。
+#
+# 这三个动作必须幂等：安装、升级、开机、手动启停都会调用，重复执行不能出错。
+# 退出码遵循 fnOS 约定：0 成功/运行中，1 失败，3 未运行（仅 status）。
+set -u
+
+BIN="${TRIM_APPDEST}/bin/panelssh"
+VAR_DIR="${TRIM_PKGVAR}"
+DATA_DIR="${VAR_DIR}/data"
+PID_FILE="${VAR_DIR}/panelssh.pid"
+LOG_FILE="${VAR_DIR}/panelssh.log"
+INIT_PW_FILE="${VAR_DIR}/initial-admin-password.txt"
+PORT="${TRIM_SERVICE_PORT:-29180}"
+
+fail() {
+  # 失败原因写到这个文件，应用中心会把它展示给用户。
+  printf '%s\n' "$1" > "${TRIM_TEMP_LOGFILE:-/dev/stderr}"
+  exit 1
+}
+
+is_running() {
+  [ -f "$PID_FILE" ] || return 1
+  local pid
+  pid="$(cat "$PID_FILE" 2>/dev/null)"
+  [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null
+}
+
+# 首次启动时 Panel SSH 会随机生成 admin 密码，并且只在日志里打印一次。
+# 这里单独留一份，用户不必去翻整份运行日志；文件名固定，便于文档指引。
+capture_initial_password() {
+  [ -f "$INIT_PW_FILE" ] && return 0
+  [ -f "$LOG_FILE" ] || return 0
+  local pw
+  pw="$(sed -n 's/.*密  码：//p' "$LOG_FILE" 2>/dev/null | head -n 1)"
+  [ -n "$pw" ] || return 0
+  printf '%s\n' "$pw" > "$INIT_PW_FILE"
+  chmod 600 "$INIT_PW_FILE"
+}
+
+start() {
+  mkdir -p "$DATA_DIR" || fail "无法创建数据目录：$DATA_DIR"
+  if is_running; then
+    return 0
+  fi
+  [ -x "$BIN" ] || fail "找不到可执行文件：$BIN（请先在 fnos 目录执行 build.sh）"
+
+  # 固定工作目录：Panel SSH 的数据库、主密钥、known_hosts 都按 -data 落盘，
+  # 但相对路径的兜底行为不该受调用方 cwd 影响。
+  cd "$VAR_DIR" || fail "无法进入应用数据目录：$VAR_DIR"
+  nohup "$BIN" -addr ":$PORT" -data "$DATA_DIR" >> "$LOG_FILE" 2>&1 &
+  echo $! > "$PID_FILE"
+
+  # 等端口就绪再返回：系统紧接着就会打开入口页，进程刚 fork 时页面还是空白的。
+  local i
+  for i in $(seq 1 40); do
+    if ! kill -0 "$(cat "$PID_FILE" 2>/dev/null)" 2>/dev/null; then
+      rm -f "$PID_FILE"
+      fail "Panel SSH 启动失败，请查看日志：$LOG_FILE"
+    fi
+    if (echo > "/dev/tcp/127.0.0.1/$PORT") 2>/dev/null; then
+      capture_initial_password
+      return 0
+    fi
+    sleep 0.25
+  done
+  # 进程还活着但端口没通：可能只是慢，交给 status 继续判断，不在这里误杀。
+  return 0
+}
+
+stop() {
+  if ! is_running; then
+    rm -f "$PID_FILE"
+    return 0
+  fi
+  local pid
+  pid="$(cat "$PID_FILE")"
+  kill -TERM "$pid" 2>/dev/null
+  local i
+  for i in $(seq 1 40); do
+    if ! kill -0 "$pid" 2>/dev/null; then
+      rm -f "$PID_FILE"
+      return 0
+    fi
+    sleep 0.25
+  done
+  # 10 秒还没退：直接 KILL，避免升级或卸载被一个卡住的进程挡住。
+  kill -KILL "$pid" 2>/dev/null
+  rm -f "$PID_FILE"
+  return 0
+}
+
+case "${1:-}" in
+  start) start ;;
+  stop) stop ;;
+  status)
+    if is_running; then exit 0; fi
+    exit 3
+    ;;
+  *)
+    fail "未知命令：${1:-}（可用：start / stop / status）"
+    ;;
+esac

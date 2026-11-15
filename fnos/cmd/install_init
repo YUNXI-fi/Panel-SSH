@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# 安装前：准备持久化数据目录。
+#
+# 安装脚本可能以 root 执行，而服务以 package 用户运行；这里把目录属主交还，
+# 否则首次启动会因为没有写权限而失败。
+set -u
+
+DATA_DIR="${TRIM_PKGVAR}/data"
+if ! mkdir -p "$DATA_DIR"; then
+  printf '无法创建数据目录：%s\n' "$DATA_DIR" > "${TRIM_TEMP_LOGFILE:-/dev/stderr}"
+  exit 1
+fi
+
+if [ -n "${TRIM_UID:-}" ] && [ -n "${TRIM_GID:-}" ]; then
+  chown -R "${TRIM_UID}:${TRIM_GID}" "$TRIM_PKGVAR" 2>/dev/null || true
+fi
+
+exit 0

@@ -1,0 +1,27 @@
+# 运行数据与密钥：绝不入库
+/data/
+/data.bak/
+/bin/
+/dist/
+
+# Go 构建产物
+/fnos/app/bin/
+/fnos/dist/
+
+# 前端依赖与构建产物
+**/node_modules/
+/Panel SSH/internal/web/dist/
+
+# 临时与本地状态
+*.log
+*.db
+*.db-shm
+*.db-wal
+master.key
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# 应用仓库的本地缓存
+/apps/.cache/

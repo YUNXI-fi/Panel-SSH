@@ -1,0 +1,4 @@
+# 构建产物
+app/bin/panelssh
+dist/
+*.fpk
