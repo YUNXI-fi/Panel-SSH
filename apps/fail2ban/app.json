@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "slug": "fail2ban",
+  "name": "Fail2Ban",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "按日志自动封禁暴力破解来源 IP",
+  "useCase": "公网 SSH、Web 登录入口的入侵防护",
+  "note": "默认规则读取系统认证日志，启用前请确认日志路径",
+  "icon": "icon.svg",
+  "defaultAction": "status",
+  "config": [
+    {
+      "path": "/etc/fail2ban/jail.local"
+    },
+    {
+      "path": "/etc/fail2ban/jail.d",
+      "isDir": true
+    }
+  ],
+  "actions": [
+    {
+      "id": "status",
+      "label": "查看封禁状态",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "jail",
+      "label": "查看单个 Jail",
+      "fields": [
+        {
+          "key": "jail",
+          "label": "Jail 名称",
+          "type": "text",
+          "default": "sshd",
+          "required": true,
+          "help": "如 sshd、nginx-http-auth",
+          "pattern": "^[A-Za-z0-9._@-]{1,64}$",
+          "maxLen": 200
+        }
+      ],
+      "needRoot": true,
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "unban",
+      "label": "解封 IP",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "jail",
+          "label": "Jail 名称",
+          "type": "text",
+          "default": "sshd",
+          "required": true,
+          "help": "要操作的 Jail",
+          "pattern": "^[A-Za-z0-9._@-]{1,64}$",
+          "maxLen": 200
+        },
+        {
+          "key": "ip",
+          "label": "IP 地址",
+          "type": "text",
+          "required": true,
+          "help": "要解封的 IP",
+          "pattern": "^[0-9A-Fa-f:.]{2,45}$",
+          "maxLen": 200
+        }
+      ],
+      "needRoot": true,
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "reload",
+      "label": "重载配置",
+      "group": "manage",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "test",
+      "label": "校验配置",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "start",
+      "label": "启动服务",
+      "group": "manage",
+      "confirm": "启动后 Fail2Ban 会立即按现有规则封禁匹配的地址。",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

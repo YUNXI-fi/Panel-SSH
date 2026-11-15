@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "slug": "wireguard-tools",
+  "name": "WireGuard",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "轻量 VPN 的配置与隧道管理工具",
+  "useCase": "组建点对点加密网络、远程安全访问内网",
+  "note": "仅安装配置工具，隧道与密钥需另行创建",
+  "icon": "icon.svg",
+  "defaultAction": "status",
+  "config": [
+    {
+      "path": "/etc/wireguard",
+      "isDir": true
+    }
+  ],
+  "actions": [
+    {
+      "id": "interfaces",
+      "label": "隧道接口",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "status",
+      "label": "隧道状态",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "configs",
+      "label": "配置目录",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

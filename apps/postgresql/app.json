@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "slug": "postgresql",
+  "name": "PostgreSQL",
+  "version": "1.0.0",
+  "category": "database",
+  "description": "PostgreSQL 服务端与客户端，装完即设为开机自启并启动",
+  "note": "Debian/Ubuntu 的包会自动建好默认实例；RHEL 系由本步骤补一次 initdb。数据库默认只监听本机，对外开放需自行改配置",
+  "icon": "icon.svg",
+  "defaultAction": "status",
+  "config": [
+    {
+      "path": "/etc/postgresql",
+      "isDir": true
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "postgres --version | awk '{print $NF}' 2\u003e/dev/null | head -1"
+    },
+    {
+      "id": "status",
+      "label": "服务状态",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'postgresql'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'postgresql'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='postgresql'\nif command -v systemctl \u003e/dev/null 2\u003e\u00261 \u0026\u0026 systemctl cat \"$unit\" \u003e/dev/null 2\u003e\u00261; then\n  systemctl status \"$unit\" --no-pager\nelif command -v rc-service \u003e/dev/null 2\u003e\u00261; then\n  rc-service \"$unit\" status\nelse\n  echo '未找到服务单元：postgresql'\n  exit 1\nfi"
+    },
+    {
+      "id": "logs",
+      "label": "最近日志",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'postgresql'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'postgresql'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='postgresql'\nif command -v journalctl \u003e/dev/null 2\u003e\u00261; then\n  journalctl -u \"$unit\" -n 80 --no-pager\nelse\n  echo '该主机没有 journalctl，请到系统日志窗口查看 postgresql'\nfi"
+    },
+    {
+      "id": "start",
+      "label": "启动服务",
+      "group": "manage",
+      "confirm": "启动后服务会立即对外提供能力。",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'postgresql'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'postgresql'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='postgresql'\nif command -v systemctl \u003e/dev/null 2\u003e\u00261 \u0026\u0026 systemctl cat \"$unit\" \u003e/dev/null 2\u003e\u00261; then\n  systemctl start \"$unit\"\nelif command -v rc-service \u003e/dev/null 2\u003e\u00261; then\n  rc-service \"$unit\" start\nelse\n  echo '未找到服务单元：postgresql'\n  exit 1\nfi"
+    },
+    {
+      "id": "restart",
+      "label": "重启服务",
+      "group": "manage",
+      "confirm": "重启会短暂中断正在使用的连接。",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'postgresql'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'postgresql'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='postgresql'\nif command -v systemctl \u003e/dev/null 2\u003e\u00261 \u0026\u0026 systemctl cat \"$unit\" \u003e/dev/null 2\u003e\u00261; then\n  systemctl restart \"$unit\"\nelif command -v rc-service \u003e/dev/null 2\u003e\u00261; then\n  rc-service \"$unit\" restart\nelse\n  echo '未找到服务单元：postgresql'\n  exit 1\nfi"
+    },
+    {
+      "id": "stop",
+      "label": "停止服务",
+      "group": "manage",
+      "confirm": "停止后服务不再对外提供能力，直到再次启动。",
+      "danger": true,
+      "needRoot": true,
+      "timeoutSec": 90,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'postgresql'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'postgresql'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='postgresql'\nif command -v systemctl \u003e/dev/null 2\u003e\u00261 \u0026\u0026 systemctl cat \"$unit\" \u003e/dev/null 2\u003e\u00261; then\n  systemctl stop \"$unit\"\nelif command -v rc-service \u003e/dev/null 2\u003e\u00261; then\n  rc-service \"$unit\" stop\nelse\n  echo '未找到服务单元：postgresql'\n  exit 1\nfi"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Tor">
+  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+        <circle cx="12" cy="13" r="8" />
+        <path d="M12 5c2.8 2.2 4.5 5 4.5 8S14.8 18.8 12 21c-2.8-2.2-4.5-5-4.5-8S9.2 7.2 12 5Z" />
+        <path d="M12 3v2" />
+  </g>
+</svg>

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "slug": "tor",
+  "name": "Tor",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "匿名洋葱路由客户端",
+  "useCase": "需要隐藏来源地址的合规匿名访问与研究",
+  "note": "默认仅提供 SOCKS 代理，不会自动接管系统流量",
+  "icon": "icon.svg",
+  "defaultAction": "status",
+  "config": [
+    {
+      "path": "/etc/tor/torrc"
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "status",
+      "label": "服务状态",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "verify",
+      "label": "校验配置",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "logs",
+      "label": "最近日志",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "restart",
+      "label": "重启服务",
+      "group": "manage",
+      "confirm": "重启 Tor 会短暂中断现有连接。",
+      "danger": true,
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "slug": "tcpdump",
+  "name": "tcpdump",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "命令行抓包，解析协议与握手过程",
+  "useCase": "定位连接超时、丢包、TLS 握手失败等网络疑难问题",
+  "note": "抓包需要 root 权限（或 CAP_NET_RAW）",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "interfaces",
+      "label": "列出网卡",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "capture",
+      "label": "抓取数据包",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "iface",
+          "label": "网卡",
+          "type": "text",
+          "default": "any",
+          "required": true,
+          "help": "如 eth0；any 表示所有网卡",
+          "pattern": "^[A-Za-z0-9._:/-]{1,128}$",
+          "maxLen": 200
+        },
+        {
+          "key": "count",
+          "label": "抓包数量",
+          "type": "number",
+          "default": "10",
+          "required": true,
+          "maxLen": 8
+        }
+      ],
+      "confirm": "将抓取指定数量的数据包，输出可能较多。",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "slug": "nethogs",
+  "name": "NetHogs",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "按进程查看实时网络带宽占用",
+  "useCase": "定位异常外联、挖矿或数据外传的进程",
+  "note": "需要 root 权限才能看到其他进程的流量",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "sample",
+      "label": "采样 5 秒流量",
+      "group": "manage",
+      "confirm": "将采样 5 秒，期间会阻塞等待结果。",
+      "needRoot": true,
+      "timeoutSec": 30,
+      "builtin": true
+    }
+  ]
+}

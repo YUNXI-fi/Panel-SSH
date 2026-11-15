@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "slug": "duf",
+  "name": "duf",
+  "version": "1.0.0",
+  "category": "monitor",
+  "description": "彩色磁盘用量表格，比 df 直观",
+  "note": "RHEL 系需要先启用 EPEL 仓库",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "duf --version 2\u003e/dev/null | head -1 | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

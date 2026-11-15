@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "slug": "ufw",
+  "name": "UFW",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "Debian/Ubuntu 上的简易防火墙前端",
+  "useCase": "快速放行或封禁端口，给新机器做最小暴露面",
+  "note": "安装后需手动启用（ufw enable），并确认已放行 SSH 端口",
+  "icon": "icon.svg",
+  "defaultAction": "status",
+  "config": [
+    {
+      "path": "/etc/ufw/ufw.conf"
+    },
+    {
+      "path": "/etc/ufw/user.rules"
+    },
+    {
+      "path": "/etc/default/ufw"
+    }
+  ],
+  "actions": [
+    {
+      "id": "status",
+      "label": "查看状态",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "numbered",
+      "label": "查看编号规则",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "allow",
+      "label": "放行端口",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "port",
+          "label": "端口",
+          "type": "number",
+          "default": "22",
+          "required": true,
+          "maxLen": 8
+        },
+        {
+          "key": "proto",
+          "label": "协议",
+          "type": "select",
+          "default": "tcp",
+          "options": [
+            "tcp",
+            "udp"
+          ],
+          "required": true
+        },
+        {
+          "key": "from",
+          "label": "来源",
+          "type": "text",
+          "default": "any",
+          "required": true,
+          "help": "any 表示任意来源，也可填 IP 或网段",
+          "pattern": "^[A-Za-z0-9._:/-]{1,128}$",
+          "maxLen": 200
+        }
+      ],
+      "needRoot": true,
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "delete",
+      "label": "删除规则",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "number",
+          "label": "规则编号",
+          "type": "number",
+          "default": "1",
+          "required": true,
+          "maxLen": 8
+        }
+      ],
+      "confirm": "删除后该规则立即失效，请确认编号无误。",
+      "danger": true,
+      "needRoot": true,
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "enable",
+      "label": "启用防火墙",
+      "group": "manage",
+      "confirm": "启用前请确认已放行 SSH 端口，否则当前远程连接可能中断。",
+      "danger": true,
+      "needRoot": true,
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "disable",
+      "label": "停用防火墙",
+      "group": "manage",
+      "confirm": "停用后现有防火墙规则将不再生效。",
+      "danger": true,
+      "needRoot": true,
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "reload",
+      "label": "重新加载规则",
+      "group": "manage",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

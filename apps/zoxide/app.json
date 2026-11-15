@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "slug": "zoxide",
+  "name": "zoxide",
+  "version": "1.0.0",
+  "category": "utility",
+  "description": "智能目录跳转（z 命令），按访问频率记忆路径",
+  "note": "装完还需在 shell 配置里加 eval \"$(zoxide init bash)\"（zsh 同理）才会生效",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "zoxide --version | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

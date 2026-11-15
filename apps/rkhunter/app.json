@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "slug": "rkhunter",
+  "name": "Rootkit Hunter",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "Rootkit 与可疑文件检查工具",
+  "useCase": "怀疑主机被入侵时做完整性与后门排查",
+  "note": "首次运行需执行 rkhunter --propupd 建立基线",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "config": [
+    {
+      "path": "/etc/rkhunter.conf"
+    },
+    {
+      "path": "/etc/rkhunter.conf.local"
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "check",
+      "label": "开始检查",
+      "group": "manage",
+      "confirm": "完整检查耗时较长，且需要已经建立过文件基线。",
+      "needRoot": true,
+      "timeoutSec": 600,
+      "builtin": true
+    },
+    {
+      "id": "baseline",
+      "label": "更新文件基线",
+      "group": "manage",
+      "confirm": "这会更新文件完整性基线，仅在确认当前系统干净时执行。",
+      "danger": true,
+      "needRoot": true,
+      "timeoutSec": 300,
+      "builtin": true
+    }
+  ]
+}

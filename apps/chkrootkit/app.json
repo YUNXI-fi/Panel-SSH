@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "slug": "chkrootkit",
+  "name": "chkrootkit",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "本地 Rootkit 检测工具",
+  "useCase": "与 Rootkit Hunter 交叉验证，排查后门与篡改",
+  "note": "扫描结果存在误报，需结合人工判断",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "config": [
+    {
+      "path": "/etc/chkrootkit.conf"
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "check",
+      "label": "开始检查",
+      "group": "manage",
+      "confirm": "扫描需要一段时间。",
+      "needRoot": true,
+      "timeoutSec": 600,
+      "builtin": true
+    },
+    {
+      "id": "quiet",
+      "label": "只输出可疑项",
+      "group": "manage",
+      "confirm": "扫描仍需要一段时间，只在发现可疑项时输出。",
+      "needRoot": true,
+      "timeoutSec": 600,
+      "builtin": true
+    }
+  ]
+}

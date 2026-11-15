@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="ClamAV">
+  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+        <rect x="7" y="8" width="10" height="12" rx="5" />
+        <path d="M9 8V6m6 2V6M4 11h3m10 0h3M4 16h3m10 0h3M9 6 8 4m7 2 1-2" />
+  </g>
+</svg>

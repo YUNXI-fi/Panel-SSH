@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "slug": "pass",
+  "name": "pass",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "基于 GPG 的命令行密码管理器",
+  "useCase": "在服务器上安全保存部署口令与 API 密钥",
+  "note": "使用前需先初始化 GPG 密钥（pass init）",
+  "icon": "icon.svg",
+  "defaultAction": "list",
+  "config": [
+    {
+      "path": "~/.password-store",
+      "isDir": true
+    }
+  ],
+  "actions": [
+    {
+      "id": "list",
+      "label": "密码条目",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "show",
+      "label": "查看密码",
+      "fields": [
+        {
+          "key": "entry",
+          "label": "条目名称",
+          "type": "text",
+          "required": true,
+          "help": "如 web/admin",
+          "pattern": "^[A-Za-z0-9._/@-]{1,128}$",
+          "maxLen": 200
+        }
+      ],
+      "confirm": "将在界面中以明文显示该条目的密码。",
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "git-status",
+      "label": "版本状态",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

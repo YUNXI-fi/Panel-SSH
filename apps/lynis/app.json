@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "slug": "lynis",
+  "name": "Lynis",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "系统安全基线审计与加固建议",
+  "useCase": "新系统上线前体检、定期合规自查",
+  "note": "审计本身只读，不会修改系统配置",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "config": [
+    {
+      "path": "/etc/lynis/default.prf"
+    },
+    {
+      "path": "/etc/lynis/custom.prf"
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "audit",
+      "label": "快速安全审计",
+      "group": "manage",
+      "confirm": "快速审计会运行一段时间，并在完成后返回结果。",
+      "needRoot": true,
+      "timeoutSec": 300,
+      "builtin": true
+    },
+    {
+      "id": "report",
+      "label": "查看审计报告",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "layout": "generic",
+  "overview": [
+    "version"
+  ],
+  "sections": [
+    {
+      "title": "查看与诊断",
+      "actions": [
+        "version",
+        "interfaces"
+      ]
+    },
+    {
+      "title": "管理操作",
+      "actions": [
+        "capture"
+      ]
+    }
+  ],
+  "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "slug": "git",
+  "name": "Git",
+  "version": "1.0.0",
+  "category": "toolchain",
+  "description": "版本控制客户端，拉取与构建源码时几乎必备",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "config": [
+    {
+      "path": "~/.gitconfig"
+    },
+    {
+      "path": "/etc/gitconfig"
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "git --version | awk '{print $3}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

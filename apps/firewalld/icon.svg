@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="firewalld">
+  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6">
+        <path d="M3 7h18v12H3z" />
+        <path d="M3 11h18M3 15h18M9 7v4M15 7v4M6 11v4M12 11v4M18 11v4" />
+  </g>
+</svg>

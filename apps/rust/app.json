@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "slug": "rust",
+  "name": "Rust",
+  "version": "1.0.0",
+  "category": "toolchain",
+  "description": "rustc 编译器与 cargo 包管理器（来自发行版仓库，非 rustup）",
+  "note": "仓库版本的 Rust 通常落后于官方 stable，需要最新版请自行用 rustup 安装",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "rustc --version | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "slug": "fd",
+  "name": "fd",
+  "version": "1.0.0",
+  "category": "utility",
+  "description": "比 find 更快、更易懂的文件查找工具",
+  "note": "Debian/Ubuntu 的包名为 fd-find，可执行文件名是 fdfind",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "{ command -v fd \u003e/dev/null 2\u003e\u00261 \u0026\u0026 fd --version || fdfind --version; } 2\u003e/dev/null | head -1 | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

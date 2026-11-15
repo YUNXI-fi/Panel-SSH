@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "slug": "autotools",
+  "name": "Autotools",
+  "version": "1.0.0",
+  "category": "toolchain",
+  "description": "autoconf / automake / libtool，构建带 configure 脚本的老牌项目需要",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "autoconf --version | head -1 | awk '{print $NF}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

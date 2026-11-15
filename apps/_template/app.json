@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "slug": "template-app",
+  "name": "示例应用",
+  "version": "1.0.0",
+  "category": "utility",
+  "description": "复制本目录后替换为真实应用；slug 必须与文件夹同名",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "config": [],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "template-app --version 2>&1 | head -1"
+    }
+  ]
+}

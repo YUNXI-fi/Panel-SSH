@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "slug": "bat",
+  "name": "bat",
+  "version": "1.0.0",
+  "category": "utility",
+  "description": "带语法高亮与行号的 cat 替代品",
+  "note": "Debian/Ubuntu 上可执行文件名是 batcat（与 bacula 的 bat 冲突）",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "{ command -v bat \u003e/dev/null 2\u003e\u00261 \u0026\u0026 bat --version || batcat --version; } 2\u003e/dev/null | head -1 | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

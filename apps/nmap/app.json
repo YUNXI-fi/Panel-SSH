@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "slug": "nmap",
+  "name": "nmap",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "端口与服务扫描，识别主机暴露面",
+  "useCase": "上线前自查、内网资产盘点、排查异常开放端口",
+  "note": "扫描前请确认已获得目标网络的授权",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "scan",
+      "label": "端口扫描",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "target",
+          "label": "目标",
+          "type": "text",
+          "default": "127.0.0.1",
+          "required": true,
+          "help": "IP、域名或网段，如 192.168.1.0/24",
+          "pattern": "^[A-Za-z0-9._:/-]{1,128}$",
+          "maxLen": 200
+        },
+        {
+          "key": "ports",
+          "label": "端口范围",
+          "type": "text",
+          "default": "1-1000",
+          "required": true,
+          "help": "如 22、80,443 或 1-1000",
+          "pattern": "^[0-9,-]{1,32}$",
+          "maxLen": 200
+        },
+        {
+          "key": "mode",
+          "label": "扫描方式",
+          "type": "select",
+          "default": "-sT",
+          "options": [
+            "-sT",
+            "-sV"
+          ],
+          "required": true
+        }
+      ],
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "slug": "gdb",
+  "name": "GDB",
+  "version": "1.0.0",
+  "category": "toolchain",
+  "description": "GNU 调试器，排查崩溃与核心转储时使用",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "gdb --version | head -1 | awk '{print $NF}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

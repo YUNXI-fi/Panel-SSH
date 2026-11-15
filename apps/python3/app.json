@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "slug": "python3",
+  "name": "Python 3",
+  "version": "1.0.0",
+  "category": "runtime",
+  "description": "Python 3 解释器、pip 与 venv 虚拟环境支持",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "command -v python3 \u003e/dev/null 2\u003e\u00261 \u0026\u0026 python3 -V 2\u003e\u00261 | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

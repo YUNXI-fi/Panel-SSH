@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "slug": "iperf3",
+  "name": "iperf3",
+  "version": "1.0.0",
+  "category": "network",
+  "description": "带宽测速服务端/客户端，定位链路瓶颈",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "iperf3 --version 2\u003e/dev/null | head -1 | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

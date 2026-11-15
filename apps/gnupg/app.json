@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "slug": "gnupg",
+  "name": "GnuPG",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "OpenPGP 加密、签名与密钥管理",
+  "useCase": "文件加密、发布包签名校验、密钥对管理",
+  "note": "生成密钥时请设置口令，并妥善备份私钥",
+  "icon": "icon.svg",
+  "defaultAction": "public",
+  "config": [
+    {
+      "path": "~/.gnupg/gpg.conf"
+    },
+    {
+      "path": "~/.gnupg/gpg-agent.conf"
+    }
+  ],
+  "actions": [
+    {
+      "id": "public",
+      "label": "公钥列表",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "secret",
+      "label": "私钥列表",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "fingerprint",
+      "label": "查看指纹",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "export",
+      "label": "导出公钥",
+      "fields": [
+        {
+          "key": "key",
+          "label": "密钥 ID",
+          "type": "text",
+          "required": true,
+          "help": "公钥 ID、邮箱或指纹",
+          "pattern": "^[A-Za-z0-9._/@-]{1,128}$",
+          "maxLen": 200
+        }
+      ],
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "generate",
+      "label": "生成密钥",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "name",
+          "label": "姓名",
+          "type": "text",
+          "required": true,
+          "help": "密钥用户标识里的真实姓名",
+          "pattern": "^[^[:cntrl:]\u003c\u003e]{1,64}$",
+          "maxLen": 200
+        },
+        {
+          "key": "email",
+          "label": "邮箱",
+          "type": "text",
+          "help": "选填；会拼成「姓名 \u003c邮箱\u003e」",
+          "pattern": "^[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}$",
+          "maxLen": 190
+        },
+        {
+          "key": "algo",
+          "label": "算法",
+          "type": "select",
+          "default": "rsa2048",
+          "options": [
+            "rsa2048",
+            "rsa4096",
+            "ed25519"
+          ],
+          "required": true
+        },
+        {
+          "key": "expire",
+          "label": "有效期",
+          "type": "select",
+          "default": "2y",
+          "options": [
+            "1y",
+            "2y",
+            "5y",
+            "0"
+          ],
+          "required": true
+        },
+        {
+          "key": "passphrase",
+          "label": "口令",
+          "type": "password",
+          "help": "选填；留空表示不设口令，建议设置以保护私钥",
+          "maxLen": 128
+        }
+      ],
+      "confirm": "将在登录用户的家目录生成一对新密钥；生成过程可能持续数十秒。",
+      "timeoutSec": 300,
+      "builtin": true
+    },
+    {
+      "id": "import",
+      "label": "导入公钥",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "armored",
+          "label": "公钥文本",
+          "type": "textarea",
+          "required": true,
+          "help": "粘贴以 -----BEGIN PGP PUBLIC KEY BLOCK----- 开头的文本",
+          "maxLen": 65536
+        }
+      ],
+      "confirm": "将把提交的 ASCII 公钥导入登录用户的钥匙环。",
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "delete",
+      "label": "删除密钥",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "scope",
+          "label": "删除范围",
+          "type": "select",
+          "default": "public",
+          "options": [
+            "public",
+            "secret"
+          ],
+          "required": true
+        },
+        {
+          "key": "fingerprint",
+          "label": "指纹",
+          "type": "text",
+          "required": true,
+          "help": "要删除的密钥指纹",
+          "pattern": "^[A-Fa-f0-9]{8,64}$",
+          "maxLen": 200
+        }
+      ],
+      "confirm": "删除后无法恢复，确认指纹无误再执行。",
+      "danger": true,
+      "timeoutSec": 60,
+      "builtin": true
+    }
+  ]
+}

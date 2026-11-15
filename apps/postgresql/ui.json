@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "layout": "generic",
+  "overview": [
+    "status"
+  ],
+  "sections": [
+    {
+      "title": "查看与诊断",
+      "actions": [
+        "version",
+        "status",
+        "logs"
+      ]
+    },
+    {
+      "title": "管理操作",
+      "actions": [
+        "start",
+        "restart",
+        "stop"
+      ]
+    }
+  ],
+  "hint": "服务由 systemd / OpenRC 托管；启停会改变主机状态，请先确认影响范围。"
+}

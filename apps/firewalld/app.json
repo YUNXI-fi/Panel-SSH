@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "slug": "firewalld",
+  "name": "firewalld",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "RHEL 系动态防火墙管理服务",
+  "useCase": "CentOS/RHEL 上按区域管理端口与转发规则",
+  "note": "默认不自动启用；启用前确认已放行 SSH，避免断连",
+  "icon": "icon.svg",
+  "defaultAction": "list",
+  "config": [
+    {
+      "path": "/etc/firewalld/firewalld.conf"
+    },
+    {
+      "path": "/etc/firewalld/zones",
+      "isDir": true
+    }
+  ],
+  "actions": [
+    {
+      "id": "state",
+      "label": "运行状态",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "list",
+      "label": "当前规则",
+      "group": "inspect",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "reload",
+      "label": "重新加载规则",
+      "group": "manage",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "add-service",
+      "label": "放行服务",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "service",
+          "label": "服务名",
+          "type": "text",
+          "default": "http",
+          "required": true,
+          "help": "如 http、https、ssh",
+          "pattern": "^[A-Za-z0-9._-]{1,64}$",
+          "maxLen": 200
+        }
+      ],
+      "needRoot": true,
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "remove-service",
+      "label": "移除服务",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "service",
+          "label": "服务名",
+          "type": "text",
+          "default": "http",
+          "required": true,
+          "help": "如 http、https、ssh",
+          "pattern": "^[A-Za-z0-9._-]{1,64}$",
+          "maxLen": 200
+        }
+      ],
+      "confirm": "移除后该服务端口将立即不再放行。",
+      "danger": true,
+      "needRoot": true,
+      "timeoutSec": 60,
+      "builtin": true
+    },
+    {
+      "id": "service",
+      "label": "服务状态",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

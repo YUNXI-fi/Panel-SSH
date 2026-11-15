@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "slug": "clang",
+  "name": "Clang / LLVM",
+  "version": "1.0.0",
+  "category": "toolchain",
+  "description": "LLVM 编译器前端，可替代 gcc 参与构建",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "clang --version | head -1 | sed -E 's/.*version ([0-9][0-9.]*).*/\\1/' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

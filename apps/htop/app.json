@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "slug": "htop",
+  "name": "htop",
+  "version": "1.0.0",
+  "category": "monitor",
+  "description": "交互式进程查看器，比 top 更易读",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "config": [
+    {
+      "path": "~/.config/htop/htoprc"
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "htop --version | head -1 | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

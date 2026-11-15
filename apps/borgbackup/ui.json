@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "layout": "generic",
+  "overview": [
+    "version"
+  ],
+  "sections": [
+    {
+      "title": "查看与诊断",
+      "actions": [
+        "version"
+      ]
+    }
+  ],
+  "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+}

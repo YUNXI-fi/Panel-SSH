@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "slug": "openjdk",
+  "name": "OpenJDK",
+  "version": "1.0.0",
+  "category": "runtime",
+  "description": "Eclipse OpenJDK（完整 JDK），支持 21/17 两个 LTS 版本",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "command -v java \u003e/dev/null 2\u003e\u00261 \u0026\u0026 java -version 2\u003e\u00261 | head -1 | sed -E 's/.*\"([^\"]+)\".*/\\1/' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

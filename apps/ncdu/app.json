@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "slug": "ncdu",
+  "name": "ncdu",
+  "version": "1.0.0",
+  "category": "monitor",
+  "description": "按目录逐层查看磁盘占用，找大文件最快的手段之一",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "ncdu -v 2\u003e\u00261 | head -1 | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

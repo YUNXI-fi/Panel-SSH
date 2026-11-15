@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "slug": "clamav",
+  "name": "ClamAV",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "开源病毒与恶意软件扫描引擎",
+  "useCase": "扫描上传目录、邮件附件与可疑文件",
+  "note": "需运行 freshclam 更新病毒库；首次全盘扫描耗时较长",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "config": [
+    {
+      "path": "/etc/clamav/clamd.conf"
+    },
+    {
+      "path": "/etc/clamav/freshclam.conf"
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "update",
+      "label": "更新病毒库",
+      "group": "manage",
+      "confirm": "首次更新病毒库需要下载较多数据，耗时取决于网络。",
+      "needRoot": true,
+      "timeoutSec": 300,
+      "builtin": true
+    },
+    {
+      "id": "scan",
+      "label": "扫描文件",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "path",
+          "label": "扫描路径",
+          "type": "text",
+          "default": "/tmp",
+          "required": true,
+          "help": "目标机上的绝对路径",
+          "pattern": "^/[A-Za-z0-9._/ -]{0,200}$",
+          "maxLen": 200
+        }
+      ],
+      "timeoutSec": 600,
+      "builtin": true
+    },
+    {
+      "id": "scan-recursive",
+      "label": "递归扫描目录",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "path",
+          "label": "扫描路径",
+          "type": "text",
+          "default": "/tmp",
+          "required": true,
+          "help": "目标机上的绝对路径",
+          "pattern": "^/[A-Za-z0-9._/ -]{0,200}$",
+          "maxLen": 200
+        }
+      ],
+      "timeoutSec": 600,
+      "builtin": true
+    }
+  ]
+}

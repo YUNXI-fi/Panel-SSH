@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "layout": "generic",
+  "overview": [
+    "version"
+  ],
+  "sections": [
+    {
+      "title": "查看与诊断",
+      "actions": [
+        "version"
+      ]
+    }
+  ],
+  "hint": "交互式终端工具；面板提供版本与运行状态，日常使用请在终端窗口中运行。"
+}

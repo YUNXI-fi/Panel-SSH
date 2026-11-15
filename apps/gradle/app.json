@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "slug": "gradle",
+  "name": "Gradle",
+  "version": "1.0.0",
+  "category": "toolchain",
+  "description": "Java / Kotlin 项目的构建工具（Alpine 仓库不提供，故不在此支持）",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "gradle -v | grep -m1 '^Gradle' | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

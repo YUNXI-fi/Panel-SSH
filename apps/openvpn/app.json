@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "slug": "openvpn",
+  "name": "OpenVPN",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "成熟的 SSL VPN 服务端与客户端",
+  "useCase": "为远程办公、跨机房互联提供加密通道",
+  "note": "仅安装服务端与客户端，证书与配置需另行生成",
+  "icon": "icon.svg",
+  "defaultAction": "units",
+  "config": [
+    {
+      "path": "/etc/openvpn/server",
+      "isDir": true
+    },
+    {
+      "path": "/etc/openvpn/client",
+      "isDir": true
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "units",
+      "label": "服务实例",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "configs",
+      "label": "配置目录",
+      "group": "inspect",
+      "timeoutSec": 90,
+      "builtin": true
+    },
+    {
+      "id": "restart",
+      "label": "重启服务",
+      "group": "manage",
+      "fields": [
+        {
+          "key": "unit",
+          "label": "服务单元",
+          "type": "text",
+          "default": "openvpn-server@server",
+          "required": true,
+          "help": "如 openvpn-server@server",
+          "pattern": "^[A-Za-z0-9._-]{1,64}$",
+          "maxLen": 200
+        }
+      ],
+      "confirm": "重启 VPN 服务会短暂中断已建立的连接。",
+      "danger": true,
+      "needRoot": true,
+      "timeoutSec": 90,
+      "builtin": true
+    }
+  ]
+}

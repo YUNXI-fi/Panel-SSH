@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "slug": "php",
+  "name": "PHP",
+  "version": "1.0.0",
+  "category": "runtime",
+  "description": "PHP CLI 与 php-fpm 进程管理器（Alpine 的包名带版本号，如 php83，故不在此支持）",
+  "note": "php-fpm 不会被自动设为开机自启：是否需要常驻取决于你打算怎么跑它",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "config": [
+    {
+      "path": "/etc/php",
+      "isDir": true
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "php -v | head -1 | awk '{print $2}' 2\u003e/dev/null | head -1"
+    }
+  ]
+}

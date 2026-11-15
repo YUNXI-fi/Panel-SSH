@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "layout": "generic",
+  "overview": ["version"],
+  "sections": [
+    {
+      "title": "查看与诊断",
+      "actions": ["version"]
+    }
+  ],
+  "hint": "复制本目录后按应用实际情况修改动作、图标与配置路径。"
+}

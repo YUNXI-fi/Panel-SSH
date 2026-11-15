@@ -1,0 +1,1422 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-15T15:27:02Z",
+  "apps": [
+    {
+      "slug": "autotools",
+      "name": "Autotools",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "autoconf / automake / libtool，构建带 configure 脚本的老牌项目需要",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "0c2b093cc70aef50a935b752a565a46e0428aa72fba80494ccdfddd11ff8eef1"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "83f7a44d0bf4aafa62d72808576e1b394f10ab0edef3190146df4e6d94bac18b"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "bat",
+      "name": "bat",
+      "version": "1.0.0",
+      "category": "utility",
+      "description": "带语法高亮与行号的 cat 替代品",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "ce6a0c390010c82843d584facc25c20d5628318149d560d44ccfebb46da7aafe"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "f48a2c41d4e8c34478c5f689fced8ef524be7cf25d0f7c99ba4d795165a82b1b"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "borgbackup",
+      "name": "BorgBackup",
+      "version": "1.0.0",
+      "category": "backup",
+      "description": "去重压缩备份（borg），适合定期快照到远端仓库",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "ca72907763948688f595b569705546a96eb99003cbeeb415754775a7b71a5cef"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "00a065c7e7961d47b1244f4ec18a81a9b1daa4679519f6a746a95438876d8f62"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "btop",
+      "name": "btop",
+      "version": "1.0.0",
+      "category": "monitor",
+      "description": "终端资源监视器：CPU、内存、磁盘、网络与进程一屏看完",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "44543caeb6aa0d3ce02b572d1346cd340f15b55a53ca3de9b1c6d0c42bb58679"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "1fedf09dc6701be9b91ed5134ad0d063d58b22e3452a3232a68537c7fb24dae3"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
+        }
+      ]
+    },
+    {
+      "slug": "build-toolchain",
+      "name": "构建工具链",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "gcc/g++/make 等基础编译工具（Debian: build-essential；RHEL 系: Development Tools；Alpine: build-base）",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "3c20edd1572d2fa96cdf2a55fb1e785d5ad9fa82ee0c2a1ef717c551042f6e40"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "44a3ae6a99bd729c7bf44a63c7d46721ee75e104e7d97ddbd45f5fe1bf413fa5"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "bun",
+      "name": "Bun",
+      "version": "1.0.0",
+      "category": "runtime",
+      "description": "Bun 运行时、包管理器与打包器，官方脚本安装到 /usr/local（CentOS 7 的 glibc 过旧，不在此支持）",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "ff92fa48528ad7a5129ff7d22e137c08fbc8a83f01816587ba89d8271836270b"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "0f77cc8b74a02f411b4537295583537e73f7653ed5e8e30786bbf3314db64075"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "chkrootkit",
+      "name": "chkrootkit",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "本地 Rootkit 检测工具",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "c2353ff21423c121b6910bc76604d8af2da116233a7487df30bbd8748a614186"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "249504f6b344ce0394564847a9c7fbab1d785b94e1442c19161f8a5529327fea"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "d460031d7ef352cbf2a747a831e03294898873d3f78687d6e5d47ce2daab8609"
+        }
+      ]
+    },
+    {
+      "slug": "clamav",
+      "name": "ClamAV",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "开源病毒与恶意软件扫描引擎",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "1ddaa66549666d6cba8e1c9c2de455f4c04663bb07eb6bcff8292728074ea206"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "1bc782f2c247e799b87b37819effeae813f4a2c9bc3d20bc4e9b215efb83240c"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "07b71cbe425702acba9875131f85007d2485278257c05771b14f8ed5e516998c"
+        }
+      ]
+    },
+    {
+      "slug": "clang",
+      "name": "Clang / LLVM",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "LLVM 编译器前端，可替代 gcc 参与构建",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "30aa86de36ccf7ce498c90a1f0aabdcdfde1274dde5918b5c0c2950e13e07df0"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "7c1a8e972ac1cc2dfd821da01462eb82c0a3b3fc6846fa806d543f68290d0131"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "cmake",
+      "name": "CMake",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "跨平台构建系统生成器",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "afa3436f2d61c4c9b2358bf007873b31b1aab46c3da1cb9f3c8a905e25ded14e"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "b58dccb0db0c9197f5c5f7d06c31cff18c8dcf6f1bd1ea9364a1e6690dbb053d"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "cuda",
+      "name": "CUDA Toolkit",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "NVIDIA CUDA Toolkit（nvcc 等），用于 GPU 计算与编译；仅 x86_64，且不含显卡驱动",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "ff2646616d1d479f5540793fcb80b6abbf202dc9e16d9f3087ab67e6dc2d4ede"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "b029d6a9ceab5d983d736c96ab7b491b8cc00078598665142bfee83f9c52d6d1"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "duf",
+      "name": "duf",
+      "version": "1.0.0",
+      "category": "monitor",
+      "description": "彩色磁盘用量表格，比 df 直观",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "c7146ae1605ce35b7218cefc8f88717ab42fc5f61fd05f10478382054761433a"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "fe859ba07446e8d765558618452a95b71ff0dbd2426ac39456acbe5fbd0d71df"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
+        }
+      ]
+    },
+    {
+      "slug": "fail2ban",
+      "name": "Fail2Ban",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "按日志自动封禁暴力破解来源 IP",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "988e2d8f118c2de8c911278711d3fd96aaca29bae0c25bdd15441a29cd0a7bd5"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "2661813e312816aee804bb4dbf7b95bc009e56d616dc574e1ff80322df96c9fd"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "a9c00646ac29b594a9bc9882078155432a9991b5561c22456c3c1a3d9b6dc835"
+        }
+      ]
+    },
+    {
+      "slug": "fd",
+      "name": "fd",
+      "version": "1.0.0",
+      "category": "utility",
+      "description": "比 find 更快、更易懂的文件查找工具",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "dfc1b1736cc8fcff082478871bb076300aae95ecff86e9602d9ed2d49eed4694"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "353130564287af20548845ab5a3fd8d0ddd023b9d8995717f6479cbe21a807a9"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "ffmpeg",
+      "name": "FFmpeg",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "音视频转码与处理工具（ffmpeg / ffprobe）",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "d6dd8b42b48505d53bb19c075785338b8e66e00df2adb0ddadbe34d422f1b33a"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "d835244f2d13c704b5e0688f5483620b0162fc41c053cc7201ff094ad31e3935"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "firewalld",
+      "name": "firewalld",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "RHEL 系动态防火墙管理服务",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "9145c2623c905baaf7d668a43b16025d91afe179458d09a36970188cc6883d69"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "af4f17ae357996b5f2cabdd8f7f741df0ba0dee04fd726a973bb678465a9c4bd"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "db385abe6e8bfe59d0c6707ce3e3da79731802c5ffb4111747481789a70dc60d"
+        }
+      ]
+    },
+    {
+      "slug": "fzf",
+      "name": "fzf",
+      "version": "1.0.0",
+      "category": "utility",
+      "description": "模糊查找器，可用于历史命令、文件与任何列表的筛选",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "c7dee4ed589dc1378c9967382d5320856ad47891fea61ae15f9186d11f4f1b06"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "c7202f1214debbeeb263a619e3b42d3c4ebc5b29f0c250ea703ce6ef37581e7a"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "gdb",
+      "name": "GDB",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "GNU 调试器，排查崩溃与核心转储时使用",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "ac822862fd3ce0d6ed66aa43c041d29ed3e13f1bda89c5913f379caf26939f47"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "4084ef92246fc462bd300dd6b33bfed1e5b882bc90711cf4fd170e1f5d4ddba0"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "git",
+      "name": "Git",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "版本控制客户端，拉取与构建源码时几乎必备",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "78cd1c690aa52ec94207b5821d919d30998f3ebca74d6516531a8a29cbd72a64"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "41c6a520ed6189a0e1959e54ecf90b138499bbd84a068e47cc4adb9f3339a867"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "glances",
+      "name": "Glances",
+      "version": "1.0.0",
+      "category": "monitor",
+      "description": "跨平台系统监控，支持 Web 模式与导出指标",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "26458ae1b0e713df4f0daaa7ea2e2e60b5cded74250eb898fb3a59fb432a31f6"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "5dc98180c252fc79d2207fa8858c969cab666d575b3dbb009827f5c38643f264"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
+        }
+      ]
+    },
+    {
+      "slug": "gnupg",
+      "name": "GnuPG",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "OpenPGP 加密、签名与密钥管理",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "9ff9496dffbeb795d72b84abdf3cb99392224c6bc2471029c5e1902a5e3892a6"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "f1183c64340d450344a116723e8729220aae974f79ede3a6a2a2c6f95c4f999c"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "8af67911fd88e51e28d2ac52529b4effa163bf7f9fea04fa68317d62dc8fc662"
+        }
+      ]
+    },
+    {
+      "slug": "golang",
+      "name": "Go",
+      "version": "1.0.0",
+      "category": "runtime",
+      "description": "Go 语言官方 tarball，安装到 /usr/local/go 并注册到 PATH，可选近期稳定版本",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "6f54af56e630b8aa8a43798a6fed85eae1b0747eea6f4fa5bfda228519932722"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "ba2010c38a87eaa1d77276b487bb7bcb3767a17d15356787aff659c4948ed0ab"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "gradle",
+      "name": "Gradle",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "Java / Kotlin 项目的构建工具（Alpine 仓库不提供，故不在此支持）",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "07e684f260c845db0e240cce2407b9e4c3a702104d510d113df63194b3ebaa10"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "3b353ed7c03044542b14576f78c4f7b3eb00170476a89289d311554134619a98"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "htop",
+      "name": "htop",
+      "version": "1.0.0",
+      "category": "monitor",
+      "description": "交互式进程查看器，比 top 更易读",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "81da95d7ea71925cdfac50ac8ece7adf308d904ac83a87248980769385b8c5d0"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "0ef366cf08900c00b15d4190f3e2933f111efe74df1d26d2f85423d5e618b493"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
+        }
+      ]
+    },
+    {
+      "slug": "iperf3",
+      "name": "iperf3",
+      "version": "1.0.0",
+      "category": "network",
+      "description": "带宽测速服务端/客户端，定位链路瓶颈",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "743ab601db4570e92bf835bf6687dde1f4ce332373d31dc22474013e52c46c1d"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "76c785d59f8740218d666566630b2a2ed5d00c5f0dec65dc8a6cc4a159c671cd"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "lynis",
+      "name": "Lynis",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "系统安全基线审计与加固建议",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "898d2a4f3ea156a979a546071d46fc719d635863d51a8ddcea4d62b544fdeca8"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "37011f881fc4fc20375b9a2fa615d586e3c871230355af93e616b14c2579c0d3"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "b5755a50355da4d24eef783eb905f08d41ae700375cf68387d1aabcbea5c127e"
+        }
+      ]
+    },
+    {
+      "slug": "mariadb",
+      "name": "MariaDB",
+      "version": "1.0.0",
+      "category": "database",
+      "description": "MySQL 兼容的关系数据库，装完即设为开机自启并启动",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "eaeee8565482f624a3a42f5a3d804ce40f578e1aae876d09c083c9fcfdb7f3fe"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "242724200fe4817f0b4ac8f1546435e4d0f344965650205eab1013e079869191"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
+        }
+      ]
+    },
+    {
+      "slug": "maven",
+      "name": "Maven",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "Java 项目的依赖管理与构建工具",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "9c5756def2df7ce3fde4cc529801c622a40bf71b4330ffa0eb93ebf7fac340c0"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "53705edeb78cab0a0e03345ee6b114c71142ac4360e931f5f01a6f2c51682bd0"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "mongodb",
+      "name": "MongoDB",
+      "version": "1.0.0",
+      "category": "database",
+      "description": "MongoDB 8.0 官方社区版（mongod），通过 MongoDB 自己的仓库安装（Alpine 仓库不提供）",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "b62645db8c4a801fea1a9b7ce128518c12e94141629969b3bd4fbb3523c3acbb"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "f7d4b97b1ec7a84dcb3708c20e0d062749e51694a91e35709a3fad9cd8a11210"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "cfa547692435e4b69a02c9c457ad92da047240d064ac3c6dbb5739912ecaa620"
+        }
+      ]
+    },
+    {
+      "slug": "mtr",
+      "name": "mtr",
+      "version": "1.0.0",
+      "category": "network",
+      "description": "把 traceroute 与 ping 合成一屏，持续性观察每一跳的丢包与延迟",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "a1808495063288a13eeaafb3d4a99493bb9354622f29d3a674237c6a58410181"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "24346767e30384bc985cd5eb960c5a02001d7e9530f60deb8182ea6374dd1d3b"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "mysql",
+      "name": "MySQL",
+      "version": "1.0.0",
+      "category": "database",
+      "description": "Oracle MySQL 官方服务端（Alpine 仓库不提供，故不在此支持）",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "f19f7639c5e0a89f07cc70ae2dc9d01b229bdc3d563fa7500588f0cabeb494c4"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "251b5e8645775c5d8720a8a59cedca48afa2842d60a2b35f344640ea86bf4f5a"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
+        }
+      ]
+    },
+    {
+      "slug": "ncdu",
+      "name": "ncdu",
+      "version": "1.0.0",
+      "category": "monitor",
+      "description": "按目录逐层查看磁盘占用，找大文件最快的手段之一",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "5f9dfd224ce984d89ad938fc482eb47a6bb732b0a801f54a46a0b01da35e31b7"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "14dfa0805741e75f666ef5cf2c05fc46994c0eaff811536a978ead68b77648c5"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
+        }
+      ]
+    },
+    {
+      "slug": "nethogs",
+      "name": "NetHogs",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "按进程查看实时网络带宽占用",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "65e94d081d43fc56987547a908f8a4ca6ae60b5f4e6a4d80263b4ac48bf9fbf3"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "1cbe5b9df3863f7f1db95526b6626692184c3f9194f94cb974363ec2129b465e"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "d03850b328d813f069512a57cc8464e4a821efd39e73c4a0ff603f8928e4bc6f"
+        }
+      ]
+    },
+    {
+      "slug": "nginx",
+      "name": "Nginx",
+      "version": "1.0.0",
+      "category": "service",
+      "description": "Web 服务器与反向代理，装完即设为开机自启并启动",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "8c18aab64de6999c8cc8990df813ed1c675e3bc814a7c8d0647c83f93d6f5c64"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "0eb96e554dc27c9db305198121a5c266666743229ea13f0fea88b7ef6c7b20b7"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
+        }
+      ]
+    },
+    {
+      "slug": "ninja",
+      "name": "Ninja",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "轻量高速构建后端，常与 CMake 搭配使用",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "aeba9b3bd7be25c4c00306cddd4b9670a48252b442629d1940009126b74aaf0e"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "fb376cc716dc7ffbcb46f6b4b2d50995f857c2d01d892dbf6461ca981022c616"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "nmap",
+      "name": "nmap",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "端口与服务扫描，识别主机暴露面",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "1065a9ee781b74a9d0b77350bd861643df7c2bda3a123efc08eef5c746c6d7fb"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "2345e9d4123382e9a7b160ae539f2ae8be8e5ece70874561bd465f6e81a4db27"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "6d204fe238408824298d85390f06859d9fe6befccffc881d2df40cd5e90f059c"
+        }
+      ]
+    },
+    {
+      "slug": "nodejs",
+      "name": "Node.js",
+      "version": "1.0.0",
+      "category": "runtime",
+      "description": "Node.js 运行时与 npm，通过 NodeSource 官方仓库安装可选 LTS 大版本",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "071626f8cdf37d178a170ebe5ea223f1b97230e21b15737adaef9651f9478a15"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "7d3d1c0590607db0d3fc08bbae3e4be89ab36a68f12475e82bdbaec274122b46"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "openjdk",
+      "name": "OpenJDK",
+      "version": "1.0.0",
+      "category": "runtime",
+      "description": "Eclipse OpenJDK（完整 JDK），支持 21/17 两个 LTS 版本",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "fe72ebedbf630b06057397984960ce004e3c5b405edbdf8236a828f4a99da255"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "f0549c4262bc684be99f47cfa64aac99e891bff974bc941a09b59296d052ac31"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "openvpn",
+      "name": "OpenVPN",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "成熟的 SSL VPN 服务端与客户端",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "8f936b527fb43085f18f26d89b6d70e8522e51da26ce1f64bac41d1e5627bdd1"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "5dc3c116490398aa3b128773bedb650b4ebb83c5fdea6f6ce6e3d33cbd87edbb"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "12b3006e9fa098755b6e6971520e46e8ea80b6423e5ea46d3172b3eb3b50e9b1"
+        }
+      ]
+    },
+    {
+      "slug": "pass",
+      "name": "pass",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "基于 GPG 的命令行密码管理器",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "659118dd909235b3f55e92398a540aedc73aca640952f79d492bdcaed8317784"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "58748613ef4b78d1f320cbba7ca4d8a621bbab0342070aa7a5696d4b2ea628e4"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "86f1a856b098266841823d6602910e7910137ae6e5da1bbed598ea163181f609"
+        }
+      ]
+    },
+    {
+      "slug": "php",
+      "name": "PHP",
+      "version": "1.0.0",
+      "category": "runtime",
+      "description": "PHP CLI 与 php-fpm 进程管理器（Alpine 的包名带版本号，如 php83，故不在此支持）",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "2b9bfb8119964b242f770c03fecde603a8b8e8297c39eb5d5599730cbeb6eed7"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "1da9c60f174a870c32e0882dc7cdecae27efa39f225e32e633a5586c6b5ed7c7"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "pkgconf",
+      "name": "pkg-config",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "编译时查询库的编译与链接参数，很多源码构建流程依赖它",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "42ecbe3caeacabb5466d2f8837a002c1fbca7cf2bb8f344a549354019e1af424"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "8fd19b675858aa21cb2d039ac68ec1992290fc73f1c656f792d258810edf643e"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "postgresql",
+      "name": "PostgreSQL",
+      "version": "1.0.0",
+      "category": "database",
+      "description": "PostgreSQL 服务端与客户端，装完即设为开机自启并启动",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "414995251bc108ffa64ed8010594ca94c628533211f1b2419cd6e765e6a85cb6"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "ed42602699ef923b2eeb9663b5b24661acc63ca3fe326a43727a26ea999e7c6e"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
+        }
+      ]
+    },
+    {
+      "slug": "python3",
+      "name": "Python 3",
+      "version": "1.0.0",
+      "category": "runtime",
+      "description": "Python 3 解释器、pip 与 venv 虚拟环境支持",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "b11e5d2808c7c2e4a9f6b36aaab4b9b0340368da17eb4cfcf7c76ff7ef0f4cb5"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "9ee55e863ade8a51ee65a6f62bad6bac024cc80513cc20fec9bc016bee42a380"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "rclone",
+      "name": "rclone",
+      "version": "1.0.0",
+      "category": "backup",
+      "description": "云存储同步与挂载，支持 S3、WebDAV、OneDrive 等",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "f73fac4f92b87fd0141ac4d5c1c6c7c1ff93c26c0d6e4c194b1b1a9b1d6d9fc0"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "7ef8cc0964d8a791f7c6440bef804fea32a471355d1025ddc495f510f994ed01"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "redis",
+      "name": "Redis",
+      "version": "1.0.0",
+      "category": "database",
+      "description": "内存键值数据库，常用作缓存、会话与消息队列",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "048cf64cb119c80b183b8d2fbf54c9ff00da3c80c4cce2c4bd8ca04022037cce"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "c41a98cdf5bcb2a484553ed84fd2cb2f3af32dd6932c0c4bfa5b4050e49a490c"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
+        }
+      ]
+    },
+    {
+      "slug": "restic",
+      "name": "restic",
+      "version": "1.0.0",
+      "category": "backup",
+      "description": "加密去重的增量备份，支持本地目录与 S3 等后端",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "f0ebbf2f1eeee40159771c633df04d81db76883932cba9accd5e082c282121b9"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "9a6550822d6f97304bb5ae294c2d3395c3d56e812a7e85f2c6453d5d0cd66d4f"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "ripgrep",
+      "name": "ripgrep",
+      "version": "1.0.0",
+      "category": "utility",
+      "description": "高速递归文本搜索（rg），尊重 .gitignore",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "82fd6b32745721f327a716701a47db74ebf008e924d1ead08405efe9f434d93d"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "55f0f80b8707cba53bd999efd3f8565707151f7026531419bc51460ed6358517"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "rkhunter",
+      "name": "Rootkit Hunter",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "Rootkit 与可疑文件检查工具",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "a9800a468dc5c5126dbf9673a7a8ccf49714ddf8a49348999971032799fdd0aa"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "b0459e7dd2cec268c9166d3f78e38f8d5e44782205f224717afe503b783c43a7"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "722f2379cbf9be9f982b127f7c611ddf46e3062d88fd4ab69cd8fe210e7736b9"
+        }
+      ]
+    },
+    {
+      "slug": "ruby",
+      "name": "Ruby",
+      "version": "1.0.0",
+      "category": "runtime",
+      "description": "Ruby 解释器与原生扩展编译所需的开发头文件",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "292867f02e83b4e5328d34874784b034c325a8630ffa401866a2d24d940103d2"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "1ca0dfea6008281a1fd6b446fa1bf8a1adacc4d16b514c37fa71c5f9ab32472b"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "rust",
+      "name": "Rust",
+      "version": "1.0.0",
+      "category": "toolchain",
+      "description": "rustc 编译器与 cargo 包管理器（来自发行版仓库，非 rustup）",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "3ebe78e7ac0ca21a53e410e44761d21f7708c6d52a3a46edcb9c788e50ee4983"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "5171222e3b40bbd01ca2857b95943604e44c4562e48a3e58e6b3b7dfbda52ad5"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "socat",
+      "name": "socat",
+      "version": "1.0.0",
+      "category": "network",
+      "description": "多功能中继工具：端口转发、Unix socket、TLS 隧道",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "f171e0b84876622164a1858ba9bb09ee986860c49f899d419cff8cd2ccffd160"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "219ae32e2f9cbd8bf7a7882f38b69c8d378c9937fb68d1e5781c1c91dc56ce64"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "tcpdump",
+      "name": "tcpdump",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "命令行抓包，解析协议与握手过程",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "b8b9528aade135b06b3d9f5285ef84e4d176e0cb5d2edb960682b61ae831f043"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "81a91ebdd91404e9dd75a4f20fc414434eb0b2ec51bb87a45a2c9b9d7b1ae461"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "15160bb17ef7ef4dc2c2ee888db7052a6936554d2e7187d2f09b78507ec46646"
+        }
+      ]
+    },
+    {
+      "slug": "tmux",
+      "name": "tmux",
+      "version": "1.0.0",
+      "category": "utility",
+      "description": "终端复用器：断线后会话仍在，长任务不必挂着 SSH",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "f4a5f8437d5bf4877b749b901abd33122fe43a81233a77d4b005efe02d1827b8"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "dabd44d017cb8dcff465044bd026ef36167fef8c0745b0f1bde9ebd5c8f1c0de"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "tor",
+      "name": "Tor",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "匿名洋葱路由客户端",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "7cbdeff19cc28a81e926aa1a6086c0a69fa5560c23a4abd6d06bd21e0bc2b888"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "42d96d0ffc7fe311ad1e02dee0b9693dcfa2bfca50ea3f6f0adef69fbca7f580"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "a17c38414661dfbda2c43906ee44c00d29f03ebddbc55b928a1ad7a2d47e7d30"
+        }
+      ]
+    },
+    {
+      "slug": "tree",
+      "name": "tree",
+      "version": "1.0.0",
+      "category": "utility",
+      "description": "以树状结构列出目录内容",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "d65b6f8957fd1a15f62fb83b725a2abc0b5e669005eeda025da9a6db9e463ba1"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "21ac3787ae95762941aefba8bdd0eb6ba05ec549421051c55b5c02cd4a5385a4"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    },
+    {
+      "slug": "ufw",
+      "name": "UFW",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "Debian/Ubuntu 上的简易防火墙前端",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "85b41f1d8fdd047540200ade26ff3c79d9e50c75ef89e8b7e9dca047ede2e5e5"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "f9c7452e6055af6c7936f4c6bad9890f249f51f027d6a925ca030d40e0e373e4"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "d90f23971201b50c3231dda1ad98e0b07ef68950b3310a28a80275c640049a26"
+        }
+      ]
+    },
+    {
+      "slug": "wireguard-tools",
+      "name": "WireGuard",
+      "version": "1.0.0",
+      "category": "security",
+      "description": "轻量 VPN 的配置与隧道管理工具",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "6c07eb37558e67ba37f49f1c5ffe3521f08704a2539e2c49bcec188121f722b0"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "c29cef939ca63abbcabff8b7fb7fc079be6acc6025879becb75874eb27c607cc"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "a083fb2347786ddecda2d825e15d36f9c7748657625e725d9745a38c8e613340"
+        }
+      ]
+    },
+    {
+      "slug": "zoxide",
+      "name": "zoxide",
+      "version": "1.0.0",
+      "category": "utility",
+      "description": "智能目录跳转（z 命令），按访问频率记忆路径",
+      "icon": "icon.svg",
+      "manifest": "app.json",
+      "ui": "ui.json",
+      "files": [
+        {
+          "path": "app.json",
+          "sha256": "27e21a43abbeb7a48feaae4a397f9e8f825b6f6079b3e7a26218fad6537b7d3d"
+        },
+        {
+          "path": "icon.svg",
+          "sha256": "6a66e0c4a9243b2836be333691e22e8b307dd9802250c14085a150161a4cebe5"
+        },
+        {
+          "path": "ui.json",
+          "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
+        }
+      ]
+    }
+  ]
+}

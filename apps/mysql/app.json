@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "slug": "mysql",
+  "name": "MySQL",
+  "version": "1.0.0",
+  "category": "database",
+  "description": "Oracle MySQL 官方服务端（Alpine 仓库不提供，故不在此支持）",
+  "note": "与 MariaDB 二选一：同一台机器上同时装两套 MySQL 系服务端会互相抢 3306 端口与 /var/lib/mysql",
+  "icon": "icon.svg",
+  "defaultAction": "status",
+  "config": [
+    {
+      "path": "/etc/mysql",
+      "isDir": true
+    },
+    {
+      "path": "/etc/my.cnf"
+    }
+  ],
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "mysqld --version 2\u003e/dev/null | awk '{print $3}' | cut -d- -f1 2\u003e/dev/null | head -1"
+    },
+    {
+      "id": "status",
+      "label": "服务状态",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'mysql' 'mysqld'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'mysql' 'mysqld'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='mysql'\nif command -v systemctl \u003e/dev/null 2\u003e\u00261 \u0026\u0026 systemctl cat \"$unit\" \u003e/dev/null 2\u003e\u00261; then\n  systemctl status \"$unit\" --no-pager\nelif command -v rc-service \u003e/dev/null 2\u003e\u00261; then\n  rc-service \"$unit\" status\nelse\n  echo '未找到服务单元：mysql / mysqld'\n  exit 1\nfi"
+    },
+    {
+      "id": "logs",
+      "label": "最近日志",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'mysql' 'mysqld'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'mysql' 'mysqld'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='mysql'\nif command -v journalctl \u003e/dev/null 2\u003e\u00261; then\n  journalctl -u \"$unit\" -n 80 --no-pager\nelse\n  echo '该主机没有 journalctl，请到系统日志窗口查看 mysql / mysqld'\nfi"
+    },
+    {
+      "id": "start",
+      "label": "启动服务",
+      "group": "manage",
+      "confirm": "启动后服务会立即对外提供能力。",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'mysql' 'mysqld'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'mysql' 'mysqld'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='mysql'\nif command -v systemctl \u003e/dev/null 2\u003e\u00261 \u0026\u0026 systemctl cat \"$unit\" \u003e/dev/null 2\u003e\u00261; then\n  systemctl start \"$unit\"\nelif command -v rc-service \u003e/dev/null 2\u003e\u00261; then\n  rc-service \"$unit\" start\nelse\n  echo '未找到服务单元：mysql / mysqld'\n  exit 1\nfi"
+    },
+    {
+      "id": "restart",
+      "label": "重启服务",
+      "group": "manage",
+      "confirm": "重启会短暂中断正在使用的连接。",
+      "needRoot": true,
+      "timeoutSec": 90,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'mysql' 'mysqld'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'mysql' 'mysqld'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='mysql'\nif command -v systemctl \u003e/dev/null 2\u003e\u00261 \u0026\u0026 systemctl cat \"$unit\" \u003e/dev/null 2\u003e\u00261; then\n  systemctl restart \"$unit\"\nelif command -v rc-service \u003e/dev/null 2\u003e\u00261; then\n  rc-service \"$unit\" restart\nelse\n  echo '未找到服务单元：mysql / mysqld'\n  exit 1\nfi"
+    },
+    {
+      "id": "stop",
+      "label": "停止服务",
+      "group": "manage",
+      "confirm": "停止后服务不再对外提供能力，直到再次启动。",
+      "danger": true,
+      "needRoot": true,
+      "timeoutSec": 90,
+      "command": "unit=\"\"\nif command -v systemctl \u003e/dev/null 2\u003e\u00261; then\n  for u in 'mysql' 'mysqld'; do\n    if systemctl cat \"$u\" \u003e/dev/null 2\u003e\u00261; then unit=\"$u\"; break; fi\n  done\nfi\nif [ -z \"$unit\" ]; then\n  for u in 'mysql' 'mysqld'; do\n    if [ -x \"/etc/init.d/$u\" ]; then unit=\"$u\"; break; fi\n  done\nfi\n[ -n \"$unit\" ] || unit='mysql'\nif command -v systemctl \u003e/dev/null 2\u003e\u00261 \u0026\u0026 systemctl cat \"$unit\" \u003e/dev/null 2\u003e\u00261; then\n  systemctl stop \"$unit\"\nelif command -v rc-service \u003e/dev/null 2\u003e\u00261; then\n  rc-service \"$unit\" stop\nelse\n  echo '未找到服务单元：mysql / mysqld'\n  exit 1\nfi"
+    }
+  ]
+}

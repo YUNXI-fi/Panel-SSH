@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "slug": "ffmpeg",
+  "name": "FFmpeg",
+  "version": "1.0.0",
+  "category": "toolchain",
+  "description": "音视频转码与处理工具（ffmpeg / ffprobe）",
+  "note": "RHEL 系（Rocky / Alma / RHEL）的官方仓库不含 ffmpeg，需要先启用 EPEL 或 RPM Fusion，否则预检会提示找不到包",
+  "icon": "icon.svg",
+  "defaultAction": "version",
+  "actions": [
+    {
+      "id": "version",
+      "label": "版本信息",
+      "group": "inspect",
+      "timeoutSec": 30,
+      "command": "ffmpeg -version | head -1 | awk '{print $3}' | cut -d- -f1 2\u003e/dev/null | head -1"
+    }
+  ]
+}
