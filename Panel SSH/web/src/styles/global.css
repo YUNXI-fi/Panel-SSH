@@ -2315,6 +2315,12 @@ body,
   color: var(--ink-hi);
 }
 
+.win__glyph-img {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+}
+
 .win__title {
   flex: 0 0 auto;
   max-width: 42%;

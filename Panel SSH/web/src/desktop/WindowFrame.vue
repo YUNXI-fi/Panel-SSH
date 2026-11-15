@@ -27,6 +27,17 @@ function windowGlyph(): string {
   return typeof glyph === 'string' && glyph !== '' ? glyph : props.win.appKey;
 }
 
+/** 应用包自带的图标地址；有值时标题栏图标与桌面图标保持同一枚。 */
+const windowIconUrl = computed(() => {
+  const icon = props.win.props.iconUrl;
+  return typeof icon === 'string' && icon !== '' ? icon : '';
+});
+
+const windowIconStyle = computed<Record<string, string>>(() => ({
+  color: props.rail ?? 'var(--ink-hi)',
+  '--icon-mask': `url(${windowIconUrl.value})`,
+}));
+
 /*
  * 把"写标题后缀"的能力递给内容组件。
  *
@@ -178,7 +189,13 @@ const frameStyle = computed(() => {
         因此不必再查一遍应用表。着色用身份色，与桌面图标、竖栏任务项同一套识别语言；
         查不到身份色的窗口（任务记录）回退到标题栏的默认字色。
       -->
-      <svg class="win__glyph" :style="{ color: rail }" aria-hidden="true">
+      <span
+        v-if="windowIconUrl"
+        class="icon-mask win__glyph-img"
+        :style="windowIconStyle"
+        aria-hidden="true"
+      />
+      <svg v-else class="win__glyph" :style="{ color: rail }" aria-hidden="true">
         <use :href="`#glyph-${windowGlyph()}`" />
       </svg>
 
