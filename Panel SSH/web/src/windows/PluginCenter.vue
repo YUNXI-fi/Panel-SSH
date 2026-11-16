@@ -329,6 +329,9 @@ const sysRunRequest = ref<EnvRunRequest | null>(null);
 // 点卡片整块内容切到详情，左上角返回，比在网格上叠一层弹窗更好读。
 const detailItem = ref<EnvCatalogItem | null>(null);
 
+/** 详情页当前显示的内容：文字信息或界面预览，默认信息。 */
+const detailPane = ref<'info' | 'preview'>('info');
+
 // 已安装总览要同时看三份数据：插件、npm 工具、系统组件。
 // 记下每份是按哪台主机取的，切页签时就不必反复跑目标机命令。
 const aiLoadedFor = ref<number | null>(null);
@@ -719,6 +722,7 @@ function installSystem(item: EnvCatalogItem): void {
 /** 进入应用详情：卡片上只剩安装与打开，其余信息与操作都在详情页里。 */
 function openDetail(item: EnvCatalogItem): void {
   detailItem.value = item;
+  detailPane.value = 'info';
 }
 
 /**
@@ -878,6 +882,7 @@ async function copyInstall(app: AICLIApp): Promise<void> {
 watch([hostId, tab], () => {
   // 换主机或换页签后，原详情不再对应眼前的内容，直接退回列表。
   detailItem.value = null;
+  detailPane.value = 'info';
   if (hostId.value === null) return;
   if (tab.value === 'plugins') {
     ensureOverview();
@@ -1402,6 +1407,16 @@ onMounted(load);
               </p>
               <p class="plugins__detail-desc">{{ detailItem.description }}</p>
             </div>
+            <div class="plugins__detail-hero-actions">
+              <n-button
+                size="small"
+                :type="detailItem.installed ? 'default' : 'primary'"
+                :disabled="hostId === null || !detailItem.supported || envPrivilege === 'none'"
+                @click="installSystem(detailItem)"
+              >
+                {{ detailItem.installed ? '重新安装' : '安装' }}
+              </n-button>
+            </div>
           </section>
 
           <div class="plugins__detail-actions">
@@ -1413,28 +1428,32 @@ onMounted(load);
             >
               打开
             </n-button>
-            <n-button
-              size="small"
-              :type="detailItem.installed ? 'default' : 'primary'"
-              :disabled="hostId === null || !detailItem.supported || envPrivilege === 'none'"
-              @click="installSystem(detailItem)"
-            >
-              {{ detailItem.installed ? '重新安装' : '安装' }}
-            </n-button>
-            <n-button
-              v-if="detailEntry"
-              size="small"
-              quaternary
-              :loading="storeBusy === detailItem.slug"
-              @click="toggleView(detailItem)"
-            >
-              {{ viewIconLabel(detailItem) }}
-            </n-button>
+            <div class="plugins__pane-switch" role="tablist" aria-label="详情内容">
+              <button
+                type="button"
+                role="tab"
+                class="plugins__pane-btn"
+                :class="{ 'plugins__pane-btn--active': detailPane === 'info' }"
+                :aria-selected="detailPane === 'info'"
+                @click="detailPane = 'info'"
+              >
+                应用信息
+              </button>
+              <button
+                type="button"
+                role="tab"
+                class="plugins__pane-btn"
+                :class="{ 'plugins__pane-btn--active': detailPane === 'preview' }"
+                :aria-selected="detailPane === 'preview'"
+                @click="detailPane = 'preview'"
+              >
+                界面预览
+              </button>
+            </div>
           </div>
 
-          <div class="plugins__detail-grid">
-            <section class="plugins__detail-block">
-              <p class="silk">应用信息</p>
+          <div class="plugins__detail-panes">
+            <section v-if="detailPane === 'info'" class="plugins__detail-block">
               <div v-if="detailItem.useCase" class="plugins__detail-row">
                 <span class="plugins__detail-label">适用场景</span>
                 <p>{{ detailItem.useCase }}</p>
@@ -1468,8 +1487,7 @@ onMounted(load);
               </div>
             </section>
 
-            <section class="plugins__detail-block">
-              <p class="silk">界面预览</p>
+            <section v-else class="plugins__detail-block">
               <div v-if="detailPreview" class="plugins__preview">
                 <div class="plugins__preview-bar">
                   <span class="led led--sig" />
@@ -1692,6 +1710,16 @@ onMounted(load);
           <footer class="plugins__card-foot">
             <span class="row-sub">{{ item.installed ? '已安装' : '未安装' }}</span>
             <span class="plugins__card-spacer" />
+            <n-button
+              v-if="storeAppFor(item.slug)"
+              size="small"
+              quaternary
+              :title="viewIconLabel(item)"
+              :loading="storeBusy === item.slug"
+              @click.stop="toggleView(item)"
+            >
+              {{ viewIconLabel(item) }}
+            </n-button>
             <n-button v-if="canOpen(item)" size="small" @click.stop="openFromCard(item)">
               打开
             </n-button>
@@ -1781,6 +1809,16 @@ onMounted(load);
           <footer class="plugins__card-foot">
             <span class="row-sub">{{ item.installed ? '已安装' : '未安装' }}</span>
             <span class="plugins__card-spacer" />
+            <n-button
+              v-if="storeAppFor(item.slug)"
+              size="small"
+              quaternary
+              :title="viewIconLabel(item)"
+              :loading="storeBusy === item.slug"
+              @click.stop="toggleView(item)"
+            >
+              {{ viewIconLabel(item) }}
+            </n-button>
             <n-button
               v-if="canOpen(item)"
               size="small"

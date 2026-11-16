@@ -7724,6 +7724,11 @@ body,
   color: var(--ink);
 }
 
+/* 重装放在头部右上角：它只针对当前应用，不属于"信息 / 预览"的切换行。 */
+.plugins__detail-hero-actions {
+  margin-left: auto;
+}
+
 .plugins__detail-actions {
   display: flex;
   flex-wrap: wrap;
@@ -7733,18 +7738,39 @@ body,
   border-bottom: 1px solid var(--line);
 }
 
-.plugins__detail-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: var(--sp-4);
-  align-items: start;
+/* 信息与预览互斥展示：内容长度差很多，同屏两栏会让短的一边留大片空白。 */
+.plugins__detail-panes {
+  display: block;
 }
 
-/* 窗口窄到一屏放不下两栏时改为纵向，避免右侧预览被压成一条。 */
-@media (max-width: 900px) {
-  .plugins__detail-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+.plugins__pane-switch {
+  display: inline-flex;
+  margin-left: auto;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--bg-sunken);
+}
+
+.plugins__pane-btn {
+  padding: 4px 10px;
+  border: 0;
+  border-radius: var(--r-1);
+  background: transparent;
+  font: inherit;
+  font-size: var(--fs-xs);
+  color: var(--ink-lo);
+  cursor: pointer;
+}
+
+.plugins__pane-btn:hover {
+  color: var(--ink);
+}
+
+.plugins__pane-btn--active {
+  background: var(--bg-panel);
+  color: var(--ink-hi);
+  box-shadow: 0 0 0 1px var(--shadow-edge);
 }
 
 .plugins__detail-block {
