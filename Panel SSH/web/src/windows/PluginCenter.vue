@@ -580,9 +580,9 @@ const installedStoreCount = computed(
 );
 
 /**
- * 卡片底部那个图标按钮表示什么。
+ * 卡片底部那个视图按钮表示什么。
  *
- * 一个位置承载三种状态：没加过是"添加"，已有新版是"更新"，已加且最新
+ * 一个按钮承载三种状态：没加过是"添加"，已有新版是"更新"，已加且最新
  * 是"移除"。不再单独占一行说明面板视图，卡片因此回到两行高度。
  */
 type ViewIcon = 'add' | 'update' | 'remove';
@@ -606,7 +606,19 @@ function viewIconLabel(item: EnvCatalogItem): string {
   }
 }
 
-/** 图标按钮的行为：加过就按状态更新或移除，没加过就添加。 */
+/** 底部按钮上的文字：与按钮状态一一对应。 */
+function viewActionText(item: EnvCatalogItem): string {
+  switch (viewIcon(item)) {
+    case 'update':
+      return '更新视图';
+    case 'remove':
+      return '移除视图';
+    default:
+      return '添加视图';
+  }
+}
+
+/** 按钮的行为：加过就按状态更新或移除，没加过就添加。 */
 function toggleView(item: EnvCatalogItem): void {
   const entry = storeAppFor(item.slug);
   if (!entry) return;
@@ -1528,17 +1540,10 @@ onMounted(load);
               size="small"
               quaternary
               :title="viewIconLabel(item)"
-              :aria-label="viewIconLabel(item)"
               :loading="storeBusy === item.slug"
               @click="toggleView(item)"
             >
-              <template #icon>
-                <svg class="plugins__viewicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-                  <path v-if="viewIcon(item) === 'add'" d="M12 5v14M5 12h14" />
-                  <path v-else-if="viewIcon(item) === 'update'" d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4" />
-                  <path v-else d="M5 12h14" />
-                </svg>
-              </template>
+              {{ viewActionText(item) }}
             </n-button>
             <n-button v-if="canOpen(item)" size="small" @click="openFromCard(item)">打开</n-button>
             <n-button
@@ -1631,17 +1636,10 @@ onMounted(load);
               size="small"
               quaternary
               :title="viewIconLabel(item)"
-              :aria-label="viewIconLabel(item)"
               :loading="storeBusy === item.slug"
               @click.stop="toggleView(item)"
             >
-              <template #icon>
-                <svg class="plugins__viewicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-                  <path v-if="viewIcon(item) === 'add'" d="M12 5v14M5 12h14" />
-                  <path v-else-if="viewIcon(item) === 'update'" d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4" />
-                  <path v-else d="M5 12h14" />
-                </svg>
-              </template>
+              {{ viewActionText(item) }}
             </n-button>
             <n-button size="small" quaternary @click.stop="openSecurityDetail(item)">
               详情

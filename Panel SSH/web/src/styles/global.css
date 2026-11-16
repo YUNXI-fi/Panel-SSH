@@ -7676,12 +7676,6 @@ body,
   min-width: 0;
 }
 
-/* 面板视图按钮的图标：与文字按钮同高，颜色跟随按钮状态。 */
-.plugins__viewicon {
-  width: 14px;
-  height: 14px;
-}
-
 .plugins__card-title {
   display: flex;
   flex: 1;
