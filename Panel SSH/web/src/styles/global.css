@@ -7597,36 +7597,6 @@ body,
   color: var(--warn);
 }
 
-.plugins__detail {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
-}
-
-.plugins__detail-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.plugins__detail-title {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
-}
-
-.plugins__detail-name {
-  overflow: hidden;
-  font-family: var(--font-mono);
-  font-size: var(--fs-md);
-  color: var(--ink-hi);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .plugins__detail-row {
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
@@ -7667,6 +7637,227 @@ body,
 
 .plugins__detail-paths code {
   padding: 2px 6px;
+}
+
+/* ---------------- 应用详情页 ---------------- */
+
+/*
+ * 详情是窗口内的第二层，不是弹窗：内容按"头部信息 → 操作 → 两栏详情"纵向排，
+ * 预览在右栏，和真正打开后的窗口同构，用户不必先装再猜。
+ */
+.plugins__detail-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5) var(--sp-6);
+}
+
+.plugins__detail-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.plugins__detail-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+.plugins__detail-glyph {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--bg-panel);
+  color: var(--sig);
+}
+
+.plugins__detail-glyph svg {
+  width: 26px;
+  height: 26px;
+}
+
+.plugins__detail-glyph .plugins__store-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.plugins__detail-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.plugins__detail-name-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.plugins__detail-name {
+  margin: 0;
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  color: var(--ink-hi);
+}
+
+.plugins__detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--ink-lo);
+}
+
+.plugins__detail-desc {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.plugins__detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.plugins__detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--sp-4);
+  align-items: start;
+}
+
+/* 窗口窄到一屏放不下两栏时改为纵向，避免右侧预览被压成一条。 */
+@media (max-width: 900px) {
+  .plugins__detail-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.plugins__detail-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--bg-panel);
+}
+
+.plugins__detail-note {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--ink-lo);
+}
+
+/* ---------------- 界面预览 ---------------- */
+
+.plugins__preview {
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  overflow: hidden;
+  background: var(--bg-sunken);
+}
+
+.plugins__preview-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-panel);
+}
+
+.plugins__preview-title {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--ink);
+}
+
+.plugins__preview-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+}
+
+.plugins__preview-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: var(--sp-2);
+}
+
+.plugins__preview-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--bg-panel);
+}
+
+/* 预览里的数值用最淡的一档：它是占位，不能看起来像真实读数。 */
+.plugins__preview-value {
+  font-family: var(--font-mono);
+  font-size: var(--fs-lg);
+  line-height: 1.1;
+  color: var(--ink-ghost);
+}
+
+.plugins__preview-label {
+  font-size: var(--fs-xs);
+  color: var(--ink-lo);
+}
+
+.plugins__preview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plugins__preview-silk {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-lo);
+}
+
+.plugins__preview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.plugins__preview-action {
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--bg-panel);
+  font-size: var(--fs-xs);
+  color: var(--ink);
+}
+
+.plugins__preview-hint {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--ink-lo);
 }
 
 .plugins__card-head {

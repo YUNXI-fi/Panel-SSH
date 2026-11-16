@@ -33,6 +33,31 @@ type Entry struct {
 	Manifest    string    `json:"manifest"`
 	UI          string    `json:"ui"`
 	Files       []FileRef `json:"files"`
+	// UIPreview 是随索引一起下发的界面结构预览。
+	//
+	// ui.json 里的动作只有 id，详情页要在安装之前就把窗口结构画出来，
+	// 为此在索引里多带一份解析好的结构与动作名称，省掉逐包下载。
+	UIPreview *UIPreview `json:"uiPreview,omitempty"`
+}
+
+// UIPreviewAction 是界面预览里的一个动作：ID 用于对齐运行时，Label 用于展示。
+type UIPreviewAction struct {
+	ID    string `json:"id"`
+	Label string `json:"label"`
+}
+
+// UIPreviewSection 是界面预览里的一个动作分组。
+type UIPreviewSection struct {
+	Title   string            `json:"title"`
+	Actions []UIPreviewAction `json:"actions"`
+}
+
+// UIPreview 是 ui.json 的可展示版本。
+type UIPreview struct {
+	Layout   string             `json:"layout"`
+	Overview []UIPreviewAction  `json:"overview,omitempty"`
+	Sections []UIPreviewSection `json:"sections,omitempty"`
+	Hint     string             `json:"hint,omitempty"`
 }
 
 // Index 是 apps/index.json 的结构。

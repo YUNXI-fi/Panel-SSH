@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-15T15:27:02Z",
+  "generatedAt": "2026-11-16T13:46:13Z",
   "apps": [
     {
       "slug": "autotools",
@@ -24,7 +24,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "bat",
@@ -48,7 +69,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "borgbackup",
@@ -72,7 +114,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "btop",
@@ -96,7 +159,28 @@
           "path": "ui.json",
           "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "交互式终端工具；面板提供版本与运行状态，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "build-toolchain",
@@ -120,7 +204,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "bun",
@@ -144,7 +249,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "chkrootkit",
@@ -168,7 +294,41 @@
           "path": "ui.json",
           "sha256": "d460031d7ef352cbf2a747a831e03294898873d3f78687d6e5d47ce2daab8609"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "check",
+                "label": "开始检查"
+              },
+              {
+                "id": "quiet",
+                "label": "只输出可疑项"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "clamav",
@@ -192,7 +352,45 @@
           "path": "ui.json",
           "sha256": "07b71cbe425702acba9875131f85007d2485278257c05771b14f8ed5e516998c"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "update",
+                "label": "更新病毒库"
+              },
+              {
+                "id": "scan",
+                "label": "扫描文件"
+              },
+              {
+                "id": "scan-recursive",
+                "label": "递归扫描目录"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "clang",
@@ -216,7 +414,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "cmake",
@@ -240,7 +459,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "cuda",
@@ -264,7 +504,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "duf",
@@ -288,7 +549,28 @@
           "path": "ui.json",
           "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "交互式终端工具；面板提供版本与运行状态，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "fail2ban",
@@ -312,7 +594,53 @@
           "path": "ui.json",
           "sha256": "a9c00646ac29b594a9bc9882078155432a9991b5561c22456c3c1a3d9b6dc835"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "status",
+            "label": "查看封禁状态"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "status",
+                "label": "查看封禁状态"
+              },
+              {
+                "id": "jail",
+                "label": "查看单个 Jail"
+              },
+              {
+                "id": "test",
+                "label": "校验配置"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "unban",
+                "label": "解封 IP"
+              },
+              {
+                "id": "reload",
+                "label": "重载配置"
+              },
+              {
+                "id": "start",
+                "label": "启动服务"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "fd",
@@ -336,7 +664,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "ffmpeg",
@@ -360,7 +709,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "firewalld",
@@ -384,7 +754,53 @@
           "path": "ui.json",
           "sha256": "db385abe6e8bfe59d0c6707ce3e3da79731802c5ffb4111747481789a70dc60d"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "list",
+            "label": "当前规则"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "state",
+                "label": "运行状态"
+              },
+              {
+                "id": "list",
+                "label": "当前规则"
+              },
+              {
+                "id": "service",
+                "label": "服务状态"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "reload",
+                "label": "重新加载规则"
+              },
+              {
+                "id": "add-service",
+                "label": "放行服务"
+              },
+              {
+                "id": "remove-service",
+                "label": "移除服务"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "fzf",
@@ -408,7 +824,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "gdb",
@@ -432,7 +869,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "git",
@@ -456,7 +914,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "glances",
@@ -480,7 +959,28 @@
           "path": "ui.json",
           "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "交互式终端工具；面板提供版本与运行状态，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "gnupg",
@@ -504,7 +1004,57 @@
           "path": "ui.json",
           "sha256": "8af67911fd88e51e28d2ac52529b4effa163bf7f9fea04fa68317d62dc8fc662"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "public",
+            "label": "公钥列表"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "public",
+                "label": "公钥列表"
+              },
+              {
+                "id": "secret",
+                "label": "私钥列表"
+              },
+              {
+                "id": "fingerprint",
+                "label": "查看指纹"
+              },
+              {
+                "id": "export",
+                "label": "导出公钥"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "generate",
+                "label": "生成密钥"
+              },
+              {
+                "id": "import",
+                "label": "导入公钥"
+              },
+              {
+                "id": "delete",
+                "label": "删除密钥"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "golang",
@@ -528,7 +1078,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "gradle",
@@ -552,7 +1123,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "htop",
@@ -576,7 +1168,28 @@
           "path": "ui.json",
           "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "交互式终端工具；面板提供版本与运行状态，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "iperf3",
@@ -600,7 +1213,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "lynis",
@@ -624,7 +1258,41 @@
           "path": "ui.json",
           "sha256": "b5755a50355da4d24eef783eb905f08d41ae700375cf68387d1aabcbea5c127e"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              },
+              {
+                "id": "report",
+                "label": "查看审计报告"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "audit",
+                "label": "快速安全审计"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "mariadb",
@@ -648,7 +1316,53 @@
           "path": "ui.json",
           "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "status",
+            "label": "服务状态"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              },
+              {
+                "id": "status",
+                "label": "服务状态"
+              },
+              {
+                "id": "logs",
+                "label": "最近日志"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "start",
+                "label": "启动服务"
+              },
+              {
+                "id": "restart",
+                "label": "重启服务"
+              },
+              {
+                "id": "stop",
+                "label": "停止服务"
+              }
+            ]
+          }
+        ],
+        "hint": "服务由 systemd / OpenRC 托管；启停会改变主机状态，请先确认影响范围。"
+      }
     },
     {
       "slug": "maven",
@@ -672,7 +1386,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "mongodb",
@@ -696,7 +1431,28 @@
           "path": "ui.json",
           "sha256": "cfa547692435e4b69a02c9c457ad92da047240d064ac3c6dbb5739912ecaa620"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "服务由 systemd / OpenRC 托管；启停会改变主机状态，请先确认影响范围。"
+      }
     },
     {
       "slug": "mtr",
@@ -720,7 +1476,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "mysql",
@@ -744,7 +1521,53 @@
           "path": "ui.json",
           "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "status",
+            "label": "服务状态"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              },
+              {
+                "id": "status",
+                "label": "服务状态"
+              },
+              {
+                "id": "logs",
+                "label": "最近日志"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "start",
+                "label": "启动服务"
+              },
+              {
+                "id": "restart",
+                "label": "重启服务"
+              },
+              {
+                "id": "stop",
+                "label": "停止服务"
+              }
+            ]
+          }
+        ],
+        "hint": "服务由 systemd / OpenRC 托管；启停会改变主机状态，请先确认影响范围。"
+      }
     },
     {
       "slug": "ncdu",
@@ -768,7 +1591,28 @@
           "path": "ui.json",
           "sha256": "eb172a5840d6bacd809e992c1e39dd83d21ce6255931f70edce7d7a46a47fb4c"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "交互式终端工具；面板提供版本与运行状态，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "nethogs",
@@ -792,7 +1636,37 @@
           "path": "ui.json",
           "sha256": "d03850b328d813f069512a57cc8464e4a821efd39e73c4a0ff603f8928e4bc6f"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "sample",
+                "label": "采样 5 秒流量"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "nginx",
@@ -816,7 +1690,53 @@
           "path": "ui.json",
           "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "status",
+            "label": "服务状态"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              },
+              {
+                "id": "status",
+                "label": "服务状态"
+              },
+              {
+                "id": "logs",
+                "label": "最近日志"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "start",
+                "label": "启动服务"
+              },
+              {
+                "id": "restart",
+                "label": "重启服务"
+              },
+              {
+                "id": "stop",
+                "label": "停止服务"
+              }
+            ]
+          }
+        ],
+        "hint": "服务由 systemd / OpenRC 托管；启停会改变主机状态，请先确认影响范围。"
+      }
     },
     {
       "slug": "ninja",
@@ -840,7 +1760,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "nmap",
@@ -864,7 +1805,37 @@
           "path": "ui.json",
           "sha256": "6d204fe238408824298d85390f06859d9fe6befccffc881d2df40cd5e90f059c"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "scan",
+                "label": "端口扫描"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "nodejs",
@@ -888,7 +1859,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "openjdk",
@@ -912,7 +1904,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "openvpn",
@@ -936,7 +1949,45 @@
           "path": "ui.json",
           "sha256": "12b3006e9fa098755b6e6971520e46e8ea80b6423e5ea46d3172b3eb3b50e9b1"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "units",
+            "label": "服务实例"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              },
+              {
+                "id": "units",
+                "label": "服务实例"
+              },
+              {
+                "id": "configs",
+                "label": "配置目录"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "restart",
+                "label": "重启服务"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "pass",
@@ -960,7 +2011,36 @@
           "path": "ui.json",
           "sha256": "86f1a856b098266841823d6602910e7910137ae6e5da1bbed598ea163181f609"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "list",
+            "label": "密码条目"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "list",
+                "label": "密码条目"
+              },
+              {
+                "id": "show",
+                "label": "查看密码"
+              },
+              {
+                "id": "git-status",
+                "label": "版本状态"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "php",
@@ -984,7 +2064,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "pkgconf",
@@ -1008,7 +2109,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "postgresql",
@@ -1032,7 +2154,53 @@
           "path": "ui.json",
           "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "status",
+            "label": "服务状态"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              },
+              {
+                "id": "status",
+                "label": "服务状态"
+              },
+              {
+                "id": "logs",
+                "label": "最近日志"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "start",
+                "label": "启动服务"
+              },
+              {
+                "id": "restart",
+                "label": "重启服务"
+              },
+              {
+                "id": "stop",
+                "label": "停止服务"
+              }
+            ]
+          }
+        ],
+        "hint": "服务由 systemd / OpenRC 托管；启停会改变主机状态，请先确认影响范围。"
+      }
     },
     {
       "slug": "python3",
@@ -1056,7 +2224,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "rclone",
@@ -1080,7 +2269,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "redis",
@@ -1104,7 +2314,53 @@
           "path": "ui.json",
           "sha256": "88fbd996b293c56be717b70b3bfe5fd4bf9f0a6a8571048a1e7f941e32f72e85"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "status",
+            "label": "服务状态"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              },
+              {
+                "id": "status",
+                "label": "服务状态"
+              },
+              {
+                "id": "logs",
+                "label": "最近日志"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "start",
+                "label": "启动服务"
+              },
+              {
+                "id": "restart",
+                "label": "重启服务"
+              },
+              {
+                "id": "stop",
+                "label": "停止服务"
+              }
+            ]
+          }
+        ],
+        "hint": "服务由 systemd / OpenRC 托管；启停会改变主机状态，请先确认影响范围。"
+      }
     },
     {
       "slug": "restic",
@@ -1128,7 +2384,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "ripgrep",
@@ -1152,7 +2429,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "rkhunter",
@@ -1176,7 +2474,41 @@
           "path": "ui.json",
           "sha256": "722f2379cbf9be9f982b127f7c611ddf46e3062d88fd4ab69cd8fe210e7736b9"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "check",
+                "label": "开始检查"
+              },
+              {
+                "id": "baseline",
+                "label": "更新文件基线"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "ruby",
@@ -1200,7 +2532,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "rust",
@@ -1224,7 +2577,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "socat",
@@ -1248,7 +2622,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "tcpdump",
@@ -1272,7 +2667,41 @@
           "path": "ui.json",
           "sha256": "15160bb17ef7ef4dc2c2ee888db7052a6936554d2e7187d2f09b78507ec46646"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              },
+              {
+                "id": "interfaces",
+                "label": "列出网卡"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "capture",
+                "label": "抓取数据包"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "tmux",
@@ -1296,7 +2725,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "tor",
@@ -1320,7 +2770,49 @@
           "path": "ui.json",
           "sha256": "a17c38414661dfbda2c43906ee44c00d29f03ebddbc55b928a1ad7a2d47e7d30"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "status",
+            "label": "服务状态"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              },
+              {
+                "id": "status",
+                "label": "服务状态"
+              },
+              {
+                "id": "verify",
+                "label": "校验配置"
+              },
+              {
+                "id": "logs",
+                "label": "最近日志"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "restart",
+                "label": "重启服务"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "tree",
@@ -1344,7 +2836,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     },
     {
       "slug": "ufw",
@@ -1368,7 +2881,57 @@
           "path": "ui.json",
           "sha256": "d90f23971201b50c3231dda1ad98e0b07ef68950b3310a28a80275c640049a26"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "status",
+            "label": "查看状态"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "status",
+                "label": "查看状态"
+              },
+              {
+                "id": "numbered",
+                "label": "查看编号规则"
+              }
+            ]
+          },
+          {
+            "title": "管理操作",
+            "actions": [
+              {
+                "id": "allow",
+                "label": "放行端口"
+              },
+              {
+                "id": "delete",
+                "label": "删除规则"
+              },
+              {
+                "id": "enable",
+                "label": "启用防火墙"
+              },
+              {
+                "id": "disable",
+                "label": "停用防火墙"
+              },
+              {
+                "id": "reload",
+                "label": "重新加载规则"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "wireguard-tools",
@@ -1392,7 +2955,36 @@
           "path": "ui.json",
           "sha256": "a083fb2347786ddecda2d825e15d36f9c7748657625e725d9745a38c8e613340"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "status",
+            "label": "隧道状态"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "interfaces",
+                "label": "隧道接口"
+              },
+              {
+                "id": "status",
+                "label": "隧道状态"
+              },
+              {
+                "id": "configs",
+                "label": "配置目录"
+              }
+            ]
+          }
+        ],
+        "hint": "动作由面板编译期实现；应用包负责元数据、图标、界面配置与配置文件入口。"
+      }
     },
     {
       "slug": "zoxide",
@@ -1416,7 +3008,28 @@
           "path": "ui.json",
           "sha256": "3d6b4c923b421e9a1b00a609ad0c2a2b86bf7e6959bb0852c13550c165994be5"
         }
-      ]
+      ],
+      "uiPreview": {
+        "layout": "generic",
+        "overview": [
+          {
+            "id": "version",
+            "label": "版本信息"
+          }
+        ],
+        "sections": [
+          {
+            "title": "查看与诊断",
+            "actions": [
+              {
+                "id": "version",
+                "label": "版本信息"
+              }
+            ]
+          }
+        ],
+        "hint": "命令行工具；面板提供版本、安装状态与配置入口，日常使用请在终端窗口中运行。"
+      }
     }
   ]
 }

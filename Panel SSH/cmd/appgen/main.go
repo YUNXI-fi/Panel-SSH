@@ -114,7 +114,8 @@ func generate(out string) error {
 			Slug: recipe.Slug, Name: recipe.Name, Version: packageVersion,
 			Category: recipe.Category, Description: recipe.Description,
 			Icon: "icon.svg", Manifest: "app.json", UI: "ui.json",
-			Files: files,
+			Files:     files,
+			UIPreview: uiPreview(ui, actions),
 		})
 	}
 
@@ -397,6 +398,42 @@ func buildUI(recipe *env.Recipe, actions []appstore.Action, defaultAction string
 		Sections:      sections,
 		Hint:          hintFor(recipe),
 	}
+}
+
+// uiPreview 把 ui.json 与动作名称合成索引里的界面预览。
+//
+// ui.json 的 sections 只存动作 id（运行时按 id 找实现），而详情页要在安装前
+// 展示"打开后长什么样"，因此这里把 id 翻译成名称后随索引一起下发。
+func uiPreview(ui appstore.UI, actions []appstore.Action) *appstore.UIPreview {
+	labels := make(map[string]string, len(actions))
+	for _, action := range actions {
+		labels[action.ID] = action.Label
+	}
+	resolve := func(ids []string) []appstore.UIPreviewAction {
+		resolved := make([]appstore.UIPreviewAction, 0, len(ids))
+		for _, id := range ids {
+			label, ok := labels[id]
+			if !ok {
+				// 预览只服务展示：找不到对应动作就跳过，不让索引生成失败。
+				continue
+			}
+			resolved = append(resolved, appstore.UIPreviewAction{ID: id, Label: label})
+		}
+		return resolved
+	}
+
+	preview := &appstore.UIPreview{
+		Layout:   ui.Layout,
+		Overview: resolve(ui.Overview),
+		Hint:     ui.Hint,
+	}
+	for _, section := range ui.Sections {
+		preview.Sections = append(preview.Sections, appstore.UIPreviewSection{
+			Title:   section.Title,
+			Actions: resolve(section.Actions),
+		})
+	}
+	return preview
 }
 
 func hintFor(recipe *env.Recipe) string {

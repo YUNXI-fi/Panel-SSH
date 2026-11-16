@@ -5,7 +5,6 @@ import {
   NDropdown,
   NInput,
   NModal,
-  NSpace,
   NSwitch,
   NTag,
   useDialog,
@@ -326,10 +325,9 @@ const envLoading = ref(false);
 const sysRunShow = ref(false);
 const sysRunRequest = ref<EnvRunRequest | null>(null);
 
-// 网络安全页签的详情弹窗。应用中心是窗口式界面，没有路由栈，
-// 详情因此沿用现有的弹窗形态，而不是为它单开一个页面。
-const securityDetail = ref<EnvCatalogItem | null>(null);
-const securityDetailShow = ref(false);
+// 应用详情页。窗口式界面没有路由栈，详情因此做成窗口内的第二层：
+// 点卡片整块内容切到详情，左上角返回，比在网格上叠一层弹窗更好读。
+const detailItem = ref<EnvCatalogItem | null>(null);
 
 // 已安装总览要同时看三份数据：插件、npm 工具、系统组件。
 // 记下每份是按哪台主机取的，切页签时就不必反复跑目标机命令。
@@ -580,10 +578,10 @@ const installedStoreCount = computed(
 );
 
 /**
- * 卡片底部那个视图按钮表示什么。
+ * 面板视图的三种状态。
  *
- * 一个按钮承载三种状态：没加过是"添加"，已有新版是"更新"，已加且最新
- * 是"移除"。不再单独占一行说明面板视图，卡片因此回到两行高度。
+ * 没加过是"添加"，已有新版是"更新"，已加且最新是"移除"；
+ * 详情页据此给出对应的按钮文案。
  */
 type ViewIcon = 'add' | 'update' | 'remove';
 
@@ -595,6 +593,7 @@ function viewIcon(item: EnvCatalogItem): ViewIcon {
   return 'add';
 }
 
+/** 面板视图的状态与对应文案。 */
 function viewIconLabel(item: EnvCatalogItem): string {
   switch (viewIcon(item)) {
     case 'update':
@@ -603,18 +602,6 @@ function viewIconLabel(item: EnvCatalogItem): string {
       return '移除面板视图';
     default:
       return '添加面板视图';
-  }
-}
-
-/** 底部按钮上的文字：与按钮状态一一对应。 */
-function viewActionText(item: EnvCatalogItem): string {
-  switch (viewIcon(item)) {
-    case 'update':
-      return '更新视图';
-    case 'remove':
-      return '移除视图';
-    default:
-      return '添加视图';
   }
 }
 
@@ -636,6 +623,14 @@ function canOpen(item: EnvCatalogItem): boolean {
     storeAppFor(item.slug)?.onHost === true
   );
 }
+
+/** 详情页的仓库条目：版本、更新与桌面入口状态都来自它。 */
+const detailEntry = computed(() =>
+  detailItem.value === null ? undefined : storeAppFor(detailItem.value.slug),
+);
+
+/** 详情页的界面预览：索引里随包下发的结构，安装前也能看到。 */
+const detailPreview = computed(() => detailEntry.value?.uiPreview ?? null);
 
 /** 打开应用包对应的通用窗口；与桌面图标的打开方式保持一致。 */
 function openAppView(item: EnvCatalogItem): void {
@@ -721,9 +716,9 @@ function installSystem(item: EnvCatalogItem): void {
   sysRunShow.value = true;
 }
 
-function openSecurityDetail(item: EnvCatalogItem): void {
-  securityDetail.value = item;
-  securityDetailShow.value = true;
+/** 进入应用详情：卡片上只剩安装与打开，其余信息与操作都在详情页里。 */
+function openDetail(item: EnvCatalogItem): void {
+  detailItem.value = item;
 }
 
 /**
@@ -749,26 +744,16 @@ function openSecurity(item: EnvCatalogItem): void {
   );
 }
 
-/** 详情里的「打开」：先收起详情，再开终端窗口。 */
-function openSecurityFromDetail(): void {
-  const item = securityDetail.value;
-  if (!item) return;
-  securityDetailShow.value = false;
-  openSecurity(item);
-}
-
-/** 详情弹窗里的安装入口：先收起详情，再交给同一条环境流水线。 */
-function installSecurityDetail(): void {
-  const item = securityDetail.value;
-  if (!item) return;
-  securityDetailShow.value = false;
-  installSystem(item);
-}
-
-/** 系统组件安装流程结束：关闭弹窗并回读一次状态。 */
+/** 系统组件安装流程结束：关闭弹窗、回读状态，并让详情页指向新数据。 */
 async function onSysDone(): Promise<void> {
   sysRunShow.value = false;
+  // 目录重读后是全新的对象，详情页必须换到同 slug 的新条目，
+  // 否则安装完成仍显示"未安装"。
+  const slug = detailItem.value?.slug;
   await loadEnv();
+  if (slug !== undefined) {
+    detailItem.value = envCatalog.value.find((item) => item.slug === slug) ?? null;
+  }
 }
 
 /** 一键安装/升级：用户级 npm 前缀，不需要 root。 */
@@ -891,6 +876,8 @@ async function copyInstall(app: AICLIApp): Promise<void> {
 // 主机或页签切换时按需拉取：两类目录都要跑一次目标机命令，
 // 不在插件页签下做无谓的探测。AI CLI 与开发工具共用同一份结果。
 watch([hostId, tab], () => {
+  // 换主机或换页签后，原详情不再对应眼前的内容，直接退回列表。
+  detailItem.value = null;
   if (hostId.value === null) return;
   if (tab.value === 'plugins') {
     ensureOverview();
@@ -1370,7 +1357,167 @@ onMounted(load);
       </button>
     </div>
 
-    <template v-if="tab === 'plugins'">
+    <!--
+      应用详情：卡片点进来后的第二层。
+      "这个应用是什么、装没装、怎么用、打开后长什么样"集中在一页里，
+      卡片上因此只留安装与打开两个高频动作。
+    -->
+    <template v-if="detailItem !== null">
+      <div class="plugins__scroll">
+        <div class="plugins__detail-page">
+          <header class="plugins__detail-bar">
+            <n-button size="small" quaternary @click="detailItem = null">← 返回列表</n-button>
+            <span class="silk">{{ ENV_CATEGORY_TEXT[detailItem.category] ?? detailItem.category }}</span>
+          </header>
+
+          <section class="plugins__detail-hero">
+            <span class="plugins__detail-glyph" aria-hidden="true">
+              <span
+                v-if="detailEntry"
+                class="icon-mask plugins__store-icon"
+                :style="{ '--icon-mask': `url(/api/store/apps/${detailItem.slug}/icon)` }"
+              />
+              <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                <use :href="`#glyph-${securityGlyph(detailItem.slug)}`" />
+              </svg>
+            </span>
+            <div class="plugins__detail-heading">
+              <div class="plugins__detail-name-row">
+                <h2 class="plugins__detail-name">{{ detailItem.name }}</h2>
+                <n-tag v-if="detailItem.installed" size="small" type="success" :bordered="false">
+                  已安装
+                </n-tag>
+                <n-tag v-else size="small" :bordered="false">未安装</n-tag>
+                <n-tag v-if="detailEntry?.updateAvailable" size="small" type="warning" :bordered="false">
+                  有新版
+                </n-tag>
+                <n-tag v-if="!detailItem.supported" size="small" type="warning" :bordered="false">
+                  当前发行版不提供
+                </n-tag>
+              </div>
+              <p class="plugins__detail-meta">
+                <span>{{ ENV_CATEGORY_TEXT[detailItem.category] ?? detailItem.category }}</span>
+                <span v-if="detailItem.version">· {{ detailItem.version }}</span>
+                <span v-if="detailEntry?.installedVersion">· 面板视图 v{{ detailEntry.installedVersion }}</span>
+              </p>
+              <p class="plugins__detail-desc">{{ detailItem.description }}</p>
+            </div>
+          </section>
+
+          <div class="plugins__detail-actions">
+            <n-button
+              v-if="canOpen(detailItem)"
+              size="small"
+              type="primary"
+              @click="openFromCard(detailItem)"
+            >
+              打开
+            </n-button>
+            <n-button
+              size="small"
+              :type="detailItem.installed ? 'default' : 'primary'"
+              :disabled="hostId === null || !detailItem.supported || envPrivilege === 'none'"
+              @click="installSystem(detailItem)"
+            >
+              {{ detailItem.installed ? '重新安装' : '安装' }}
+            </n-button>
+            <n-button
+              v-if="detailEntry"
+              size="small"
+              quaternary
+              :loading="storeBusy === detailItem.slug"
+              @click="toggleView(detailItem)"
+            >
+              {{ viewIconLabel(detailItem) }}
+            </n-button>
+          </div>
+
+          <div class="plugins__detail-grid">
+            <section class="plugins__detail-block">
+              <p class="silk">应用信息</p>
+              <div v-if="detailItem.useCase" class="plugins__detail-row">
+                <span class="plugins__detail-label">适用场景</span>
+                <p>{{ detailItem.useCase }}</p>
+              </div>
+              <div v-if="detailItem.note" class="plugins__detail-row">
+                <span class="plugins__detail-label">说明</span>
+                <p>{{ detailItem.note }}</p>
+              </div>
+              <div v-if="detailItem.launch" class="plugins__detail-row">
+                <span class="plugins__detail-label">启动命令</span>
+                <p><code>{{ detailItem.launch.command }}</code></p>
+              </div>
+              <div class="plugins__detail-row">
+                <span class="plugins__detail-label">面板视图</span>
+                <p>
+                  <template v-if="detailEntry?.onHost">
+                    已添加<template v-if="detailEntry?.updateAvailable"
+                      >，可更新到 v{{ detailEntry?.version }}</template
+                    >
+                  </template>
+                  <template v-else-if="detailEntry">未添加，添加后可从桌面直接打开</template>
+                  <template v-else>该应用没有面板视图</template>
+                </p>
+              </div>
+              <div class="plugins__detail-row">
+                <span class="plugins__detail-label">配置文件</span>
+                <div v-if="detailItem.launch?.configPaths?.length" class="plugins__detail-paths">
+                  <code v-for="path in detailItem.launch.configPaths" :key="path">{{ path }}</code>
+                </div>
+                <p v-else>未声明配置文件</p>
+              </div>
+            </section>
+
+            <section class="plugins__detail-block">
+              <p class="silk">界面预览</p>
+              <div v-if="detailPreview" class="plugins__preview">
+                <div class="plugins__preview-bar">
+                  <span class="led led--sig" />
+                  <span class="plugins__preview-title">{{ detailItem.name }}</span>
+                </div>
+                <div class="plugins__preview-body">
+                  <div v-if="detailPreview.overview?.length" class="plugins__preview-stats">
+                    <div
+                      v-for="action in detailPreview.overview"
+                      :key="action.id"
+                      class="plugins__preview-stat"
+                    >
+                      <span class="plugins__preview-value">—</span>
+                      <span class="plugins__preview-label">{{ action.label }}</span>
+                    </div>
+                  </div>
+                  <div
+                    v-for="section in detailPreview.sections"
+                    :key="section.title"
+                    class="plugins__preview-section"
+                  >
+                    <span class="plugins__preview-silk">{{ section.title }}</span>
+                    <div class="plugins__preview-actions">
+                      <span
+                        v-for="action in section.actions"
+                        :key="action.id"
+                        class="plugins__preview-action"
+                      >
+                        {{ action.label }}
+                      </span>
+                    </div>
+                  </div>
+                  <p v-if="detailPreview.hint" class="plugins__preview-hint">
+                    {{ detailPreview.hint }}
+                  </p>
+                </div>
+              </div>
+              <p v-else class="plugins__detail-note">该应用没有提供界面预览。</p>
+              <p class="plugins__detail-note">
+                预览按应用包 ui.json 生成：实际窗口的分区与动作与此一致，数值要打开窗口后才会出现。
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <template v-else-if="tab === 'plugins'">
       <!--
         已安装：这台主机上装了什么的汇总，按来源分组。
         上面几个页签是"能装什么"的目录，这里是"已经装了什么"，两边不混。
@@ -1498,7 +1645,17 @@ onMounted(load);
       </div>
 
       <div v-else class="plugins__grid">
-        <article v-for="item in visibleEnv" :key="item.slug" class="plugins__card">
+        <article
+          v-for="item in visibleEnv"
+          :key="item.slug"
+          class="plugins__card plugins__card--clickable"
+          role="button"
+          tabindex="0"
+          :aria-label="`查看 ${item.name} 详情`"
+          @click="openDetail(item)"
+          @keydown.enter.prevent="openDetail(item)"
+          @keydown.space.prevent="openDetail(item)"
+        >
           <header class="plugins__card-head">
             <span v-if="storeAppFor(item.slug)" class="plugins__icon" aria-hidden="true">
               <span
@@ -1535,24 +1692,17 @@ onMounted(load);
           <footer class="plugins__card-foot">
             <span class="row-sub">{{ item.installed ? '已安装' : '未安装' }}</span>
             <span class="plugins__card-spacer" />
-            <n-button
-              v-if="storeAppFor(item.slug)"
-              size="small"
-              quaternary
-              :title="viewIconLabel(item)"
-              :loading="storeBusy === item.slug"
-              @click="toggleView(item)"
-            >
-              {{ viewActionText(item) }}
+            <n-button v-if="canOpen(item)" size="small" @click.stop="openFromCard(item)">
+              打开
             </n-button>
-            <n-button v-if="canOpen(item)" size="small" @click="openFromCard(item)">打开</n-button>
             <n-button
+              v-if="!item.installed"
               size="small"
               type="primary"
               :disabled="hostId === null || !item.supported || envPrivilege === 'none'"
-              @click="installSystem(item)"
+              @click.stop="installSystem(item)"
             >
-              {{ item.installed ? '重新安装' : '安装' }}
+              安装
             </n-button>
           </footer>
         </article>
@@ -1586,9 +1736,9 @@ onMounted(load);
           role="button"
           tabindex="0"
           :aria-label="`查看 ${item.name} 详情`"
-          @click="openSecurityDetail(item)"
-          @keydown.enter.prevent="openSecurityDetail(item)"
-          @keydown.space.prevent="openSecurityDetail(item)"
+          @click="openDetail(item)"
+          @keydown.enter.prevent="openDetail(item)"
+          @keydown.space.prevent="openDetail(item)"
         >
           <header class="plugins__card-head">
             <span
@@ -1632,19 +1782,6 @@ onMounted(load);
             <span class="row-sub">{{ item.installed ? '已安装' : '未安装' }}</span>
             <span class="plugins__card-spacer" />
             <n-button
-              v-if="storeAppFor(item.slug)"
-              size="small"
-              quaternary
-              :title="viewIconLabel(item)"
-              :loading="storeBusy === item.slug"
-              @click.stop="toggleView(item)"
-            >
-              {{ viewActionText(item) }}
-            </n-button>
-            <n-button size="small" quaternary @click.stop="openSecurityDetail(item)">
-              详情
-            </n-button>
-            <n-button
               v-if="canOpen(item)"
               size="small"
               type="primary"
@@ -1653,12 +1790,13 @@ onMounted(load);
               打开
             </n-button>
             <n-button
+              v-if="!item.installed"
               size="small"
-              :type="canOpen(item) ? 'default' : 'primary'"
+              type="primary"
               :disabled="hostId === null || !item.supported || envPrivilege === 'none'"
               @click.stop="installSystem(item)"
             >
-              {{ item.installed ? '重新安装' : '安装' }}
+              安装
             </n-button>
           </footer>
         </article>
@@ -1822,89 +1960,6 @@ onMounted(load);
         <n-button block @click="onSettingsAction('grant')">授权…</n-button>
         <n-button block type="error" @click="onSettingsAction('uninstall')">卸载…</n-button>
       </n-space>
-    </n-modal>
-
-    <!-- 网络安全应用的详情：窗口式界面没有路由栈，详情沿用弹窗形态。 -->
-    <n-modal v-model:show="securityDetailShow" preset="card" title="应用详情" style="width: 520px">
-      <div v-if="securityDetail" class="plugins__detail">
-        <header class="plugins__detail-head">
-          <span class="plugins__icon plugins__icon--security" aria-hidden="true">
-            <svg><use :href="`#glyph-${securityGlyph(securityDetail.slug)}`" /></svg>
-          </span>
-          <div class="plugins__detail-title">
-            <span class="plugins__detail-name">{{ securityDetail.name }}</span>
-            <span class="row-sub">
-              {{ ENV_CATEGORY_TEXT[securityDetail.category] ?? securityDetail.category }}
-            </span>
-          </div>
-          <n-tag
-            size="tiny"
-            :bordered="false"
-            :type="securityDetail.installed ? 'success' : 'default'"
-          >
-            {{ securityDetail.installed ? '已安装' : '未安装' }}
-          </n-tag>
-        </header>
-
-        <div class="plugins__detail-row">
-          <span class="plugins__detail-label">功能</span>
-          <p>{{ securityDetail.description }}</p>
-        </div>
-        <div v-if="securityDetail.useCase" class="plugins__detail-row">
-          <span class="plugins__detail-label">适用场景</span>
-          <p>{{ securityDetail.useCase }}</p>
-        </div>
-        <div v-if="securityDetail.note" class="plugins__detail-row">
-          <span class="plugins__detail-label">注意事项</span>
-          <p>{{ securityDetail.note }}</p>
-        </div>
-        <div v-if="securityDetail.launch" class="plugins__detail-row">
-          <span class="plugins__detail-label">打开方式</span>
-          <p>在目标机终端中执行 <code>{{ securityDetail.launch.command }}</code></p>
-        </div>
-        <div
-          v-if="securityDetail.launch?.configPaths?.length"
-          class="plugins__detail-row"
-        >
-          <span class="plugins__detail-label">配置文件</span>
-          <div class="plugins__detail-paths">
-            <code v-for="path in securityDetail.launch.configPaths" :key="path">{{ path }}</code>
-          </div>
-        </div>
-        <div class="plugins__detail-row">
-          <span class="plugins__detail-label">当前状态</span>
-          <p>
-            <template v-if="securityDetail.installed">
-              已安装<template v-if="securityDetail.version"> · {{ securityDetail.version }}</template>
-            </template>
-            <template v-else>未安装</template>
-            <template v-if="!securityDetail.supported"> · 当前发行版不提供</template>
-            <template v-if="envPrivilege === 'none'"> · 目标机没有可用的提权方式</template>
-          </p>
-        </div>
-      </div>
-
-      <template #footer>
-        <n-space justify="end">
-          <n-button @click="securityDetailShow = false">关闭</n-button>
-          <n-button
-            v-if="securityDetail?.installed && securityDetail?.launch"
-            type="primary"
-            @click="openSecurityFromDetail"
-          >
-            打开
-          </n-button>
-          <n-button
-            :type="securityDetail?.installed && securityDetail?.launch ? 'default' : 'primary'"
-            :disabled="
-              hostId === null || !securityDetail?.supported || envPrivilege === 'none'
-            "
-            @click="installSecurityDetail"
-          >
-            {{ securityDetail?.installed ? '重新安装' : '安装' }}
-          </n-button>
-        </n-space>
-      </template>
     </n-modal>
 
     <n-modal v-model:show="showGrant" preset="card" title="授权插件能力" style="width: 560px">

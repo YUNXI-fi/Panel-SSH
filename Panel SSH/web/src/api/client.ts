@@ -1195,6 +1195,24 @@ export interface AppUIView {
   hint?: string;
 }
 
+/** 应用仓库索引里随包下发的界面结构预览。 */
+export interface AppUIPreviewAction {
+  id: string;
+  label: string;
+}
+
+export interface AppUIPreviewSection {
+  title: string;
+  actions: AppUIPreviewAction[];
+}
+
+export interface AppUIPreview {
+  layout: string;
+  overview?: AppUIPreviewAction[];
+  sections?: AppUIPreviewSection[];
+  hint?: string;
+}
+
 /** 应用仓库索引里的一个文件及其摘要。 */
 export interface StoreFileRef {
   path: string;
@@ -1212,6 +1230,8 @@ export interface StoreAppEntry {
   manifest: string;
   ui: string;
   files: StoreFileRef[];
+  /** 界面结构预览：安装之前就能看到应用窗口的构成。 */
+  uiPreview?: AppUIPreview;
   installed: boolean;
   installedVersion?: string;
   updateAvailable: boolean;
