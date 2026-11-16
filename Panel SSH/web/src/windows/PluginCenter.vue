@@ -579,33 +579,42 @@ const installedStoreCount = computed(
   () => storeApps.value.filter((app) => app.onHost).length,
 );
 
-/** 卡片上的"面板视图"状态：未添加 / 未添加到本机 / 已添加。 */
-function viewStatusText(item: EnvCatalogItem): string {
+/**
+ * 卡片底部那个图标按钮表示什么。
+ *
+ * 一个位置承载三种状态：没加过是"添加"，已有新版是"更新"，已加且最新
+ * 是"移除"。不再单独占一行说明面板视图，卡片因此回到两行高度。
+ */
+type ViewIcon = 'add' | 'update' | 'remove';
+
+function viewIcon(item: EnvCatalogItem): ViewIcon {
   const entry = storeAppFor(item.slug);
-  if (!entry) return '无视图包';
-  if (entry.onHost) return '已添加';
-  if (entry.installed) return '未添加到本机';
-  return '未添加';
+  if (!entry) return 'add';
+  if (entry.updateAvailable) return 'update';
+  if (entry.onHost) return 'remove';
+  return 'add';
 }
 
-function viewActionLabel(entry: StoreAppEntry): string {
-  if (entry.onHost) return entry.updateAvailable ? '更新视图' : '重新添加';
-  return entry.installed ? '添加到桌面' : '添加视图';
+function viewIconLabel(item: EnvCatalogItem): string {
+  switch (viewIcon(item)) {
+    case 'update':
+      return '更新面板视图';
+    case 'remove':
+      return '移除面板视图';
+    default:
+      return '添加面板视图';
+  }
 }
 
-function viewActionLabelFor(item: EnvCatalogItem): string {
+/** 图标按钮的行为：加过就按状态更新或移除，没加过就添加。 */
+function toggleView(item: EnvCatalogItem): void {
   const entry = storeAppFor(item.slug);
-  return entry ? viewActionLabel(entry) : '';
-}
-
-function addView(item: EnvCatalogItem): void {
-  const entry = storeAppFor(item.slug);
-  if (entry) void installStoreApp(entry);
-}
-
-function removeView(item: EnvCatalogItem): void {
-  const entry = storeAppFor(item.slug);
-  if (entry) askStoreUninstall(entry);
+  if (!entry) return;
+  if (viewIcon(item) === 'remove') {
+    askStoreUninstall(entry);
+    return;
+  }
+  void installStoreApp(entry);
 }
 
 /** 软件已装且带 Launch，或面板视图已添加，都算"可打开"。 */
@@ -1502,45 +1511,6 @@ onMounted(load);
             <span v-if="item.note"><br />{{ item.note }}</span>
           </p>
 
-          <div class="plugins__viewrow">
-            <span class="silk">面板视图</span>
-            <n-tag
-              v-if="storeAppFor(item.slug)?.onHost"
-              size="tiny"
-              :bordered="false"
-              type="success"
-            >
-              已添加
-            </n-tag>
-            <n-tag
-              v-else-if="storeAppFor(item.slug)?.updateAvailable"
-              size="tiny"
-              :bordered="false"
-              type="warning"
-            >
-              可更新
-            </n-tag>
-            <span v-else class="row-sub">{{ viewStatusText(item) }}</span>
-            <span class="plugins__card-spacer" />
-            <n-button
-              v-if="storeAppFor(item.slug)?.onHost"
-              size="tiny"
-              quaternary
-              :disabled="storeBusy !== ''"
-              @click="removeView(item)"
-            >
-              移除
-            </n-button>
-            <n-button
-              v-if="storeAppFor(item.slug)"
-              size="tiny"
-              :loading="storeBusy === item.slug"
-              @click="addView(item)"
-            >
-              {{ viewActionLabelFor(item) }}
-            </n-button>
-          </div>
-
           <div v-if="!item.supported || envPrivilege === 'none'" class="plugins__card-caps">
             <n-tag v-if="!item.supported" size="tiny" :bordered="false" type="warning">
               该发行版不提供
@@ -1553,6 +1523,23 @@ onMounted(load);
           <footer class="plugins__card-foot">
             <span class="row-sub">{{ item.installed ? '已安装' : '未安装' }}</span>
             <span class="plugins__card-spacer" />
+            <n-button
+              v-if="storeAppFor(item.slug)"
+              size="small"
+              quaternary
+              :title="viewIconLabel(item)"
+              :aria-label="viewIconLabel(item)"
+              :loading="storeBusy === item.slug"
+              @click="toggleView(item)"
+            >
+              <template #icon>
+                <svg class="plugins__viewicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                  <path v-if="viewIcon(item) === 'add'" d="M12 5v14M5 12h14" />
+                  <path v-else-if="viewIcon(item) === 'update'" d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4" />
+                  <path v-else d="M5 12h14" />
+                </svg>
+              </template>
+            </n-button>
             <n-button v-if="canOpen(item)" size="small" @click="openFromCard(item)">打开</n-button>
             <n-button
               size="small"
@@ -1627,45 +1614,6 @@ onMounted(load);
           <p class="plugins__card-desc">{{ item.description }}</p>
           <p v-if="item.useCase" class="plugins__card-usecase">适用场景：{{ item.useCase }}</p>
 
-          <div class="plugins__viewrow">
-            <span class="silk">面板视图</span>
-            <n-tag
-              v-if="storeAppFor(item.slug)?.onHost"
-              size="tiny"
-              :bordered="false"
-              type="success"
-            >
-              已添加
-            </n-tag>
-            <n-tag
-              v-else-if="storeAppFor(item.slug)?.updateAvailable"
-              size="tiny"
-              :bordered="false"
-              type="warning"
-            >
-              可更新
-            </n-tag>
-            <span v-else class="row-sub">{{ viewStatusText(item) }}</span>
-            <span class="plugins__card-spacer" />
-            <n-button
-              v-if="storeAppFor(item.slug)?.onHost"
-              size="tiny"
-              quaternary
-              :disabled="storeBusy !== ''"
-              @click.stop="removeView(item)"
-            >
-              移除
-            </n-button>
-            <n-button
-              v-if="storeAppFor(item.slug)"
-              size="tiny"
-              :loading="storeBusy === item.slug"
-              @click.stop="addView(item)"
-            >
-              {{ viewActionLabelFor(item) }}
-            </n-button>
-          </div>
-
           <div v-if="!item.supported || envPrivilege === 'none'" class="plugins__card-caps">
             <n-tag v-if="!item.supported" size="tiny" :bordered="false" type="warning">
               该发行版不提供
@@ -1678,6 +1626,23 @@ onMounted(load);
           <footer class="plugins__card-foot">
             <span class="row-sub">{{ item.installed ? '已安装' : '未安装' }}</span>
             <span class="plugins__card-spacer" />
+            <n-button
+              v-if="storeAppFor(item.slug)"
+              size="small"
+              quaternary
+              :title="viewIconLabel(item)"
+              :aria-label="viewIconLabel(item)"
+              :loading="storeBusy === item.slug"
+              @click.stop="toggleView(item)"
+            >
+              <template #icon>
+                <svg class="plugins__viewicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                  <path v-if="viewIcon(item) === 'add'" d="M12 5v14M5 12h14" />
+                  <path v-else-if="viewIcon(item) === 'update'" d="M20 12a8 8 0 1 1-2.3-5.6M20 4v4h-4" />
+                  <path v-else d="M5 12h14" />
+                </svg>
+              </template>
+            </n-button>
             <n-button size="small" quaternary @click.stop="openSecurityDetail(item)">
               详情
             </n-button>
