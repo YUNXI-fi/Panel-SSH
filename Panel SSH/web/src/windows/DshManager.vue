@@ -528,10 +528,9 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="dshm">
-    <!-- 进入 Harness：同一个窗口内切到 dsh 本体，左上角留一条回管理器的路。 -->
+    <!-- 进入 Harness：同一个窗口内切到 dsh 本体。 -->
     <div v-if="harness" class="dshm__harness">
       <div class="dshm__harness-bar">
-        <button class="ghost" type="button" @click="harness = false">← 返回管理器</button>
         <span class="dshm__harness-title">{{ plugin.displayName }}</span>
         <span class="dshm__harness-url num">{{ plugin.entry }}</span>
       </div>
