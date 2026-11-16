@@ -2853,6 +2853,14 @@ export const api = {
       ),
     /** 图标走 <img src>，带会话 Cookie，因此这里只提供路径。 */
     iconUrl: (slug: string) => `/api/store/apps/${encodeURIComponent(slug)}/icon`,
+    /** 仓库源：当前地址与内置默认值。 */
+    source: () =>
+      request<{ source: string; default: string }>('GET', '/api/store/source'),
+    /** 切换仓库源；后端会先试拉一次索引，失败则保留原地址。 */
+    saveSource: (source: string) =>
+      request<{ ok: boolean; source: string; apps: number }>('PUT', '/api/store/source', {
+        source,
+      }),
   },
   env: {
     overview: (hostId: number) =>

@@ -175,7 +175,9 @@ func NewServer(
 	s.runtimes = plugin.NewRuntimeManager(s.pluginsDir, filepath.Join(cfg.DataDir, "plugins-runtime"))
 	s.pluginTunnels = newPluginTunnels(s)
 	// 应用包与插件包分开放：应用包是声明式资源，卸载只删这一份目录。
-	s.appPackages = appstore.NewStore(filepath.Join(cfg.DataDir, "apps"), "")
+	// 仓库源可能被管理员在应用中心改过，读一次落库的地址；读不到就用内置官方源。
+	storedSource, _ := st.GetMeta(storeSourceMetaKey)
+	s.appPackages = appstore.NewStore(filepath.Join(cfg.DataDir, "apps"), storedSource)
 	return s
 }
 
@@ -468,6 +470,9 @@ func (s *Server) Router() http.Handler {
 	mux.Handle("POST /api/store/apps/{slug}/install", s.requireAuth(s.handleStoreInstall))
 	mux.Handle("DELETE /api/store/apps/{slug}", s.requireAuth(s.handleStoreUninstall))
 	mux.Handle("GET /api/store/apps/{slug}/icon", s.requireAuth(s.handleStoreIcon))
+	// 仓库源：读取与切换（默认官方仓库，管理员可改）。
+	mux.Handle("GET /api/store/source", s.requireAuth(s.handleStoreSourceGet))
+	mux.Handle("PUT /api/store/source", s.requireAuth(s.handleStoreSourceSave))
 	mux.Handle("GET /api/ws/env", s.requireAuth(s.handleEnvRun))
 
 	// 操作快照：把上面那批变更操作留下的快照汇总成跨主机视图。

@@ -23,6 +23,64 @@ type storeAppView struct {
 	OnHost           bool   `json:"onHost"`
 }
 
+// storeSourceMetaKey 是仓库源在 meta 表里的键。
+//
+// 存在库里而不是配置文件：管理员在应用中心改完应立即生效，
+// 且换浏览器后仍然一致；没有这个键时用内置的官方仓库。
+const storeSourceMetaKey = "appstore.index_url"
+
+// handleStoreSourceGet 返回当前仓库源与默认值，供设置弹窗回填。
+func (s *Server) handleStoreSourceGet(w http.ResponseWriter, r *http.Request) {
+	writeJSON(w, http.StatusOK, map[string]any{
+		"source":  s.appPackages.IndexURL(),
+		"default": appstore.DefaultIndexURL,
+	})
+}
+
+// handleStoreSourceSave 切换仓库源。
+//
+// 先校验再试拉一次索引：源写错时立刻报错，而不是让用户回到列表
+// 才发现"一个应用都没有"。
+func (s *Server) handleStoreSourceSave(w http.ResponseWriter, r *http.Request) {
+	var body struct {
+		Source string `json:"source"`
+	}
+	if err := decodeJSONBody(w, r, &body, 1<<14); err != nil {
+		return
+	}
+	source := strings.TrimSpace(body.Source)
+	if source == "" {
+		writeErr(w, http.StatusBadRequest, "仓库源不能为空")
+		return
+	}
+	if err := appstore.ValidateIndexURL(source); err != nil {
+		writeErr(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	previous := s.appPackages.IndexURL()
+	s.appPackages.SetIndexURL(source)
+
+	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
+	defer cancel()
+	idx, _, err := s.appPackages.Index(ctx, true)
+	if err != nil {
+		// 试拉失败就退回原地址，避免把面板留在一个连不上的源上。
+		if appstore.ValidateIndexURL(previous) == nil {
+			s.appPackages.SetIndexURL(previous)
+		}
+		writeErr(w, http.StatusBadGateway, "仓库源不可用："+err.Error())
+		return
+	}
+	if err := s.store.SetMeta(storeSourceMetaKey, source); err != nil {
+		writeErr(w, http.StatusInternalServerError, "仓库源已生效，但保存失败："+err.Error())
+		return
+	}
+	writeJSON(w, http.StatusOK, map[string]any{
+		"ok": true, "source": source, "apps": len(idx.Apps),
+	})
+}
+
 // handleStoreApps 返回应用仓库清单。
 //
 // refresh=1 强制重新拉取索引；拉取失败但有缓存时返回缓存，并在

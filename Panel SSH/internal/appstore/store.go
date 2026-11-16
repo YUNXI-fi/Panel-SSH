@@ -80,7 +80,43 @@ func (s *Store) IndexURL() string {
 	if s.localDir != "" {
 		return "file://" + s.localDir
 	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	return s.indexURL
+}
+
+// SetIndexURL 在运行期切换仓库源。
+//
+// 切换后必须丢掉旧索引：旧源的包清单、版本与摘要都不再适用，
+// 继续沿用会把用户引到错误的下载地址。
+func (s *Store) SetIndexURL(rawURL string) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.indexURL = rawURL
+	s.index = nil
+	s.indexAt = time.Time{}
+	_ = os.Remove(s.indexCachePath())
+}
+
+// ValidateIndexURL 校验仓库源地址。
+//
+// 只接受 http/https：file:// 会让面板去读本机任意路径，
+// 而这本来该由 PANELSSH_APP_SOURCE_DIR 在部署期显式开启。
+func ValidateIndexURL(rawURL string) error {
+	parsed, err := url.Parse(strings.TrimSpace(rawURL))
+	if err != nil {
+		return errors.New("仓库源不是合法地址")
+	}
+	if parsed.Scheme != "http" && parsed.Scheme != "https" {
+		return errors.New("仓库源必须是 http 或 https 地址")
+	}
+	if parsed.Host == "" {
+		return errors.New("仓库源缺少主机名")
+	}
+	if !strings.HasSuffix(parsed.Path, ".json") {
+		return errors.New("仓库源应指向 index.json")
+	}
+	return nil
 }
 
 // Index 读取应用索引。force 为真时忽略缓存重新拉取；拉取失败但有缓存时

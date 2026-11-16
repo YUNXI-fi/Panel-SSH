@@ -193,8 +193,9 @@ apps/
 
 ## 8. 应用中心拉取与更新
 
-- 索引地址：`https://raw.githubusercontent.com/YUNXI-fi/Panel-SSH/main/apps/index.json`
-- 可用 `PANELSSH_APP_INDEX_URL` 覆盖索引地址；可用 `PANELSSH_APP_SOURCE_DIR` 指向本地目录做离线/测试。
+- 默认索引地址：`https://raw.githubusercontent.com/YUNXI-fi/Panel-SSH/main/apps/index.json`
+- 应用中心页签行最右侧的齿轮可以改仓库源：保存前会试拉一次索引，源不可用时保留原地址；地址保存在数据库，优先于环境变量。
+- `PANELSSH_APP_INDEX_URL` 用于部署期指定默认源；`PANELSSH_APP_SOURCE_DIR` 指向本地目录做离线/测试。
 - 面板缓存索引 10 分钟；「系统组件 / 网络安全」页签可点「刷新视图」强制拉取。
 - 拉取失败时退回本地缓存，界面标记「本地缓存」。
 - 安装/更新流程：拉取索引 → 逐文件下载 → 校验 SHA-256 → 写入临时目录 → 整体替换 → 记录桌面入口。

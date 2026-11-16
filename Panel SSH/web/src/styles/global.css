@@ -7488,17 +7488,62 @@ body,
   color: var(--app-apps);
 }
 
-.plugins__source {
+/* 仓库源设置弹窗：当前来源、说明与错误分行展示，长地址可换行。 */
+.plugins__source-form {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 10px;
-  overflow: hidden;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.plugins__source-now {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 9px 11px;
+  border: 1px solid var(--line-hair);
+  border-radius: var(--r-2);
+  background: var(--bg-sunken);
+}
+
+.plugins__source-now code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  line-height: 1.6;
+  color: var(--ink-hi);
+  overflow-wrap: anywhere;
+}
+
+.plugins__source-label {
   font-family: var(--font-mono);
   font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  color: var(--ink);
+}
+
+.plugins__source-hint {
+  margin: 0;
+  font-size: var(--fs-label);
+  line-height: 1.7;
   color: var(--ink-lo);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+}
+
+.plugins__source-hint code {
+  font-family: var(--font-mono);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.plugins__source-error {
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--danger-line);
+  border-radius: var(--r-2);
+  background: var(--danger-wash);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--danger-ink);
+  overflow-wrap: anywhere;
 }
 
 /* 插件卡：与文件管理的卡片视图同一套密度，说明、能力与操作分层。 */
@@ -7786,7 +7831,7 @@ body,
 
 .plugins__tabs {
   display: flex;
-  align-self: flex-start;
+  align-self: stretch;
   gap: 2px;
   padding: 2px;
   border: 1px solid var(--line-hair);
@@ -7803,6 +7848,25 @@ body,
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
   cursor: pointer;
+}
+
+/* 图标型页签按钮（仓库源设置）：贴最右侧，不与分类页签抢视觉。 */
+.plugins__tab--icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  padding: 4px 8px;
+}
+
+.plugins__tab--icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.plugins__tab--icon:focus-visible {
+  outline: 2px solid var(--sig);
+  outline-offset: 1px;
 }
 
 .plugins__tab:hover {

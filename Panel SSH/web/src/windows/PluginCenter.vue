@@ -510,6 +510,67 @@ const storeAppBySlug = computed(() => {
   return map;
 });
 
+// ---- 仓库源设置 ----
+
+const showSourceSettings = ref(false);
+const sourceForm = ref('');
+const sourceDefault = ref('');
+const sourceSaving = ref(false);
+const sourceError = ref('');
+
+/**
+ * 打开设置弹窗。
+ *
+ * 单独拉一次 /api/store/source 而不是复用 storeSource：这个值是权威的
+ * "服务端现在用的地址"，列表里的来源只是上一次加载时的快照。
+ */
+async function openSourceSettings(): Promise<void> {
+  sourceError.value = '';
+  sourceForm.value = storeSource.value;
+  showSourceSettings.value = true;
+  try {
+    const res = await api.store.source();
+    storeSource.value = res.source;
+    sourceDefault.value = res.default;
+    sourceForm.value = res.source;
+  } catch (err) {
+    sourceError.value = describe(err, '读取仓库源失败');
+  }
+}
+
+function useDefaultSource(): void {
+  if (sourceDefault.value) sourceForm.value = sourceDefault.value;
+}
+
+/**
+ * 保存仓库源。
+ *
+ * 后端会先试拉一次索引再落库：这里成功就等于"新源可用且已生效"，
+ * 因此顺手把列表与系统组件一起刷新，避免界面还停在旧目录上。
+ */
+async function saveSource(): Promise<void> {
+  const value = sourceForm.value.trim();
+  if (!value) {
+    message.warning('请填写仓库源地址');
+    return;
+  }
+  if (sourceSaving.value) return;
+  sourceSaving.value = true;
+  sourceError.value = '';
+  try {
+    const res = await api.store.saveSource(value);
+    storeSource.value = res.source;
+    showSourceSettings.value = false;
+    message.success(`仓库源已更新，共 ${res.apps} 个应用`);
+    storeLoadedFor.value = null;
+    await loadStore(true);
+  } catch (err) {
+    sourceError.value = describe(err, '更新仓库源失败');
+  } finally {
+    sourceSaving.value = false;
+  }
+}
+
 function storeAppFor(slug: string): StoreAppEntry | undefined {
   return storeAppBySlug.value.get(slug);
 }
@@ -1273,16 +1334,20 @@ onMounted(load);
       >
         网络安全
       </button>
+      <!-- 仓库源设置放在页签行最右侧：它影响的是所有页签的目录来源，不属于某一类。 -->
+      <button
+        class="plugins__tab plugins__tab--icon"
+        type="button"
+        title="仓库源设置"
+        aria-label="仓库源设置"
+        @click="openSourceSettings"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.2" />
+          <path d="M12 3.2v2.2M12 18.6v2.2M3.2 12h2.2M18.6 12h2.2M5.8 5.8l1.6 1.6M16.6 16.6l1.6 1.6M18.2 5.8l-1.6 1.6M7.4 16.6l-1.6 1.6" />
+        </svg>
+      </button>
     </div>
-
-    <p v-if="tab === 'system' || tab === 'security'" class="plugins__source">
-      面板视图来源 {{ storeSource || '读取中…' }}
-      <template v-if="storeFetchedAt"> · 索引生成于 {{ storeFetchedAt }}</template>
-      · 已添加 {{ installedStoreCount }} 个
-      <n-tag v-if="storeCached" size="tiny" :bordered="false" type="warning">本地缓存</n-tag>
-      <span class="plugins__card-spacer" />
-      <span class="row-sub">面板视图只提供操作界面，不安装软件本体</span>
-    </p>
 
     <template v-if="tab === 'plugins'">
       <!--
@@ -1963,6 +2028,55 @@ onMounted(load);
       <template #footer>
         <n-space justify="end">
           <n-button @click="aiOutputShow = false">关闭</n-button>
+        </n-space>
+      </template>
+    </n-modal>
+
+    <!--
+      仓库源设置：默认用官方仓库，管理员可换成自建/镜像源。
+      保存前后端会试拉一次索引，源不可用时保留原地址并把原因显示在这里。
+    -->
+    <n-modal
+      v-model:show="showSourceSettings"
+      preset="card"
+      title="仓库源设置"
+      style="width: 620px"
+    >
+      <div class="plugins__source-form">
+        <p class="plugins__source-now">
+          <span class="silk">当前来源</span>
+          <code>{{ storeSource || '读取中…' }}</code>
+        </p>
+        <p class="row-sub">
+          <template v-if="storeFetchedAt">索引生成于 {{ storeFetchedAt }} · </template>
+          已添加 {{ installedStoreCount }} 个视图
+          <template v-if="storeCached"> · 当前为本地缓存</template>
+        </p>
+
+        <label class="plugins__source-label" for="store-source-input">仓库源地址</label>
+        <n-input
+          v-model:value="sourceForm"
+          placeholder="https://example.com/apps/index.json"
+          :disabled="sourceSaving"
+          :input-props="{ id: 'store-source-input', 'aria-label': '仓库源地址' }"
+        />
+        <p class="plugins__source-hint">
+          必须是 http 或 https 地址，并指向应用索引 index.json。默认来源为
+          <code>{{ sourceDefault || '官方仓库' }}</code>。
+        </p>
+
+        <p v-if="sourceError" class="plugins__source-error">{{ sourceError }}</p>
+      </div>
+
+      <template #footer>
+        <n-space justify="space-between">
+          <n-button :disabled="sourceSaving" @click="useDefaultSource">恢复默认</n-button>
+          <n-space>
+            <n-button :disabled="sourceSaving" @click="showSourceSettings = false">取消</n-button>
+            <n-button type="primary" :loading="sourceSaving" @click="saveSource">
+              保存并更新
+            </n-button>
+          </n-space>
         </n-space>
       </template>
     </n-modal>
