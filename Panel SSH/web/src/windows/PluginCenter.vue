@@ -144,8 +144,8 @@ const installing = ref(false);
 const busyBuiltin = ref('');
 const fileInput = ref<HTMLInputElement | null>(null);
 
-/** 应用中心的六类内容：面板插件、AI CLI、开发工具、系统组件、网络安全、应用仓库。 */
-const tab = ref<'plugins' | 'aicli' | 'dev' | 'system' | 'security' | 'store'>('plugins');
+/** 应用中心的五类内容：面板插件、AI CLI、开发工具、系统组件、网络安全。 */
+const tab = ref<'plugins' | 'aicli' | 'dev' | 'system' | 'security'>('plugins');
 
 const aiApps = ref<AICLIApp[]>([]);
 // 目标机平台：工具"装不了"时要能说清是本机不在它的支持范围内，而不是按钮莫名置灰。
@@ -308,7 +308,6 @@ const pageEyebrow = computed(() => {
   if (tab.value === 'dev') return 'DEVELOPMENT';
   if (tab.value === 'system') return 'SYSTEM';
   if (tab.value === 'security') return 'SECURITY';
-  if (tab.value === 'store') return 'APP STORE';
   return 'AI CLI';
 });
 
@@ -317,7 +316,6 @@ const pageTitle = computed(() => {
   if (tab.value === 'dev') return '开发工具';
   if (tab.value === 'system') return '系统组件';
   if (tab.value === 'security') return '网络安全';
-  if (tab.value === 'store') return '应用仓库';
   return 'AI 工具';
 });
 
@@ -478,7 +476,7 @@ async function loadEnv(): Promise<void> {
   }
 }
 
-// ---------------- 应用仓库 ----------------
+// ---------------- 面板视图（应用包） ----------------
 
 const storeApps = ref<StoreAppEntry[]>([]);
 const storeLoading = ref(false);
@@ -500,19 +498,91 @@ async function loadStore(force = false): Promise<void> {
     storeCached.value = res.cached;
     storeLoadedFor.value = target;
   } catch (err) {
-    message.error(describe(err, '读取应用仓库失败'));
+    message.error(describe(err, '读取面板视图失败'));
   } finally {
     storeLoading.value = false;
   }
 }
 
-const visibleStoreApps = computed(() =>
-  storeApps.value.filter((app) => matchesQuery(app.name, app.slug, app.description)),
-);
+const storeAppBySlug = computed(() => {
+  const map = new Map<string, StoreAppEntry>();
+  for (const app of storeApps.value) map.set(app.slug, app);
+  return map;
+});
+
+function storeAppFor(slug: string): StoreAppEntry | undefined {
+  return storeAppBySlug.value.get(slug);
+}
 
 const installedStoreCount = computed(
   () => storeApps.value.filter((app) => app.onHost).length,
 );
+
+/** 卡片上的"面板视图"状态：未添加 / 未添加到本机 / 已添加。 */
+function viewStatusText(item: EnvCatalogItem): string {
+  const entry = storeAppFor(item.slug);
+  if (!entry) return '无视图包';
+  if (entry.onHost) return '已添加';
+  if (entry.installed) return '未添加到本机';
+  return '未添加';
+}
+
+function viewActionLabel(entry: StoreAppEntry): string {
+  if (entry.onHost) return entry.updateAvailable ? '更新视图' : '重新添加';
+  return entry.installed ? '添加到桌面' : '添加视图';
+}
+
+function viewActionLabelFor(item: EnvCatalogItem): string {
+  const entry = storeAppFor(item.slug);
+  return entry ? viewActionLabel(entry) : '';
+}
+
+function addView(item: EnvCatalogItem): void {
+  const entry = storeAppFor(item.slug);
+  if (entry) void installStoreApp(entry);
+}
+
+function removeView(item: EnvCatalogItem): void {
+  const entry = storeAppFor(item.slug);
+  if (entry) askStoreUninstall(entry);
+}
+
+/** 软件已装且带 Launch，或面板视图已添加，都算"可打开"。 */
+function canOpen(item: EnvCatalogItem): boolean {
+  return (
+    (item.installed && item.launch !== undefined) ||
+    storeAppFor(item.slug)?.onHost === true
+  );
+}
+
+/** 打开应用包对应的通用窗口；与桌面图标的打开方式保持一致。 */
+function openAppView(item: EnvCatalogItem): void {
+  const target = hostId.value;
+  if (target === null) return;
+  const entry = storeAppFor(item.slug);
+  wm?.open(
+    'security',
+    `${item.name} · ${hostName.value || '本机'}`,
+    {
+      hostId: target,
+      hostName: hostName.value || '本机',
+      slug: item.slug,
+      glyph: securityGlyph(item.slug),
+      iconUrl: entry ? api.store.iconUrl(item.slug) : '',
+    },
+    item.slug === 'fail2ban' || item.slug === 'gnupg'
+      ? { w: 1120, h: 720 }
+      : { w: 1000, h: 640 },
+  );
+}
+
+function openFromCard(item: EnvCatalogItem): void {
+  if (storeAppFor(item.slug)?.onHost) {
+    openAppView(item);
+    return;
+  }
+  openSecurity(item);
+}
 
 async function installStoreApp(app: StoreAppEntry): Promise<void> {
   const target = hostId.value;
@@ -524,11 +594,11 @@ async function installStoreApp(app: StoreAppEntry): Promise<void> {
   storeBusy.value = app.slug;
   try {
     await api.store.install(app.slug, target);
-    message.success(`${app.name} 已安装到 ${hostName.value || '本机'}`);
+    message.success(`已添加 ${app.name} 的面板视图`);
     await loadStore(true);
     await refreshLaunchApps();
   } catch (err) {
-    message.error(describe(err, '安装应用失败'));
+    message.error(describe(err, '添加面板视图失败'));
   } finally {
     storeBusy.value = '';
   }
@@ -536,21 +606,21 @@ async function installStoreApp(app: StoreAppEntry): Promise<void> {
 
 function askStoreUninstall(app: StoreAppEntry): void {
   dialog.warning({
-    title: '卸载应用？',
+    title: '移除面板视图？',
     content:
       `会从所有主机桌面移除「${app.name}」入口，并删除面板本地的应用包；` +
       '目标机上的软件与配置文件不受影响。',
-    positiveText: '卸载',
+    positiveText: '移除',
     negativeText: '取消',
     onPositiveClick: async () => {
       storeBusy.value = app.slug;
       try {
         await api.store.uninstall(app.slug);
-        message.success('应用已卸载');
+        message.success('面板视图已移除');
         await loadStore(true);
         await refreshLaunchApps();
       } catch (err) {
-        message.error(describe(err, '卸载应用失败'));
+        message.error(describe(err, '移除面板视图失败'));
       } finally {
         storeBusy.value = '';
       }
@@ -740,16 +810,15 @@ async function copyInstall(app: AICLIApp): Promise<void> {
 // 不在插件页签下做无谓的探测。AI CLI 与开发工具共用同一份结果。
 watch([hostId, tab], () => {
   if (hostId.value === null) return;
-  if (tab.value === 'store') {
-    if (storeLoadedFor.value !== hostId.value) void loadStore();
-    return;
-  }
   if (tab.value === 'plugins') {
     ensureOverview();
     return;
   }
   if (tab.value === 'system' || tab.value === 'security') {
     if (envLoadedFor.value !== hostId.value) void loadEnv();
+    // 面板视图与系统组件同源展示：进入这两页时顺带拉一次应用仓库，
+    // 卡片才能显示"视图是否已添加/可更新"。
+    if (storeLoadedFor.value !== hostId.value) void loadStore();
     return;
   }
   if (aiLoadedFor.value !== hostId.value) void loadAI();
@@ -1115,10 +1184,6 @@ onMounted(load);
                 {{ visibleSecurity.length }}
               </template>
             </template>
-            <template v-else-if="tab === 'store'">
-              {{ hostName || '本机' }} · 已添加 {{ installedStoreCount }} /
-              {{ storeApps.length }}
-            </template>
             <template v-else>
               {{ hostName || '本机' }}
               <template v-if="visibleApps.length > 0">
@@ -1149,13 +1214,13 @@ onMounted(load);
           安装插件
         </n-button>
         <n-button
-          v-if="tab === 'store'"
+          v-if="tab === 'system' || tab === 'security'"
           size="small"
           :loading="storeLoading"
           :disabled="hostId === null"
           @click="loadStore(true)"
         >
-          刷新仓库
+          刷新视图
         </n-button>
         <!-- 主机胶囊放页头右端：它和标题回答的是同一个问题（现在看的是哪台机器）。 -->
         <HostPicker v-model:host-id="hostId" v-model:host-name="hostName" include-local />
@@ -1208,16 +1273,16 @@ onMounted(load);
       >
         网络安全
       </button>
-      <button
-        class="plugins__tab"
-        :class="{ 'plugins__tab--active': tab === 'store' }"
-        role="tab"
-        :aria-selected="tab === 'store'"
-        @click="tab = 'store'"
-      >
-        应用仓库
-      </button>
     </div>
+
+    <p v-if="tab === 'system' || tab === 'security'" class="plugins__source">
+      面板视图来源 {{ storeSource || '读取中…' }}
+      <template v-if="storeFetchedAt"> · 索引生成于 {{ storeFetchedAt }}</template>
+      · 已添加 {{ installedStoreCount }} 个
+      <n-tag v-if="storeCached" size="tiny" :bordered="false" type="warning">本地缓存</n-tag>
+      <span class="plugins__card-spacer" />
+      <span class="row-sub">面板视图只提供操作界面，不安装软件本体</span>
+    </p>
 
     <template v-if="tab === 'plugins'">
       <!--
@@ -1349,6 +1414,12 @@ onMounted(load);
       <div v-else class="plugins__grid">
         <article v-for="item in visibleEnv" :key="item.slug" class="plugins__card">
           <header class="plugins__card-head">
+            <span v-if="storeAppFor(item.slug)" class="plugins__icon" aria-hidden="true">
+              <span
+                class="icon-mask plugins__store-icon"
+                :style="{ '--icon-mask': `url(${api.store.iconUrl(item.slug)})` }"
+              />
+            </span>
             <div class="plugins__card-title">
               <span class="plugins__card-name" :title="item.name">{{ item.name }}</span>
               <span class="row-sub">
@@ -1366,6 +1437,45 @@ onMounted(load);
             <span v-if="item.note"><br />{{ item.note }}</span>
           </p>
 
+          <div class="plugins__viewrow">
+            <span class="silk">面板视图</span>
+            <n-tag
+              v-if="storeAppFor(item.slug)?.onHost"
+              size="tiny"
+              :bordered="false"
+              type="success"
+            >
+              已添加
+            </n-tag>
+            <n-tag
+              v-else-if="storeAppFor(item.slug)?.updateAvailable"
+              size="tiny"
+              :bordered="false"
+              type="warning"
+            >
+              可更新
+            </n-tag>
+            <span v-else class="row-sub">{{ viewStatusText(item) }}</span>
+            <span class="plugins__card-spacer" />
+            <n-button
+              v-if="storeAppFor(item.slug)?.onHost"
+              size="tiny"
+              quaternary
+              :disabled="storeBusy !== ''"
+              @click="removeView(item)"
+            >
+              移除
+            </n-button>
+            <n-button
+              v-if="storeAppFor(item.slug)"
+              size="tiny"
+              :loading="storeBusy === item.slug"
+              @click="addView(item)"
+            >
+              {{ viewActionLabelFor(item) }}
+            </n-button>
+          </div>
+
           <div v-if="!item.supported || envPrivilege === 'none'" class="plugins__card-caps">
             <n-tag v-if="!item.supported" size="tiny" :bordered="false" type="warning">
               该发行版不提供
@@ -1378,6 +1488,7 @@ onMounted(load);
           <footer class="plugins__card-foot">
             <span class="row-sub">{{ item.installed ? '已安装' : '未安装' }}</span>
             <span class="plugins__card-spacer" />
+            <n-button v-if="canOpen(item)" size="small" @click="openFromCard(item)">打开</n-button>
             <n-button
               size="small"
               type="primary"
@@ -1423,7 +1534,17 @@ onMounted(load);
           @keydown.space.prevent="openSecurityDetail(item)"
         >
           <header class="plugins__card-head">
-            <span class="plugins__icon plugins__icon--security" aria-hidden="true">
+            <span
+              v-if="storeAppFor(item.slug)"
+              class="plugins__icon"
+              aria-hidden="true"
+            >
+              <span
+                class="icon-mask plugins__store-icon"
+                :style="{ '--icon-mask': `url(${api.store.iconUrl(item.slug)})` }"
+              />
+            </span>
+            <span v-else class="plugins__icon plugins__icon--security" aria-hidden="true">
               <svg><use :href="`#glyph-${securityGlyph(item.slug)}`" /></svg>
             </span>
             <div class="plugins__card-title">
@@ -1441,6 +1562,45 @@ onMounted(load);
           <p class="plugins__card-desc">{{ item.description }}</p>
           <p v-if="item.useCase" class="plugins__card-usecase">适用场景：{{ item.useCase }}</p>
 
+          <div class="plugins__viewrow">
+            <span class="silk">面板视图</span>
+            <n-tag
+              v-if="storeAppFor(item.slug)?.onHost"
+              size="tiny"
+              :bordered="false"
+              type="success"
+            >
+              已添加
+            </n-tag>
+            <n-tag
+              v-else-if="storeAppFor(item.slug)?.updateAvailable"
+              size="tiny"
+              :bordered="false"
+              type="warning"
+            >
+              可更新
+            </n-tag>
+            <span v-else class="row-sub">{{ viewStatusText(item) }}</span>
+            <span class="plugins__card-spacer" />
+            <n-button
+              v-if="storeAppFor(item.slug)?.onHost"
+              size="tiny"
+              quaternary
+              :disabled="storeBusy !== ''"
+              @click.stop="removeView(item)"
+            >
+              移除
+            </n-button>
+            <n-button
+              v-if="storeAppFor(item.slug)"
+              size="tiny"
+              :loading="storeBusy === item.slug"
+              @click.stop="addView(item)"
+            >
+              {{ viewActionLabelFor(item) }}
+            </n-button>
+          </div>
+
           <div v-if="!item.supported || envPrivilege === 'none'" class="plugins__card-caps">
             <n-tag v-if="!item.supported" size="tiny" :bordered="false" type="warning">
               该发行版不提供
@@ -1457,16 +1617,16 @@ onMounted(load);
               详情
             </n-button>
             <n-button
-              v-if="item.installed && item.launch"
+              v-if="canOpen(item)"
               size="small"
               type="primary"
-              @click.stop="openSecurity(item)"
+              @click.stop="openFromCard(item)"
             >
               打开
             </n-button>
             <n-button
               size="small"
-              :type="item.installed && item.launch ? 'default' : 'primary'"
+              :type="canOpen(item) ? 'default' : 'primary'"
               :disabled="hostId === null || !item.supported || envPrivilege === 'none'"
               @click.stop="installSystem(item)"
             >
@@ -1474,86 +1634,6 @@ onMounted(load);
             </n-button>
           </footer>
         </article>
-      </div>
-    </template>
-
-    <template v-else-if="tab === 'store'">
-      <div class="plugins__scroll">
-        <p v-if="storeSource" class="plugins__source">
-          来源 {{ storeSource }}
-          <template v-if="storeFetchedAt"> · 索引生成于 {{ storeFetchedAt }}</template>
-          <n-tag v-if="storeCached" size="tiny" :bordered="false" type="warning">本地缓存</n-tag>
-        </p>
-
-        <div v-if="storeLoading && storeApps.length === 0" class="plugins__empty">
-          <p class="plugins__empty-title">正在读取应用仓库…</p>
-        </div>
-        <div v-else-if="query && visibleStoreApps.length === 0" class="plugins__empty">
-          <p class="plugins__empty-title">没有匹配「{{ query }}」的应用</p>
-        </div>
-        <div v-else-if="visibleStoreApps.length === 0" class="plugins__empty">
-          <p class="plugins__empty-title">应用仓库暂时没有可用的应用</p>
-          <p class="row-sub">检查网络后点右上角「刷新仓库」。</p>
-        </div>
-        <div v-else class="plugins__grid">
-          <article v-for="app in visibleStoreApps" :key="app.slug" class="plugins__card">
-            <header class="plugins__card-head">
-              <span class="plugins__icon" aria-hidden="true">
-                <span
-                  class="icon-mask plugins__store-icon"
-                  :style="{ '--icon-mask': `url(${api.store.iconUrl(app.slug)})` }"
-                />
-              </span>
-              <div class="plugins__card-title">
-                <span class="plugins__card-name" :title="app.name">{{ app.name }}</span>
-                <span class="row-sub">
-                  {{ app.slug }} · v{{ app.version }} ·
-                  {{ ENV_CATEGORY_TEXT[app.category] ?? app.category }}
-                </span>
-              </div>
-              <n-tag v-if="app.updateAvailable" size="tiny" :bordered="false" type="warning">
-                可更新
-              </n-tag>
-              <n-tag v-else-if="app.onHost" size="tiny" :bordered="false" type="success">
-                已添加
-              </n-tag>
-            </header>
-
-            <p class="plugins__card-desc">{{ app.description }}</p>
-
-            <footer class="plugins__card-foot">
-              <span class="row-sub">
-                {{ app.installed ? `已安装 v${app.installedVersion}` : '未安装' }}
-              </span>
-              <span class="plugins__card-spacer" />
-              <n-button
-                v-if="app.installed"
-                size="small"
-                quaternary
-                :disabled="storeBusy !== ''"
-                @click="askStoreUninstall(app)"
-              >
-                卸载
-              </n-button>
-              <n-button
-                size="small"
-                type="primary"
-                :loading="storeBusy === app.slug"
-                @click="installStoreApp(app)"
-              >
-                {{
-                  app.updateAvailable
-                    ? '更新'
-                    : app.onHost
-                      ? '重新安装'
-                      : app.installed
-                        ? '添加到桌面'
-                        : '安装'
-                }}
-              </n-button>
-            </footer>
-          </article>
-        </div>
       </div>
     </template>
 

@@ -7631,6 +7631,17 @@ body,
   min-width: 0;
 }
 
+/* 面板视图：与"软件是否安装"分开展示，避免把两层安装混成一个按钮。 */
+.plugins__viewrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 9px;
+  border: 1px solid var(--line-hair);
+  border-radius: var(--r-2);
+  background: var(--bg-sunken);
+}
+
 .plugins__card-title {
   display: flex;
   flex: 1;
